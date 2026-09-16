@@ -1,5 +1,6 @@
 "use client";
 
+import McFovSlider from "@/components/mc/McFovSlider";
 import { McMenuGrid, type McMenuItem } from "@/components/mc/McMenuGrid";
 import McMenuScreen from "@/components/mc/McMenuScreen";
 
@@ -29,6 +30,7 @@ const OPTION_ROWS: McMenuItem[][] = [
 export default function OptionsMenuClient() {
   return (
     <McMenuScreen title="Options" doneHref="/">
+      <McFovSlider />
       <McMenuGrid rows={OPTION_ROWS} />
     </McMenuScreen>
   );

@@ -5,18 +5,18 @@ import type { ReactNode } from "react";
 
 export default function McMenuScreen({
   title,
-  doneHref = "/",
-  doneLabel = "Done",
   wide = false,
   children,
   footer,
+  doneLabel = "Done",
+  doneHref,
 }: {
   title: string;
-  doneHref?: string;
-  doneLabel?: string;
   wide?: boolean;
   children: ReactNode;
   footer?: ReactNode;
+  doneLabel?: string;
+  doneHref?: string;
 }) {
   return (
     <main className="mc-menu-screen">

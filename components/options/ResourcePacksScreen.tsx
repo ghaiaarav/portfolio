@@ -33,7 +33,7 @@ export default function ResourcePacksScreen({
   education: Portfolio["education"];
 }) {
   return (
-    <McMenuScreen title="Select Resource Packs" doneHref="/options" wide>
+    <McMenuScreen title="Select Resource Packs" wide>
       <div className="mc-resource-columns">
         <div className="mc-resource-column">
           <div className="mc-resource-column__title">Available Resource Packs</div>

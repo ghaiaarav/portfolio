@@ -54,7 +54,7 @@ export default function ActivitiesClient({
   const sideQuests = activities.sideQuests ?? [];
 
   return (
-    <McMenuScreen title="Music & Sounds" doneHref="/">
+    <McMenuScreen title="Music & Sounds">
       <div className="mc-menu-content">
         <div className="mc-tabs">
           {tabs.map((t) => (
