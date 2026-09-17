@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import McGuiProvider from "@/components/mc/McGuiProvider";
 import PanoramaBackground from "@/components/PanoramaBackground";
 import { minecraftia, minecrafterAlt } from "@/lib/fonts";
 import "@/styles/minecraft.css";
@@ -32,12 +33,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${minecraftia.variable} ${minecrafterAlt.variable}`}>
       <body>
-        <PanoramaBackground />
-        <div className="page-content">{children}</div>
-        <footer className="mc-footer">
-          <span>Portfolio v1.0</span>
-          <span>© 2026 Aarav Ghai</span>
-        </footer>
+        <McGuiProvider>
+          <PanoramaBackground />
+          <div className="page-content">{children}</div>
+          <footer className="mc-footer">
+            <span>Portfolio v1.0</span>
+            <span>© 2026 Aarav Ghai</span>
+          </footer>
+        </McGuiProvider>
       </body>
     </html>
   );

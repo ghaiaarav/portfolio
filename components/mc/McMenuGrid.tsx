@@ -1,7 +1,13 @@
 import McOptionButton from "@/components/mc/McOptionButton";
 import type { ReactNode } from "react";
 
-export type McMenuItem = { href: string; label: string; external?: boolean };
+export type McMenuItem = {
+  href?: string;
+  label: string;
+  external?: boolean;
+  onClick?: () => void;
+  ellipsis?: boolean;
+};
 
 export function McMenuGrid({ rows }: { rows: McMenuItem[][] }) {
   return (
@@ -10,10 +16,22 @@ export function McMenuGrid({ rows }: { rows: McMenuItem[][] }) {
         const [left, right] = row;
         if (!left) return null;
         return (
-          <div key={`${left.href}-${i}`} className="menu-buttons__row">
-            <McOptionButton href={left.href} label={left.label} external={left.external} />
+          <div key={`${left.href ?? left.label}-${i}`} className="menu-buttons__row">
+            <McOptionButton
+              href={left.href}
+              label={left.label}
+              external={left.external}
+              onClick={left.onClick}
+              ellipsis={left.ellipsis}
+            />
             {right ? (
-              <McOptionButton href={right.href} label={right.label} external={right.external} />
+              <McOptionButton
+                href={right.href}
+                label={right.label}
+                external={right.external}
+                onClick={right.onClick}
+                ellipsis={right.ellipsis}
+              />
             ) : (
               <span className="mc-button-wrap mc-button-wrap--spacer" aria-hidden="true" />
             )}

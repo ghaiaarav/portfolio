@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function AboutScreen({ data }: { data: Portfolio }) {
   return (
-    <McMenuScreen title="Skin Customization" doneHref="/options">
+    <McMenuScreen title="About Me" doneHref="/options">
       <div className="mc-list-panel">
         <div className="mc-list-panel__item mc-list-panel__item--hero">
           <div className="about-avatar about-avatar--menu" aria-hidden={!data.about.avatarUrl}>

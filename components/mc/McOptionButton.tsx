@@ -7,12 +7,14 @@ import { useState } from "react";
 export default function McOptionButton({
   href,
   label,
+  onClick,
   external = false,
   size = "half",
   ellipsis = true,
 }: {
-  href: string;
+  href?: string;
   label: string;
+  onClick?: () => void;
   external?: boolean;
   size?: "half" | "full";
   ellipsis?: boolean;
@@ -30,7 +32,18 @@ export default function McOptionButton({
     },
     onPointerUp: () => setPressed(false),
     onPointerLeave: () => setPressed(false),
+    onClick,
   };
+
+  if (!href) {
+    return (
+      <span className="mc-button-wrap">
+        <button type="button" className={className} {...handlers}>
+          {displayLabel}
+        </button>
+      </span>
+    );
+  }
 
   if (external) {
     return (

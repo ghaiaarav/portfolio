@@ -2,20 +2,34 @@
 
 import McMenuScreen from "@/components/mc/McMenuScreen";
 import type { Portfolio } from "@/lib/portfolio";
+import Image from "next/image";
+
+const PACK_VISUALS: Record<string, string> = {
+  Mathematics: "/resource-packs/mathematics.jpg",
+  "Physics & Astrophysics": "/resource-packs/physics.jpg",
+  "Computer Science": "/resource-packs/computer-science.jpg",
+  "Data & Tools": "/resource-packs/data-tools.jpg",
+};
 
 function PackEntry({
   name,
   description,
   icon = "📦",
+  image,
 }: {
   name: string;
   description: string;
   icon?: string;
+  image?: string;
 }) {
   return (
     <div className="mc-resource-entry">
-      <div className="mc-resource-entry__icon" aria-hidden="true">
-        {icon}
+      <div className="mc-resource-entry__icon">
+        {image ? (
+          <Image src={image} alt="" fill sizes="64px" />
+        ) : (
+          <span aria-hidden="true">{icon}</span>
+        )}
       </div>
       <div className="mc-resource-entry__text">
         <div className="mc-resource-entry__name">{name}</div>
@@ -41,7 +55,7 @@ export default function ResourcePacksScreen({
             {education.map((edu) => (
               <PackEntry
                 key={edu.school}
-                icon="🎓"
+                image="/resource-packs/sjsu.jpg"
                 name={edu.school}
                 description={`${edu.degree} · ${edu.dates}${edu.gpa ? ` · GPA ${edu.gpa}` : ""}`}
               />
@@ -55,6 +69,7 @@ export default function ResourcePacksScreen({
             {skills.map((pack) => (
               <PackEntry
                 key={pack.category}
+                image={PACK_VISUALS[pack.category]}
                 name={pack.category}
                 description={pack.items.join(", ")}
               />

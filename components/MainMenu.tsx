@@ -1,4 +1,5 @@
 import GlobeButton from "@/components/GlobeButton";
+import HomeSkinViewer from "@/components/HomeSkinViewer";
 import McButton from "@/components/McButton";
 import SplashText from "@/components/SplashText";
 import TitleLogo from "@/components/TitleLogo";
@@ -18,14 +19,15 @@ export default function MainMenu() {
         <div className="menu-buttons">
           <McButton href="/projects" labelDefault="Singleplayer" labelHover="Projects" />
           <McButton href="/experience" labelDefault="Multiplayer" labelHover="Experience" />
-          <McButton href="/options/resource-packs" labelDefault="Texture Packs" labelHover="Skills" />
+          <McButton href="/activities" labelDefault="Extracurriculars" labelHover="Activities" />
           <div className="menu-buttons__row menu-buttons__row--split">
             <GlobeButton href={resume.url} />
             <McButton href="/options" labelDefault="Options..." labelHover="About" size="half" />
-            <McButton href="/activities" labelDefault="Quit Game" labelHover="Activities" size="half" />
+            <McButton href="/edit-profile" labelDefault="Edit Profile" labelHover="Coming soon" size="half" />
           </div>
         </div>
       </div>
+      <HomeSkinViewer />
     </main>
   );
 }

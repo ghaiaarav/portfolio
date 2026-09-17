@@ -12,12 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/options",
     "/options/about",
     "/options/contact",
+    "/options/gallery",
     "/options/statistics",
     "/options/resource-packs",
     "/activities",
     "/blog",
     "/honors",
-    "/journey",
   ];
 
   return [

@@ -6,7 +6,7 @@ import type { Portfolio } from "@/lib/portfolio";
 
 export default function StatisticsScreen({ statistics }: { statistics: Portfolio["statistics"] }) {
   return (
-    <McMenuScreen title="Video Settings" doneHref="/options">
+    <McMenuScreen title="Statistics" doneHref="/options" wide>
       <McSettingsScroll>
         {statistics.map((stat) => (
           <McSettingRow key={stat.label} label={stat.label} value={stat.value} />
