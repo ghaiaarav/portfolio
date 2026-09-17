@@ -42,10 +42,7 @@ export default function McButton({
   const className = `mc-button ${size === "half" ? "mc-button--half" : ""} ${pressed ? "mc-button--pressed" : ""}`;
 
   const inner = children ?? (
-    <>
-      <span className="mc-button__label mc-button__label--default">{labelDefault}</span>
-      <span className="mc-button__label mc-button__label--hover">{labelHover}</span>
-    </>
+    <span className="mc-button__label">{labelDefault}</span>
   );
 
   if (external) {
@@ -54,6 +51,7 @@ export default function McButton({
         <a
           href={href}
           className={className}
+          aria-label={`${labelDefault}: ${labelHover}`}
           target="_blank"
           rel="noopener noreferrer"
           onPointerDown={handlePointerDown}
@@ -73,6 +71,7 @@ export default function McButton({
         href={href}
         prefetch
         className={className}
+        aria-label={`${labelDefault}: ${labelHover}`}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerLeave={handlePointerLeave}

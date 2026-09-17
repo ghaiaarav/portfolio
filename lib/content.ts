@@ -38,11 +38,3 @@ export function getBlogPost(slug: string): BlogPost | null {
   const posts = getBlogPosts();
   return posts.find((p) => p.slug === slug) ?? null;
 }
-
-export function getJourneyContent(): { content: string } | null {
-  const journeyPath = path.join(contentDir, "journey.mdx");
-  if (!fs.existsSync(journeyPath)) return null;
-  const raw = fs.readFileSync(journeyPath, "utf-8");
-  const { content } = matter(raw);
-  return { content };
-}

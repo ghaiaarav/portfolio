@@ -3,9 +3,46 @@
 import { McTab } from "@/components/McButton";
 import McMenuScreen from "@/components/mc/McMenuScreen";
 import type { Portfolio } from "@/lib/portfolio";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 type Tab = "reading" | "music" | "movies" | "travel" | "sideQuests";
+
+const QUEST_VISUALS: Record<string, { src: string; alt: string; contain?: boolean }> = {
+  "hypixel-skyblock": {
+    src: "/activities/skycofl.png",
+    alt: "SkyCofl gold block",
+    contain: true,
+  },
+  "ftc-sciravens": {
+    src: "/activities/sciravens.webp",
+    alt: "SciRavens FTC Team 23287 logo",
+  },
+};
+
+const READING_VISUALS: Record<string, string> = {
+  "The Psychology of Money": "/activities/reading/psychology-of-money.jpg",
+  "Nonlinear Dynamics and Chaos": "/activities/reading/nonlinear-dynamics.jpg",
+  "The Trachtenberg Speed System of Basic Mathematics": "/activities/reading/trachtenberg.jpg",
+  "The Republic": "/activities/reading/republic.jpg",
+  "Introduction to Topological Manifolds": "/activities/reading/topological-manifolds.jpg",
+  Discourses: "/activities/reading/discourses.jpg",
+  "Probability and Random Processes": "/activities/reading/probability-random-processes.jpg",
+};
+
+const MUSIC_VISUALS: Record<string, string> = {
+  "Ballade No. 1 in G minor, Op. 23": "/activities/music/chopin.jpg",
+  "Liebestraum No. 3 in A-flat major": "/activities/music/liszt.jpg",
+  "Piano performance recordings": "/activities/music/piano.jpg",
+};
+
+function ActivityThumbnail({ src, alt }: { src: string; alt: string }) {
+  return (
+    <span className="mc-row__thumbnail">
+      <Image src={src} alt={alt} fill sizes="64px" />
+    </span>
+  );
+}
 
 const READING_ORDER: Record<Portfolio["activities"]["reading"][number]["status"], number> = {
   reading: 0,
@@ -30,10 +67,17 @@ const PIECE_STATUS: Record<NonNullable<Portfolio["activities"]["music"][number][
 
 export default function ActivitiesClient({
   activities,
+  initialTab = "sideQuests",
+  title = "Extracurriculars",
+  doneHref = "/",
 }: {
   activities: Portfolio["activities"];
+  initialTab?: Tab;
+  title?: string;
+  doneHref?: string;
 }) {
-  const [tab, setTab] = useState<Tab>("reading");
+  const [tab, setTab] = useState<Tab>(initialTab);
+  const [expandedQuest, setExpandedQuest] = useState<string | null>(null);
 
   const tabs: { id: Tab; label: string }[] = [
     { id: "reading", label: "Reading" },
@@ -54,8 +98,8 @@ export default function ActivitiesClient({
   const sideQuests = activities.sideQuests ?? [];
 
   return (
-    <McMenuScreen title="Music & Sounds">
-      <div className="mc-menu-content">
+    <McMenuScreen title={title} doneHref={doneHref} wide>
+      <div className="mc-menu-content mc-activities-content">
         <div className="mc-tabs">
           {tabs.map((t) => (
             <McTab key={t.id} active={tab === t.id} onClick={() => setTab(t.id)}>
@@ -67,6 +111,10 @@ export default function ActivitiesClient({
         {tab === "reading" &&
           reading.map((book) => (
             <div key={`${book.title}-${book.author}`} className="mc-row" style={{ cursor: "default" }}>
+              <ActivityThumbnail
+                src={READING_VISUALS[book.title]}
+                alt={`${book.title} cover`}
+              />
               <div className="mc-row__main">
                 <div className="mc-row__title">
                   {book.status === "reading" ? "📖 " : book.status === "finished" ? "✓ " : "📚 "}
@@ -84,6 +132,10 @@ export default function ActivitiesClient({
         {tab === "music" &&
           activities.music.map((m) => (
             <div key={`${m.album}-${m.artist}`} className="mc-row" style={{ cursor: "default" }}>
+              <ActivityThumbnail
+                src={MUSIC_VISUALS[m.album]}
+                alt={`${m.artist} portrait`}
+              />
               <div className="mc-row__main">
                 <div className="mc-row__title">
                   {m.kind === "performance" ? "🎹 " : "🎵 "}
@@ -112,6 +164,10 @@ export default function ActivitiesClient({
         {tab === "movies" &&
           activities.movies.map((m) => (
             <div key={m.title} className="mc-row" style={{ cursor: "default" }}>
+              <ActivityThumbnail
+                src="/activities/movies/oppenheimer.jpg"
+                alt="J. Robert Oppenheimer"
+              />
               <div className="mc-row__main">
                 <div className="mc-row__title">🎬 {m.title}</div>
                 <div className="mc-row__sub">
@@ -125,6 +181,14 @@ export default function ActivitiesClient({
         {tab === "travel" &&
           activities.travel.map((t) => (
             <div key={t.place} className="mc-row" style={{ cursor: "default" }}>
+              <ActivityThumbnail
+                src={
+                  t.place.startsWith("Knoxville")
+                    ? "/activities/travel/knoxville.jpg"
+                    : "/activities/travel/san-jose.jpg"
+                }
+                alt={t.place}
+              />
               <div className="mc-row__main">
                 <div className="mc-row__title">🗺 {t.place}</div>
                 <div className="mc-row__sub">{t.note}</div>
@@ -134,40 +198,73 @@ export default function ActivitiesClient({
           ))}
 
         {tab === "sideQuests" &&
-          sideQuests.map((quest) => (
-            <div key={quest.id} className="mc-row side-quest-row" style={{ cursor: "default" }}>
-              <div className="mc-row__main">
-                <div className="mc-row__title">⚔ {quest.title}</div>
-                <div className="mc-row__sub">
-                  {quest.achievement}
-                  {quest.period ? ` · ${quest.period}` : ""}
-                </div>
-                <p className="side-quest-row__desc">{quest.description}</p>
-                {quest.skills && quest.skills.length > 0 && (
-                  <div className="side-quest-row__tags">
-                    {quest.skills.map((skill) => (
-                      <span key={skill} className="mc-tag">
-                        {skill}
+          <div className="side-quest-grid">
+            {sideQuests.map((quest) => {
+              const visual = QUEST_VISUALS[quest.id];
+              const expanded = expandedQuest === quest.id;
+
+              return (
+                <article
+                  key={quest.id}
+                  className={`side-quest-card${expanded ? " side-quest-card--expanded" : ""}`}
+                >
+                  <button
+                    type="button"
+                    className="side-quest-card__toggle"
+                    aria-expanded={expanded}
+                    onClick={() => setExpandedQuest(expanded ? null : quest.id)}
+                  >
+                    <span className="side-quest-card__visual">
+                      {visual && (
+                        <Image
+                          src={visual.src}
+                          alt={visual.alt}
+                          fill
+                          sizes="(max-width: 640px) 90vw, 300px"
+                          className={visual.contain ? "side-quest-card__image--contain" : ""}
+                        />
+                      )}
+                    </span>
+                    <span className="side-quest-card__summary">
+                      <strong>{quest.title}</strong>
+                      <span>{quest.achievement}</span>
+                      <span className="side-quest-card__prompt">
+                        {expanded ? "Close details" : "Open details"} ▸
                       </span>
-                    ))}
-                  </div>
-                )}
-                {quest.links?.map((link) =>
-                  link.url.includes("PASTE_") ? null : (
-                    <a
-                      key={link.label}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="news-widget__link side-quest-row__link"
-                    >
-                      {link.label} →
-                    </a>
-                  )
-                )}
-              </div>
-            </div>
-          ))}
+                    </span>
+                  </button>
+
+                  {expanded && (
+                    <div className="side-quest-card__details">
+                      <p>{quest.description}</p>
+                      {quest.skills && (
+                        <div className="side-quest-row__tags">
+                          {quest.skills.map((skill) => (
+                            <span key={skill} className="mc-tag">
+                              {skill}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      {quest.links?.map((link) =>
+                        link.url.includes("PASTE_") ? null : (
+                          <a
+                            key={link.label}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="news-widget__link side-quest-row__link"
+                          >
+                            {link.label} →
+                          </a>
+                        )
+                      )}
+                    </div>
+                  )}
+                </article>
+              );
+            })}
+          </div>}
       </div>
     </McMenuScreen>
   );

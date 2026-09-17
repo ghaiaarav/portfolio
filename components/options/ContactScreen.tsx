@@ -18,7 +18,7 @@ export default function ContactScreen({ data }: { data: Portfolio }) {
   ];
 
   return (
-    <McMenuScreen title="Controls">
+    <McMenuScreen title="Controls" doneHref="/options">
       <div className="mc-menu-grid">
         {rows.map((row) => (
           <div key={row.href} className="menu-buttons__row menu-buttons__row--single">

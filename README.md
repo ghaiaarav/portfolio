@@ -7,10 +7,10 @@ A Minecraft-themed personal portfolio built with Next.js. The main menu mimics M
 ## Features
 
 - Rotating cubemap panorama background (persists across all pages)
-- Minecraft-style GUI buttons with hover label swap (`Singleplayer` → `Projects`)
-- UI click sounds on every button press (Kenney CC0 `public/sounds/click.ogg`)
+- Minecraft-style GUI controls using vanilla button and scrollbar textures
+- UI click sounds on every button press (`public/sounds/click.ogg`)
 - Curated yellow splash text — edit in `content/portfolio.json` → `splashTexts`
-- Projects, experience, skills, options, activities, blog, honors, journey
+- Projects, experience, skills, options, extracurriculars, blog, and honors
 - All content editable via `content/portfolio.json` and MDX files
 
 ## Getting Started
@@ -30,10 +30,10 @@ Open [http://localhost:3000](http://localhost:3000).
 | Splash texts | `content/portfolio.json` → `splashTexts[]` |
 | Books (reading log) | `content/portfolio.json` → `activities.reading[]` — statuses: `reading`, `finished`, `coursework`, `queue` |
 | Side quests (SkyBlock, etc.) | `content/portfolio.json` → `activities.sideQuests[]` |
-| Profile avatar | Replace `public/avatar.png` (Tuxedo Steve skin, 64×64 or larger) |
-| Click sound | Replace `public/sounds/click.ogg` (Kenney CC0 default) |
+| Minecraft skin | Replace `public/skin-notsaywhat.png` |
+| Profile avatar | Replace `public/avatar.png` |
+| Click sound | Replace `public/sounds/click.ogg` |
 | Blog posts | `content/blog/*.mdx` |
-| Journey narrative | `content/journey.mdx` |
 | Resume PDF | Replace `public/resume.pdf` |
 
 ## Deploy to Vercel + Custom Domain

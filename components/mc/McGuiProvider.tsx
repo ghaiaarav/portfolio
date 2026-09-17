@@ -12,25 +12,25 @@ import {
 } from "react";
 
 const FOV_KEY = "mc-fov";
+const THEME_KEY = "mc-theme";
 const DEFAULT_FOV = 70;
 const MIN_FOV = 30;
 const MAX_FOV = 110;
 
 export function fovLabel(fov: number): string {
-  if (fov <= 35) return "Quake Pro";
-  if (fov >= 95) return "Wide";
-  if (fov >= 80) return "Normal";
-  return "Normal";
+  if (fov >= MAX_FOV) return "Quake Pro";
+  if (fov === DEFAULT_FOV) return "Normal";
+  return String(fov);
 }
 
-export function fovToBlur(fov: number): number {
+export function fovToPerspective(fov: number): number {
   const t = (fov - MIN_FOV) / (MAX_FOV - MIN_FOV);
-  return Math.round(16 - t * 16);
+  return Math.round(160 - t * 98);
 }
 
-export function fovToDuration(fov: number): number {
+export function fovToZoom(fov: number): number {
   const t = (fov - MIN_FOV) / (MAX_FOV - MIN_FOV);
-  return Math.round(240 - t * 180);
+  return Number((1.55 - t * 0.52).toFixed(3));
 }
 
 export function getParentPath(path: string): string {
@@ -44,6 +44,8 @@ export function getParentPath(path: string): string {
 type McGuiContextValue = {
   fov: number;
   setFov: (value: number) => void;
+  darkMode: boolean;
+  toggleDarkMode: () => void;
   goBack: () => void;
   parentPath: string;
   stackDepth: number;
@@ -65,6 +67,7 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
   const [fov, setFovState] = useState(DEFAULT_FOV);
+  const [darkMode, setDarkMode] = useState(false);
   const [stack, setStack] = useState<string[]>(["/"]);
 
   useEffect(() => {
@@ -75,12 +78,20 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
         setFovState(parsed);
       }
     }
+    setDarkMode(localStorage.getItem(THEME_KEY) === "dark");
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--panorama-blur", `${fovToBlur(fov)}px`);
-    document.documentElement.style.setProperty("--panorama-duration", `${fovToDuration(fov)}s`);
+    document.documentElement.style.setProperty(
+      "--panorama-perspective",
+      `${fovToPerspective(fov)}vmax`
+    );
+    document.documentElement.style.setProperty("--panorama-zoom", String(fovToZoom(fov)));
   }, [fov]);
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? "dark" : "light";
+  }, [darkMode]);
 
   useEffect(() => {
     setStack((prev) => {
@@ -104,6 +115,14 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(FOV_KEY, String(clamped));
   }, []);
 
+  const toggleDarkMode = useCallback(() => {
+    setDarkMode((current) => {
+      const next = !current;
+      localStorage.setItem(THEME_KEY, next ? "dark" : "light");
+      return next;
+    });
+  }, []);
+
   const parentPath = useMemo(() => getParentPath(pathname || "/"), [pathname]);
 
   const goBack = useCallback(() => {
@@ -122,11 +141,13 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
     () => ({
       fov,
       setFov,
+      darkMode,
+      toggleDarkMode,
       goBack,
       parentPath,
       stackDepth: stack.length,
     }),
-    [fov, setFov, goBack, parentPath, stack.length]
+    [fov, setFov, darkMode, toggleDarkMode, goBack, parentPath, stack.length]
   );
 
   return <McGuiContext.Provider value={value}>{children}</McGuiContext.Provider>;

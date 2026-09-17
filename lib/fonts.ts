@@ -8,7 +8,7 @@ export const minecraftia = localFont({
 });
 
 export const minecrafterAlt = localFont({
-  src: "../public/fonts/minecraftia.ttf",
+  src: "../public/fonts/Minecrafter-Alt.ttf",
   variable: "--font-minecraft-logo",
   display: "swap",
   weight: "400",

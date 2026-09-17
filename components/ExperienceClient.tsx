@@ -53,7 +53,7 @@ export default function ExperienceClient({
     >
       {openToWork.enabled && (
         <div className="mc-select-row mc-select-row--online">
-          <div className="mc-select-row__icon" aria-hidden="true">
+          <div className="mc-select-row__icon mc-select-row__icon--add" aria-hidden="true">
             +
           </div>
           <div className="mc-select-row__main">
@@ -81,9 +81,7 @@ export default function ExperienceClient({
             role="button"
             tabIndex={0}
           >
-            <div className="mc-select-row__icon" aria-hidden="true">
-              ⛏
-            </div>
+            <div className="mc-select-row__icon mc-select-row__icon--server" aria-hidden="true" />
             <div className="mc-select-row__main">
               <div className="mc-select-row__title">{exp.company}</div>
               <div className="mc-select-row__sub">

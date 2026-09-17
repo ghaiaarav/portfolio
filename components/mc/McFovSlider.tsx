@@ -24,15 +24,23 @@ export default function McFovSlider() {
     [setFov]
   );
 
-  const handlePointerDown = (e: React.PointerEvent) => {
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    e.preventDefault();
     playClick();
+    e.currentTarget.focus();
     e.currentTarget.setPointerCapture(e.pointerId);
     updateFromClientX(e.clientX);
   };
 
-  const handlePointerMove = (e: React.PointerEvent) => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!e.currentTarget.hasPointerCapture(e.pointerId)) return;
     updateFromClientX(e.clientX);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    setFov(fov + (e.key === "ArrowRight" ? 1 : -1));
   };
 
   const ratio = (fov - MIN) / (MAX - MIN);
@@ -47,15 +55,21 @@ export default function McFovSlider() {
         aria-valuemax={MAX}
         aria-valuenow={fov}
         aria-label="Field of view"
+        tabIndex={0}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
+        onKeyDown={handleKeyDown}
+        onDragStart={(e) => e.preventDefault()}
       >
         <span className="mc-fov-slider__label">
           FOV: {fovLabel(fov)}
         </span>
         <span
           className="mc-fov-slider__handle"
-          style={{ left: `calc(${ratio * 100}% - 4px)` }}
+          style={{
+            left: `${ratio * 100}%`,
+            transform: `translateX(${-ratio * 22}px)`,
+          }}
           aria-hidden="true"
         />
       </div>
