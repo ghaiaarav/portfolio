@@ -3,8 +3,11 @@
 import McDoneButton from "@/components/mc/McDoneButton";
 import McOptionButton from "@/components/mc/McOptionButton";
 import McSelectScreen from "@/components/mc/McSelectScreen";
+import { useDiscoveries } from "@/components/easter-eggs/EasterEggProvider";
 import type { Portfolio } from "@/lib/portfolio";
-import { useState } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 
 type Experience = Portfolio["experience"][number];
 
@@ -17,6 +20,49 @@ export default function ExperienceClient({
 }) {
   const [expanded, setExpanded] = useState<string | null>(null);
   const [selected, setSelected] = useState<string | null>(null);
+  const [visibleCount, setVisibleCount] = useState(experience.length);
+  const [scanning, setScanning] = useState(false);
+  const [lostServerVisible, setLostServerVisible] = useState(false);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const router = useRouter();
+  const { discover } = useDiscoveries();
+  const selectedExperience = experience.find((item) => item.id === selected);
+
+  const clearTimers = () => {
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+  };
+
+  useEffect(() => clearTimers, []);
+
+  const refreshServers = () => {
+    clearTimers();
+    setExpanded(null);
+    setSelected(null);
+    setVisibleCount(0);
+    setLostServerVisible(false);
+    setScanning(true);
+
+    let elapsed = 0;
+    experience.forEach((_, index) => {
+      elapsed += 220 + Math.floor(Math.random() * 430);
+      timers.current.push(setTimeout(() => setVisibleCount(index + 1), elapsed));
+    });
+
+    const hiddenDelay = elapsed + 2000 + Math.floor(Math.random() * 1000);
+    timers.current.push(
+      setTimeout(() => {
+        setLostServerVisible(true);
+        setScanning(false);
+      }, hiddenDelay)
+    );
+  };
+
+  const findLostServer = () => {
+    setSelected("lost-server");
+    setExpanded(null);
+    discover("lost-server", "A server that was not on the list answered.");
+  };
 
   return (
     <McSelectScreen
@@ -24,17 +70,23 @@ export default function ExperienceClient({
       footer={
         <div className="mc-select-screen__actions">
           <div className="menu-buttons__row">
-            <span className="mc-button-wrap">
-              <button
-                type="button"
-                className={`mc-button mc-button--half ${selected ? "" : "mc-button--disabled"}`}
-                disabled={!selected}
-              >
-                Join Server
-              </button>
-            </span>
-            <McOptionButton href="/options/contact" label="Direct Connect" ellipsis={false} />
-            <McOptionButton href="/options/contact" label="Add Server" ellipsis={false} />
+            {selectedExperience ? (
+              <McOptionButton
+                href={`/options/gallery?experience=${selectedExperience.id}&origin=experience`}
+                label="Join Server"
+                ellipsis={false}
+              />
+            ) : selected === "lost-server" ? (
+              <McOptionButton label="Join Server" ellipsis={false} onClick={findLostServer} />
+            ) : (
+              <span className="mc-button-wrap">
+                <button type="button" className="mc-button mc-button--half mc-button--disabled" disabled>
+                  Join Server
+                </button>
+              </span>
+            )}
+            <McOptionButton href="/options/contact?origin=experience" label="Direct Connect" ellipsis={false} />
+            <McOptionButton href="/options?prompt=contact&origin=experience" label="Add Server" ellipsis={false} />
           </div>
           <div className="menu-buttons__row menu-buttons__row--quad">
             <button type="button" className="mc-button mc-button--quarter mc-button--disabled" disabled>
@@ -43,7 +95,7 @@ export default function ExperienceClient({
             <button type="button" className="mc-button mc-button--quarter mc-button--disabled" disabled>
               Delete
             </button>
-            <button type="button" className="mc-button mc-button--quarter" onClick={() => setExpanded(null)}>
+            <button type="button" className="mc-button mc-button--quarter" onClick={refreshServers}>
               Refresh
             </button>
             <McDoneButton label="Cancel" size="quarter" />
@@ -52,7 +104,13 @@ export default function ExperienceClient({
       }
     >
       {openToWork.enabled && (
-        <div className="mc-select-row mc-select-row--online">
+        <div
+          className="mc-select-row mc-select-row--online"
+          role="button"
+          tabIndex={0}
+          onClick={() => router.push("/options?prompt=contact&origin=experience")}
+          onKeyDown={(event) => event.key === "Enter" && router.push("/options?prompt=contact&origin=experience")}
+        >
           <div className="mc-select-row__icon mc-select-row__icon--add" aria-hidden="true">
             +
           </div>
@@ -64,7 +122,7 @@ export default function ExperienceClient({
         </div>
       )}
 
-      {experience.map((exp) => (
+      {experience.slice(0, visibleCount).map((exp) => (
         <div key={exp.id}>
           <div
             className={`mc-select-row${selected === exp.id ? " mc-select-row--active" : ""}`}
@@ -81,7 +139,9 @@ export default function ExperienceClient({
             role="button"
             tabIndex={0}
           >
-            <div className="mc-select-row__icon mc-select-row__icon--server" aria-hidden="true" />
+            <div className="mc-select-row__icon mc-select-row__icon--server">
+              <Image src={exp.imageUrl} alt="" fill sizes="54px" />
+            </div>
             <div className="mc-select-row__main">
               <div className="mc-select-row__title">{exp.company}</div>
               <div className="mc-select-row__sub">
@@ -110,7 +170,30 @@ export default function ExperienceClient({
         </div>
       ))}
 
-      <p className="mc-select-scan">Scanning for games on your local network</p>
+      {lostServerVisible && (
+        <div
+          className={`mc-select-row mc-select-row--mystery${selected === "lost-server" ? " mc-select-row--active" : ""}`}
+          role="button"
+          tabIndex={0}
+          onClick={findLostServer}
+          onKeyDown={(event) => event.key === "Enter" && findLostServer()}
+        >
+          <div className="mc-select-row__icon mc-select-row__icon--mystery" aria-hidden="true">?</div>
+          <div className="mc-select-row__main">
+            <div className="mc-select-row__title">§k LOST SIGNAL §r</div>
+            <div className="mc-select-row__sub">It was not here when the scan began. Click me.</div>
+          </div>
+          <div className="mc-select-row__ping">???</div>
+        </div>
+      )}
+
+      <p className="mc-select-scan">
+        {scanning
+          ? `Pinging servers${".".repeat((visibleCount % 3) + 1)}`
+          : lostServerVisible
+            ? "Scan complete. One response arrived late."
+            : "Scanning for games on your local network"}
+      </p>
     </McSelectScreen>
   );
 }

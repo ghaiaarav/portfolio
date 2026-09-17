@@ -20,29 +20,33 @@ function honorImage(title: string, category: string) {
 }
 
 export default function HonorsPage() {
-  const { honors } = getPortfolio();
-  const categories = [...new Set(honors.map((honor) => honor.category))];
+  const { honors, skills } = getPortfolio();
 
   return (
     <McMenuScreen title="Skills" doneHref="/options" wide>
       <div className="mc-resource-columns">
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Skill Areas</div>
+          <div className="mc-resource-column__title">Skill Loadout</div>
           <div className="mc-resource-column__list">
-            {categories.map((category) => (
-              <div key={category} className="mc-resource-entry">
+            {skills.map((skill) => (
+              <div key={skill.category} className="mc-resource-entry">
                 <div className="mc-resource-entry__icon">
                   <Image
-                    src={CATEGORY_IMAGES[category] ?? "/resource-packs/data-tools.jpg"}
+                    src={
+                      CATEGORY_IMAGES[skill.category] ??
+                      (skill.category.startsWith("Physics")
+                        ? "/resource-packs/physics.jpg"
+                        : "/resource-packs/data-tools.jpg")
+                    }
                     alt=""
                     fill
                     sizes="58px"
                   />
                 </div>
                 <div className="mc-resource-entry__text">
-                  <div className="mc-resource-entry__name">{category}</div>
+                  <div className="mc-resource-entry__name">{skill.category}</div>
                   <div className="mc-resource-entry__desc">
-                    {honors.filter((honor) => honor.category === category).length} unlocked
+                    {skill.items.join(", ")}
                   </div>
                 </div>
               </div>
@@ -51,7 +55,7 @@ export default function HonorsPage() {
         </div>
 
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Achievements</div>
+          <div className="mc-resource-column__title">Evidence & Milestones</div>
           <div className="mc-resource-column__list">
             {honors.map((honor) => (
               <div key={`${honor.title}-${honor.year}`} className="mc-resource-entry">

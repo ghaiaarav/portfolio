@@ -25,8 +25,32 @@ type SideQuest = {
   links?: { label: string; url: string }[];
 };
 type ExternalLink = { label: string; url: string };
+export type GalleryItem = {
+  id: string;
+  label: string;
+  kind: "photo" | "video";
+  src: string;
+  alt: string;
+  experienceId?: string;
+  easterEgg?: boolean;
+};
+export type PortfolioResource = {
+  id: string;
+  name: string;
+  kind: string;
+  description: string;
+  url: string;
+  imageUrl: string;
+  download?: boolean;
+};
+type Experience = Omit<(typeof portfolioData.experience)[number], "media"> & {
+  media: GalleryItem[];
+};
 
-export type Portfolio = Omit<typeof portfolioData, "activities" | "homeWidgets" | "links"> & {
+export type Portfolio = Omit<
+  typeof portfolioData,
+  "activities" | "homeWidgets" | "links" | "experience" | "gallery" | "resources"
+> & {
   activities: {
     reading: Reading[];
     music: Music[];
@@ -37,6 +61,9 @@ export type Portfolio = Omit<typeof portfolioData, "activities" | "homeWidgets" 
   homeWidgets: Omit<typeof portfolioData.homeWidgets, "recentMovies"> & {
     recentMovies: Movie[];
   };
+  experience: Experience[];
+  gallery: GalleryItem[];
+  resources: PortfolioResource[];
   links: ExternalLink[];
 };
 

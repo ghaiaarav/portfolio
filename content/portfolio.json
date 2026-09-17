@@ -1,7 +1,7 @@
 {
   "name": "Aarav Ghai",
   "tagline": "Math · Physics · Computer Science",
-  "version": "Portfolio v1.0",
+  "version": "Portfolio v1.1",
   "splashTexts": [
     "Also try stochastic processes!",
     "E = mc²!",
@@ -49,11 +49,13 @@
     "OAuth + PKCE!",
     "LaTeX enthusiast!",
     "Dynamical systems!",
+    "Click me!",
+    "Try the Konami code!",
     "Math = Physics = Computer Science!"
   ],
   "homeWidgets": {
     "recentNews": {
-      "text": "Learning Chopin's Ballade No. 1 — performance videos coming soon",
+      "text": "Learning Chopin's Ballade No. 1; performance coming soon",
       "url": "/activities"
     },
     "currentlyReading": [
@@ -61,11 +63,12 @@
     ],
     "recentMovies": [
       { "title": "Oppenheimer", "director": "Christopher Nolan", "year": 2023 }
+
     ],
     "musicRecs": [
       {
         "album": "Ballade No. 1 in G minor",
-        "artist": "Chopin — currently learning",
+        "artist": "Chopin; currently learning",
         "url": ""
       }
     ],
@@ -77,11 +80,12 @@
     "reading": [
       { "title": "The Psychology of Money", "author": "Morgan Housel", "status": "reading", "category": "self-help" },
       { "title": "Nonlinear Dynamics and Chaos", "author": "Steven Strogatz", "status": "reading", "category": "math" },
-      { "title": "The Trachtenberg Speed System of Basic Mathematics", "author": "Ann Cutler & Rudolph McShane", "status": "reading", "category": "math" },
+      { "title": "The Trachtenberg Speed System of Basic Mathematics", "author": "Cutler & McShane", "status": "reading", "category": "math" },
       { "title": "The Republic", "author": "Plato", "status": "reading", "category": "philosophy" },
-      { "title": "Introduction to Topological Manifolds", "author": "John Lee", "status": "coursework", "category": "math" },
+      { "title": "Topology NOW!", "author": "Messer & Straffin", "status": "finished", "category": "math" },
+      { "title": "Algebraic Topology", "author": "Allen Hatcher", "status": "finished", "category": "math" },
       { "title": "Discourses", "author": "Epictetus", "status": "finished", "category": "philosophy" },
-      { "title": "Probability and Random Processes", "author": "Grimmett & Stirzaker", "status": "finished", "category": "coursework" }
+      { "title": "The Art and Craft of Problem Solving", "author": "Paul Zeitz", "status": "finished", "category": "math" }
     ],
     "music": [
       {
@@ -97,13 +101,6 @@
         "url": "",
         "kind": "performance",
         "status": "planned"
-      },
-      {
-        "album": "Piano performance recordings",
-        "artist": "YouTube — coming soon",
-        "url": "",
-        "kind": "performance",
-        "status": "coming-soon"
       }
     ],
     "movies": [
@@ -111,12 +108,12 @@
         "title": "Oppenheimer",
         "director": "Christopher Nolan",
         "year": 2023,
-        "note": "Physics, politics, and what happens when abstraction meets the real world"
+        "note": "Theory will only get you so far.."
       }
     ],
     "travel": [
-      { "place": "Knoxville, TN", "date": "Summer 2025", "note": "Software engineering internship" },
-      { "place": "San Jose, CA", "date": "2024–2026", "note": "SJSU — research & coursework" }
+      { "place": "Knoxville, TN", "date": "Summer 2025", "note": "SWE internship" },
+      { "place": "San Jose, CA", "date": "2024–2026", "note": "SJSU" }
     ],
     "sideQuests": [
       {
@@ -124,7 +121,7 @@
         "title": "Hypixel SkyBlock",
         "achievement": "Top ~100 networth",
         "period": "High school",
-        "description": "Reached top ~100 networth on Hypixel SkyBlock through auction house market making — spotting mispriced items, managing inventory and liquidity risk, and running high-volume flips at scale. My in-game profile was later deleted, but thousands of completed auctions and bids are still indexed on SkyCofl.",
+        "description": "Reached top ~100 networth on Hypixel SkyBlock through auction house market making; spotting mispriced items, managing inventory and liquidity risk, and running high-volume flips at scale. Thousands of completed auctions and bids are still indexed on SkyCofl.",
         "skills": ["market making", "arbitrage", "pricing", "inventory risk", "execution speed"],
         "links": [
           {
@@ -135,10 +132,10 @@
       },
       {
         "id": "ftc-sciravens",
-        "title": "SciRavens — FTC Team #23287",
+        "title": "SciRavens; FTC Team #23287",
         "achievement": "Mentor · competitive seasons",
         "period": "2023–present",
-        "description": "Mentor for the SciRavens, a Bay Area FIRST Tech Challenge team. Over the past few seasons they've stacked up strong results — Design Awards, a Winning Alliance captaincy in a tough NorCal qualifier, Innovate and Reach awards, and Inspire Award 2nd at Roseville. I help the team with engineering judgment, strategy, and the kind of structured problem-solving that shows up everywhere else I work.",
+        "description": "Mentor for the SciRavens, a Bay Area FIRST Tech Challenge team. Over the past few seasons they've stacked up strong results; Design Awards, a Winning Alliance captaincy in a tough NorCal qualifier, Innovate and Reach awards, and Inspire Award 2nd at Roseville. I help the team with engineering judgment and strategy.",
         "skills": ["robotics", "mentorship", "strategy", "engineering design", "STEM outreach"],
         "links": [
           { "label": "SciRavens website", "url": "https://www.sciravens.org/" },
@@ -154,8 +151,8 @@
     { "category": "Computer Science", "title": "PERC 2026 / arXiv", "year": 2026, "detail": "RIOT classroom observation platform" },
     { "category": "Leadership", "title": "Physics Club President", "year": 2025, "detail": "SJSU" },
     { "category": "Leadership", "title": "Math Club President", "year": 2025, "detail": "SJSU" },
-    { "category": "Leadership", "title": "SciRavens FTC Mentor", "year": 2025, "detail": "Team #23287 — Design, Innovate, Reach & Inspire awards" },
-    { "category": "Other", "title": "Hypixel SkyBlock Top ~100 Networth", "year": 2022, "detail": "Auction house market maker — full history on SkyCofl" },
+    { "category": "Leadership", "title": "SciRavens FTC Mentor", "year": 2025, "detail": "Team #23287; Design, Innovate, Reach & Inspire awards" },
+    { "category": "Other", "title": "Hypixel SkyBlock Top ~100 Networth", "year": 2022, "detail": "Auction house market maker; full history on SkyCofl" },
     { "category": "Academic", "title": "Dean's List / 3.9 GPA", "year": 2025, "detail": "B.S. Applied Mathematics, SJSU" }
   ],
   "projects": [
@@ -166,8 +163,9 @@
       "lastUpdated": "2025",
       "scope": "Production",
       "description": "Self-learning voice assistant with embedding-based routing that reduces unnecessary LLM calls. Achieves sub-200ms latency through ChromaDB top-k retrieval and confidence-threshold fallback to LLM under low similarity.",
+      "imageUrl": "/projects/lowla.svg",
       "tags": ["MiniLM", "ChromaDB", "Node.js", "Python", "Faster Whisper", "ElevenLabs"],
-      "demoUrl": "#",
+      "demoUrl": "https://devpost.com/software/lowla",
       "githubUrl": "https://github.com/ghaiaarav",
       "featured": true
     },
@@ -178,8 +176,9 @@
       "lastUpdated": "2026",
       "scope": "Research",
       "description": "Production-ready classroom observation platform deployed on Google App Engine. OAuth + PKCE auth, real-time interaction system, timeline visualizations. Paper accepted to PERC 2026 and uploaded to arXiv (NSF-funded).",
+      "imageUrl": "/projects/riot.svg",
       "tags": ["Python", "Flask", "AWS", "Azure", "GCP", "Bootstrap"],
-      "demoUrl": "#",
+      "demoUrl": "https://arxiv.org/abs/2608.13740",
       "githubUrl": "https://github.com/ghaiaarav"
     },
     {
@@ -189,19 +188,22 @@
       "lastUpdated": "2025",
       "scope": "Semester-long",
       "description": "Full-stack app detecting instability events and estimating lap-time loss from real F1 telemetry. FastAPI/React pipeline with adaptive percentile thresholds, correction-event detection, and interactive Plotly visualizations.",
+      "imageUrl": "/projects/f1-telemetry.svg",
       "tags": ["FastAPI", "React", "TypeScript", "pandas", "NumPy", "Plotly"],
-      "demoUrl": "#",
-      "githubUrl": "https://github.com/ghaiaarav"
+      "demoUrl": "https://github.com/ghaiaarav/F1-Telemetry-Explorer",
+      "githubUrl": "https://github.com/ghaiaarav/F1-Telemetry-Explorer"
     }
   ],
   "experience": [
     {
       "id": "scrugs",
       "company": "SJSU SCRUGS Lab",
-      "role": "Research Assistant — Combinatorial Topology",
+      "role": "Research Assistant - Combinatorial Topology",
       "team": "Team of 4",
       "location": "San Jose, CA",
-      "dates": "Jun 2026 – Aug 2026",
+      "dates": "Jun 2026 - Aug 2026",
+      "imageUrl": "/resource-packs/mathematics.jpg",
+      "media": [],
       "description": "Translating surface topology theorems into higher-dimensional settings with Dr. Bering. NSF-funded selective research team.",
       "bullets": [
         "Identified analogues of curves, genus, clique number, and chromatic number in higher dimensions",
@@ -213,10 +215,12 @@
     {
       "id": "galaxies",
       "company": "SJSU Galaxies + Star Clusters Lab",
-      "role": "Research Assistant — Astrophysics",
+      "role": "Research Assistant - Astrophysics",
       "team": "Research team",
       "location": "San Jose, CA",
-      "dates": "Aug 2025 – May 2026",
+      "dates": "Aug 2025 - May 2026",
+      "imageUrl": "/resource-packs/physics.jpg",
+      "media": [],
       "description": "Estimating galaxy distances in the Euclid Deep Field North via ML and regression with Dr. Romanowsky.",
       "bullets": [
         "Worked with Vera C. Rubin Observatory photometric dataset for analysis",
@@ -231,7 +235,9 @@
       "role": "Software Engineering Intern",
       "team": "Operations team",
       "location": "Knoxville, TN",
-      "dates": "Jun 2025 – Aug 2025",
+      "dates": "Jun 2025 - Aug 2025",
+      "imageUrl": "/activities/travel/knoxville.jpg",
+      "media": [],
       "description": "Built predictive maintenance and analytics tooling for a precision metal bellows manufacturer.",
       "bullets": [
         "Built 2 predictive maintenance models, reducing machine downtime by 10%",
@@ -243,10 +249,12 @@
     {
       "id": "sep-lab",
       "company": "SJSU SEP Lab",
-      "role": "Research Assistant — Computer Science",
+      "role": "Research Assistant - Computer Science",
       "team": "Research team",
       "location": "San Jose, CA",
-      "dates": "Oct 2024 – May 2025",
+      "dates": "Oct 2024 - May 2025",
+      "imageUrl": "/resource-packs/computer-science.jpg",
+      "media": [],
       "description": "NLP and clustering research on language-related learning patterns with Dr. Tshukudu. NSF-funded.",
       "bullets": [
         "Applied NLP and k-clustering with sklearn to detect learning patterns",
@@ -293,9 +301,53 @@
       ]
     }
   ],
+  "resources": [
+    {
+      "id": "resume",
+      "name": "Aarav Ghai - Resume",
+      "kind": "PDF",
+      "description": "Current resume: education, research, projects, and experience.",
+      "url": "/resume.pdf",
+      "imageUrl": "/textures/vanilla/document.svg",
+      "download": true
+    },
+    {
+      "id": "riot-paper",
+      "name": "RIOT 2 Paper",
+      "kind": "Research",
+      "description": "Development of the RIOT 2 for use in LA-supported classrooms.",
+      "url": "https://arxiv.org/abs/2608.13740",
+      "imageUrl": "/resource-packs/physics.jpg"
+    },
+    {
+      "id": "lowla",
+      "name": "LowLa",
+      "kind": "Project",
+      "description": "Low-latency local-first voice assistant intent router.",
+      "url": "https://devpost.com/software/lowla",
+      "imageUrl": "/projects/lowla.svg"
+    },
+    {
+      "id": "f1-telemetry",
+      "name": "F1 Telemetry Explorer",
+      "kind": "Project",
+      "description": "FastF1 telemetry analysis and instability visualization.",
+      "url": "https://github.com/ghaiaarav/F1-Telemetry-Explorer",
+      "imageUrl": "/projects/f1-telemetry.svg"
+    }
+  ],
+  "gallery": [
+    { "id": "portrait", "label": "Portrait", "kind": "photo", "src": "", "alt": "Portrait of Aarav" },
+    { "id": "research", "label": "Research", "kind": "photo", "src": "", "alt": "Aarav presenting research" },
+    { "id": "projects", "label": "Projects", "kind": "photo", "src": "", "alt": "Aarav working on a project", "easterEgg": true },
+    { "id": "piano", "label": "Piano", "kind": "photo", "src": "", "alt": "Aarav at the piano" },
+    { "id": "travel", "label": "Travel", "kind": "photo", "src": "", "alt": "Travel photo" },
+    { "id": "side-quests", "label": "Side Quests", "kind": "photo", "src": "", "alt": "Side quest photo" },
+    { "id": "featured-video", "label": "Featured Video", "kind": "video", "src": "", "alt": "Featured video" }
+  ],
   "about": {
-    "oneLiner": "Applied math student who builds things — proofs, models, and code.",
-    "bio": "Hello there! I'm Aarav — thanks for stopping by. I got into math because it gives structure to things that otherwise feel disconnected: piano scales, competition problems, galaxy distances in a photometric dataset. I started college thinking engineering would keep things tangible, but the math never let go — tutoring sessions where I got to talk about proofs were the ones that left me energized. Before research labs, I learned market making the hard way: top ~100 networth on Hypixel SkyBlock, flipping thousands of auctions by spotting mispricings faster than the next bidder. These days I'm most proud of my combinatorial topology research at SCRUGS Lab; generalizing a surface theorem into higher dimensions is the kind of puzzle I feel built for. When I'm not in a lab or at a whiteboard, you'll find me leading Math and Physics Club, mentoring the SciRavens FTC team, or at the piano working through Chopin's Ballade No. 1.",
+    "oneLiner": "I like solving problems, both psets and otherwise!",
+    "bio": "Hi there; I'm Aarav, a student at SJSU studying applied math. I work on questions bridging math, physics, and computer science.",
     "status": "Applied Math @ SJSU · Research · Internships",
     "location": "San Jose, CA",
     "avatarUrl": "/avatar.png",
@@ -311,23 +363,23 @@
   "statistics": [
     { "label": "GPA", "value": "3.9" },
     { "label": "Research labs", "value": "4" },
-    { "label": "Papers published/accepted", "value": "2" },
+    { "label": "Papers published/accepted", "value": "3" },
     { "label": "Projects shipped", "value": "3" },
-    { "label": "Languages coded in", "value": "6" },
+    { "label": "Hours with Cursor (Daily)", "value": "6" },
     { "label": "Clubs presided", "value": "2" },
-    { "label": "FTC teams mentored", "value": "SciRavens" },
+    { "label": "Zetamac score", "value": "~70" },
     { "label": "SkyBlock networth rank", "value": "Top ~100" },
     { "label": "Auctions flipped", "value": "1000s" },
     { "label": "Problem sets survived", "value": "100+" },
-    { "label": "Galaxies analyzed", "value": "many" },
+    { "label": "F1 races watched", "value": "many" },
     { "label": "Theorems generalized", "value": "1" },
     { "label": "Machine downtime reduced", "value": "10%" },
-    { "label": "Coffee consumed", "value": "∞" }
+    { "label": "Diet Cokes consumed", "value": "∞" }
   ],
   "resume": {
     "url": "/resume.pdf",
     "updated": "Sep 2025",
-    "preview": "B.S. Applied Mathematics at SJSU — research in astrophysics, topology, and CS; published at SIGCSE & PERC."
+    "preview": "B.S. Applied Mathematics at SJSU - research in astrophysics, topology, and CS; published at SIGCSE & PERC."
   },
   "links": []
 }

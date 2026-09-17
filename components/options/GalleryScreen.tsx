@@ -1,31 +1,55 @@
+"use client";
+
+import { useDiscoveries } from "@/components/easter-eggs/EasterEggProvider";
 import McMenuScreen from "@/components/mc/McMenuScreen";
+import type { GalleryItem } from "@/lib/portfolio";
+import Image from "next/image";
 
-const PHOTO_SLOTS = ["Portrait", "Research", "Projects", "Piano", "Travel", "Side Quests"];
+export default function GalleryScreen({
+  title = "Photos & Videos",
+  intro = "Gallery slots are ready. Add media when available.",
+  items,
+  doneHref,
+}: {
+  title?: string;
+  intro?: string;
+  items: GalleryItem[];
+  doneHref: string;
+}) {
+  const { discover } = useDiscoveries();
 
-export default function GalleryScreen() {
   return (
-    <McMenuScreen title="Photos & Videos" doneHref="/options" wide>
+    <McMenuScreen title={title} doneHref={doneHref} wide>
       <div className="mc-gallery">
-        <p className="mc-gallery__intro">
-          Gallery slots are ready. Add media when available.
-        </p>
+        <p className="mc-gallery__intro">{intro}</p>
         <div className="mc-gallery__grid">
-          {PHOTO_SLOTS.map((label, index) => (
-            <div className="mc-gallery__slot" key={label}>
-              <span className="mc-gallery__placeholder" aria-hidden="true">
-                ▧
+          {items.map((item, index) => (
+            <button
+              type="button"
+              className={`mc-gallery__slot${item.kind === "video" ? " mc-gallery__slot--video" : ""}`}
+              key={item.id}
+              onClick={() => {
+                if (item.easterEgg) {
+                  discover("gallery-photo", "There was more in that photo than pixels.");
+                }
+              }}
+            >
+              {item.src ? (
+                item.kind === "video" ? (
+                  <video src={item.src} muted playsInline preload="metadata" />
+                ) : (
+                  <Image src={item.src} alt={item.alt} fill sizes="(max-width: 520px) 45vw, 220px" />
+                )
+              ) : (
+                <span className="mc-gallery__placeholder" aria-hidden="true">
+                  {item.kind === "video" ? "▶" : "▧"}
+                </span>
+              )}
+              <span className="mc-gallery__label">
+                {String(index + 1).padStart(2, "0")} · {item.label}
               </span>
-              <span>{String(index + 1).padStart(2, "0")} · {label}</span>
-            </div>
+            </button>
           ))}
-          <div className="mc-gallery__slot mc-gallery__slot--video">
-            <span className="mc-gallery__placeholder" aria-hidden="true">▶</span>
-            <span>Video · Featured</span>
-          </div>
-          <div className="mc-gallery__slot mc-gallery__slot--video">
-            <span className="mc-gallery__placeholder" aria-hidden="true">▶</span>
-            <span>Video · More</span>
-          </div>
         </div>
       </div>
     </McMenuScreen>

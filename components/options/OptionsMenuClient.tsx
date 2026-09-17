@@ -4,13 +4,20 @@ import McFovSlider from "@/components/mc/McFovSlider";
 import { useMcGui } from "@/components/mc/McGuiProvider";
 import { McMenuGrid, type McMenuItem } from "@/components/mc/McMenuGrid";
 import McMenuScreen from "@/components/mc/McMenuScreen";
+import { withOrigin, type MenuOrigin } from "@/lib/menuOrigin";
 
-export default function OptionsMenuClient() {
+export default function OptionsMenuClient({
+  highlightContact = false,
+  origin = "options",
+}: {
+  highlightContact?: boolean;
+  origin?: MenuOrigin;
+}) {
   const { darkMode, toggleDarkMode } = useMcGui();
   const optionRows: McMenuItem[][] = [
     [
       { href: "/options/about", label: "About Me" },
-      { href: "/options/gallery", label: "Photos & Videos" },
+      { href: withOrigin("/options/gallery", "options"), label: "Photos & Videos" },
     ],
     [
       { href: "/options/statistics", label: "Statistics" },
@@ -21,11 +28,16 @@ export default function OptionsMenuClient() {
       { href: "/honors", label: "Skills" },
     ],
     [
-      { href: "/options/tba/record", label: "Record Screen" },
-      { href: "/options/contact", label: "Contact me..!", ellipsis: false },
+      { href: "/logs", label: "Logs" },
+      {
+        href: withOrigin("/options/contact", origin),
+        label: "Contact me..!",
+        ellipsis: false,
+        attention: highlightContact,
+      },
     ],
     [
-      { href: "/options/tba/chat", label: "Chat Settings" },
+      { href: "/options/accessibility", label: "Accessibility" },
       {
         href: "https://github.com/ghaiaarav/portfolio",
         label: "Open GitHub Repo..",

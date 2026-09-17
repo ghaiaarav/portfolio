@@ -11,6 +11,7 @@ export default function McOptionButton({
   external = false,
   size = "half",
   ellipsis = true,
+  attention = false,
 }: {
   href?: string;
   label: string;
@@ -18,10 +19,11 @@ export default function McOptionButton({
   external?: boolean;
   size?: "half" | "full";
   ellipsis?: boolean;
+  attention?: boolean;
 }) {
   const { playClick } = useMcSound();
   const [pressed, setPressed] = useState(false);
-  const className = `mc-button ${size === "half" ? "mc-button--half" : ""} ${pressed ? "mc-button--pressed" : ""}`;
+  const className = `mc-button ${size === "half" ? "mc-button--half" : ""} ${pressed ? "mc-button--pressed" : ""}${attention ? " mc-button--attention" : ""}`;
   const displayLabel =
     ellipsis && !label.endsWith("...") ? `${label}...` : label;
 

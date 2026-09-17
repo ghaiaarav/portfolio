@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <rect width="320" height="180" fill="#170d10"/>
+  <path d="M18 122c46-56 84-19 122-61s83 47 162-8" fill="none" stroke="#ff3030" stroke-width="7"/>
+  <path d="M18 140c44-20 76-4 111-32s94 26 173-15" fill="none" stroke="#55ffff" stroke-width="4"/>
+  <text x="24" y="46" fill="#fff" font-family="monospace" font-size="25" font-weight="bold">F1 TELEMETRY</text>
+</svg>

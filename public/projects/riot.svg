@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="180" viewBox="0 0 320 180">
+  <rect width="320" height="180" fill="#25203d"/>
+  <rect x="28" y="30" width="112" height="120" rx="8" fill="#f4f0df"/>
+  <path d="M48 60h72M48 80h72M48 100h50M48 120h64" stroke="#4f46e5" stroke-width="7"/>
+  <text x="168" y="86" fill="#fff" font-family="monospace" font-size="34" font-weight="bold">RIOT 2</text>
+  <text x="168" y="114" fill="#bbb" font-family="monospace" font-size="12">CLASSROOM RESEARCH</text>
+</svg>
