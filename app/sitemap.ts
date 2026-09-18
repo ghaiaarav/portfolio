@@ -11,12 +11,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/experience",
     "/options",
     "/options/about",
+    "/options/accessibility",
     "/options/contact",
     "/options/gallery",
     "/options/statistics",
     "/options/resource-packs",
     "/activities",
     "/blog",
+    "/logs",
     "/honors",
   ];
 

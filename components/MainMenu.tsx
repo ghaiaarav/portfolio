@@ -23,7 +23,13 @@ export default function MainMenu() {
           <div className="menu-buttons__row menu-buttons__row--split">
             <GlobeButton href={resume.url} />
             <McButton href="/options" labelDefault="Options..." labelHover="About" size="half" />
-            <McButton href="/edit-profile" labelDefault="Edit Profile" labelHover="Coming soon" size="half" />
+            <McButton
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              labelDefault="Surprise Me!"
+              labelHover="Click if you dare"
+              size="half"
+              external
+            />
           </div>
         </div>
       </div>

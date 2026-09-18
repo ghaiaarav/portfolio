@@ -8,42 +8,36 @@ export const metadata: Metadata = { title: "Skills" };
 const CATEGORY_IMAGES: Record<string, string> = {
   Mathematics: "/resource-packs/mathematics.jpg",
   Physics: "/resource-packs/physics.jpg",
+  "Physics & Astrophysics": "/resource-packs/physics.jpg",
   "Computer Science": "/resource-packs/computer-science.jpg",
+  "Data & Tools": "/resource-packs/data-tools.jpg",
   Leadership: "/resource-packs/sjsu.jpg",
-  Other: "/activities/skycofl.png",
   Academic: "/resource-packs/sjsu.jpg",
+  Other: "/activities/skycofl.png",
 };
 
-function honorImage(title: string, category: string) {
-  if (title.includes("SciRavens")) return "/activities/sciravens.webp";
-  return CATEGORY_IMAGES[category] ?? "/resource-packs/data-tools.jpg";
-}
-
 export default function HonorsPage() {
-  const { honors } = getPortfolio();
-  const categories = [...new Set(honors.map((honor) => honor.category))];
+  const { skills, honors } = getPortfolio();
 
   return (
     <McMenuScreen title="Skills" doneHref="/options" wide>
-      <div className="mc-resource-columns">
+      <div className="mc-resource-columns mc-resource-columns--flow">
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Skill Areas</div>
+          <div className="mc-resource-column__title">Capabilities</div>
           <div className="mc-resource-column__list">
-            {categories.map((category) => (
-              <div key={category} className="mc-resource-entry">
+            {skills.map((group) => (
+              <div key={group.category} className="mc-resource-entry">
                 <div className="mc-resource-entry__icon">
                   <Image
-                    src={CATEGORY_IMAGES[category] ?? "/resource-packs/data-tools.jpg"}
+                    src={CATEGORY_IMAGES[group.category] ?? "/resource-packs/data-tools.jpg"}
                     alt=""
                     fill
                     sizes="58px"
                   />
                 </div>
                 <div className="mc-resource-entry__text">
-                  <div className="mc-resource-entry__name">{category}</div>
-                  <div className="mc-resource-entry__desc">
-                    {honors.filter((honor) => honor.category === category).length} unlocked
-                  </div>
+                  <div className="mc-resource-entry__name">{group.category}</div>
+                  <div className="mc-resource-entry__desc">{group.items.join(" · ")}</div>
                 </div>
               </div>
             ))}
@@ -51,13 +45,13 @@ export default function HonorsPage() {
         </div>
 
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Achievements</div>
+          <div className="mc-resource-column__title">Evidence</div>
           <div className="mc-resource-column__list">
             {honors.map((honor) => (
               <div key={`${honor.title}-${honor.year}`} className="mc-resource-entry">
                 <div className="mc-resource-entry__icon">
                   <Image
-                    src={honorImage(honor.title, honor.category)}
+                    src={CATEGORY_IMAGES[honor.category] ?? "/resource-packs/data-tools.jpg"}
                     alt=""
                     fill
                     sizes="58px"

@@ -25,9 +25,10 @@ const READING_VISUALS: Record<string, string> = {
   "Nonlinear Dynamics and Chaos": "/activities/reading/nonlinear-dynamics.jpg",
   "The Trachtenberg Speed System of Basic Mathematics": "/activities/reading/trachtenberg.jpg",
   "The Republic": "/activities/reading/republic.jpg",
-  "Introduction to Topological Manifolds": "/activities/reading/topological-manifolds.jpg",
+  "Topology NOW!": "/activities/reading/topological-manifolds.jpg",
+  "Algebraic Topology": "/resource-packs/mathematics.jpg",
   Discourses: "/activities/reading/discourses.jpg",
-  "Probability and Random Processes": "/activities/reading/probability-random-processes.jpg",
+  "The Art and Craft of Problem Solving": "/activities/reading/trachtenberg.jpg",
 };
 
 const MUSIC_VISUALS: Record<string, string> = {
@@ -36,10 +37,10 @@ const MUSIC_VISUALS: Record<string, string> = {
   "Piano performance recordings": "/activities/music/piano.jpg",
 };
 
-function ActivityThumbnail({ src, alt }: { src: string; alt: string }) {
+function ActivityThumbnail({ src, alt }: { src?: string; alt: string }) {
   return (
     <span className="mc-row__thumbnail">
-      <Image src={src} alt={alt} fill sizes="64px" />
+      {src ? <Image src={src} alt={alt} fill sizes="64px" /> : <span aria-hidden="true">▣</span>}
     </span>
   );
 }

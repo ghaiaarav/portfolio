@@ -13,6 +13,8 @@ import {
 
 const FOV_KEY = "mc-fov";
 const THEME_KEY = "mc-theme";
+const ACCESSIBILITY_KEY = "mc-accessibility";
+const MUTE_KEY = "mc-sound-muted";
 const DEFAULT_FOV = 70;
 const MIN_FOV = 30;
 const MAX_FOV = 110;
@@ -46,6 +48,16 @@ type McGuiContextValue = {
   setFov: (value: number) => void;
   darkMode: boolean;
   toggleDarkMode: () => void;
+  guiScale: "small" | "normal" | "large";
+  setGuiScale: (value: "small" | "normal" | "large") => void;
+  highContrast: boolean;
+  setHighContrast: (value: boolean) => void;
+  reducedMotion: boolean;
+  setReducedMotion: (value: boolean) => void;
+  soundMuted: boolean;
+  setSoundMuted: (value: boolean) => void;
+  showToasts: boolean;
+  setShowToasts: (value: boolean) => void;
   goBack: () => void;
   parentPath: string;
   stackDepth: number;
@@ -68,6 +80,11 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [fov, setFovState] = useState(DEFAULT_FOV);
   const [darkMode, setDarkMode] = useState(false);
+  const [guiScale, setGuiScale] = useState<"small" | "normal" | "large">("normal");
+  const [highContrast, setHighContrast] = useState(false);
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [soundMuted, setSoundMutedState] = useState(false);
+  const [showToasts, setShowToasts] = useState(true);
   const [stack, setStack] = useState<string[]>(["/"]);
 
   useEffect(() => {
@@ -79,6 +96,18 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       }
     }
     setDarkMode(localStorage.getItem(THEME_KEY) === "dark");
+    setSoundMutedState(localStorage.getItem(MUTE_KEY) === "true");
+    try {
+      const accessibility = JSON.parse(localStorage.getItem(ACCESSIBILITY_KEY) ?? "{}");
+      if (["small", "normal", "large"].includes(accessibility.guiScale)) {
+        setGuiScale(accessibility.guiScale);
+      }
+      setHighContrast(Boolean(accessibility.highContrast));
+      setReducedMotion(Boolean(accessibility.reducedMotion));
+      setShowToasts(accessibility.showToasts !== false);
+    } catch {
+      localStorage.removeItem(ACCESSIBILITY_KEY);
+    }
   }, []);
 
   useEffect(() => {
@@ -92,6 +121,16 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
   }, [darkMode]);
+
+  useEffect(() => {
+    document.documentElement.dataset.guiScale = guiScale;
+    document.documentElement.dataset.highContrast = String(highContrast);
+    document.documentElement.dataset.reducedMotion = String(reducedMotion);
+    localStorage.setItem(
+      ACCESSIBILITY_KEY,
+      JSON.stringify({ guiScale, highContrast, reducedMotion, showToasts })
+    );
+  }, [guiScale, highContrast, reducedMotion, showToasts]);
 
   useEffect(() => {
     setStack((prev) => {
@@ -123,7 +162,17 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const setSoundMuted = useCallback((value: boolean) => {
+    setSoundMutedState(value);
+    localStorage.setItem(MUTE_KEY, String(value));
+  }, []);
+
   const parentPath = useMemo(() => getParentPath(pathname || "/"), [pathname]);
+
+  const applyGuiScale = useCallback((value: "small" | "normal" | "large") => {
+    document.documentElement.dataset.guiScale = value;
+    setGuiScale(value);
+  }, []);
 
   const goBack = useCallback(() => {
     setStack((prev) => {
@@ -143,11 +192,24 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       setFov,
       darkMode,
       toggleDarkMode,
+      guiScale,
+      setGuiScale: applyGuiScale,
+      highContrast,
+      setHighContrast,
+      reducedMotion,
+      setReducedMotion,
+      soundMuted,
+      setSoundMuted,
+      showToasts,
+      setShowToasts,
       goBack,
       parentPath,
       stackDepth: stack.length,
     }),
-    [fov, setFov, darkMode, toggleDarkMode, goBack, parentPath, stack.length]
+    [
+      fov, setFov, darkMode, toggleDarkMode, guiScale, applyGuiScale, highContrast, reducedMotion,
+      soundMuted, setSoundMuted, showToasts, goBack, parentPath, stack.length,
+    ]
   );
 
   return <McGuiContext.Provider value={value}>{children}</McGuiContext.Provider>;

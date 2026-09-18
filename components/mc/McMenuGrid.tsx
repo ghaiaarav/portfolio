@@ -7,6 +7,7 @@ export type McMenuItem = {
   external?: boolean;
   onClick?: () => void;
   ellipsis?: boolean;
+  className?: string;
 };
 
 export function McMenuGrid({ rows }: { rows: McMenuItem[][] }) {
@@ -23,6 +24,7 @@ export function McMenuGrid({ rows }: { rows: McMenuItem[][] }) {
               external={left.external}
               onClick={left.onClick}
               ellipsis={left.ellipsis}
+              className={left.className}
             />
             {right ? (
               <McOptionButton
@@ -31,6 +33,7 @@ export function McMenuGrid({ rows }: { rows: McMenuItem[][] }) {
                 external={right.external}
                 onClick={right.onClick}
                 ellipsis={right.ellipsis}
+                className={right.className}
               />
             ) : (
               <span className="mc-button-wrap mc-button-wrap--spacer" aria-hidden="true" />

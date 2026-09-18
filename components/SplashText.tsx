@@ -12,6 +12,7 @@ export default function SplashText({ texts, cycleInterval = 10000 }: SplashTextP
   const { playClick } = useMcSound();
   const [index, setIndex] = useState(0);
   const [fading, setFading] = useState(false);
+  const [cycleReset, setCycleReset] = useState(0);
 
   useEffect(() => {
     setIndex(Math.floor(Math.random() * texts.length));
@@ -34,11 +35,12 @@ export default function SplashText({ texts, cycleInterval = 10000 }: SplashTextP
   useEffect(() => {
     const timer = setInterval(advance, cycleInterval);
     return () => clearInterval(timer);
-  }, [advance, cycleInterval]);
+  }, [advance, cycleInterval, cycleReset]);
 
   const handleClick = () => {
     playClick();
     advance();
+    setCycleReset((value) => value + 1);
   };
 
   if (texts.length === 0) return null;

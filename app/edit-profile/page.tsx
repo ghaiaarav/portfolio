@@ -1,8 +1,5 @@
-import TbaScreen from "@/components/options/TbaScreen";
-import type { Metadata } from "next";
-
-export const metadata: Metadata = { title: "Edit Profile" };
+import { redirect } from "next/navigation";
 
 export default function EditProfilePage() {
-  return <TbaScreen title="Edit Profile" doneHref="/" />;
+  redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 }

@@ -2,25 +2,13 @@
 
 A Minecraft-themed personal portfolio built with Next.js. The main menu mimics Minecraft's classic play screen, with each button routing to a different section of the portfolio.
 
-**Live site:** [aaravghai.com](https://aaravghai.com) (after deployment)
+**Live site:** [aaravghai.com](https://aaravghai.com)
 
 ## Features
 
 - Rotating cubemap panorama background (persists across all pages)
 - Minecraft-style GUI controls using vanilla button and scrollbar textures
-- UI click sounds on every button press (`public/sounds/click.ogg`)
-- Curated yellow splash text — edit in `content/portfolio.json` → `splashTexts`
-- Projects, experience, skills, options, extracurriculars, blog, and honors
 - All content editable via `content/portfolio.json` and MDX files
-
-## Getting Started
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
 
 ## Editing Content
 
@@ -36,16 +24,20 @@ Open [http://localhost:3000](http://localhost:3000).
 | Blog posts | `content/blog/*.mdx` |
 | Resume PDF | Replace `public/resume.pdf` |
 
-## Deploy to Vercel + Custom Domain
+## Replacing the Night Panorama
 
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → **Add New Project** → import the repo
-3. Deploy (defaults work — framework: Next.js)
-4. In Vercel project **Settings → Domains**, add `aaravghai.com` and `www.aaravghai.com`
-5. At your domain registrar, add DNS records Vercel shows you:
-   - **A record:** `@` → `76.76.21.21`
-   - **CNAME:** `www` → `cname.vercel-dns.com`
-6. Wait for DNS propagation (usually minutes, up to 48h)
+Capture six square screenshots from one fixed point in your own Minecraft world at night, rotating exactly 90° between the first four images. Save them as:
+
+- `public/panorama-night/0.png` — front
+- `public/panorama-night/1.png` — right
+- `public/panorama-night/2.png` — back
+- `public/panorama-night/3.png` — left
+- `public/panorama-night/4.png` — up
+- `public/panorama-night/5.png` — down
+
+Keep every face the same dimensions. The current files remain as fallbacks until these are replaced.
+
+Default skin variants are sourced from Minecraft Wiki/Mojang assets and remain property of Mojang Studios.
 
 ## Project Structure
 
