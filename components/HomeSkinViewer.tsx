@@ -23,7 +23,7 @@ export default function HomeSkinViewer() {
   const pointerStart = useRef<{ x: number; y: number } | null>(null);
   const [skinIndex, setSkinIndex] = useState(0);
   const [hidden, setHidden] = useState(false);
-  const [name, setName] = useState(SKINS[0].name);
+  const [name, setName] = useState<string>(SKINS[0].name);
 
   useEffect(() => {
     const canvas = canvasRef.current;
