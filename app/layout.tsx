@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import McGuiProvider from "@/components/mc/McGuiProvider";
 import PanoramaBackground from "@/components/PanoramaBackground";
+import EasterEggProvider from "@/components/easter-eggs/EasterEggProvider";
+import SettingsEggWatcher from "@/components/easter-eggs/SettingsEggWatcher";
 import { minecraftia, minecrafterAlt } from "@/lib/fonts";
 import "@/styles/minecraft.css";
 
@@ -11,11 +13,11 @@ export const metadata: Metadata = {
     template: "%s | Aarav Ghai",
   },
   description:
-    "Aarav Ghai — applied mathematics student at SJSU. Research in astrophysics, combinatorial topology, and CS. Projects, experience, and more.",
+    "Please contact me at aaravghai2@gmail.com for inquiries.",
   openGraph: {
     title: "Aarav Ghai",
     description:
-      "Applied math · physics · CS — research, projects, and experience at the intersection of theory and building.",
+      "Applied Math @ SJSU",
     url: "https://aaravghai.com",
     siteName: "Aarav Ghai",
     locale: "en_US",
@@ -24,7 +26,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Aarav Ghai",
-    description: "Applied math, physics, and CS — portfolio and research",
+    description: "Applied Math @ SJSU",
   },
   robots: { index: true, follow: true },
 };
@@ -34,12 +36,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${minecraftia.variable} ${minecrafterAlt.variable}`}>
       <body>
         <McGuiProvider>
-          <PanoramaBackground />
-          <div className="page-content">{children}</div>
-          <footer className="mc-footer">
-            <span>Portfolio v1.0</span>
-            <span>© 2026 Aarav Ghai</span>
-          </footer>
+          <EasterEggProvider>
+            <SettingsEggWatcher />
+            <PanoramaBackground />
+            <div className="page-content">{children}</div>
+            <footer className="mc-footer">
+              <span>Portfolio v1.1</span>
+              <span>© 2026 Aarav Ghai</span>
+            </footer>
+          </EasterEggProvider>
         </McGuiProvider>
       </body>
     </html>

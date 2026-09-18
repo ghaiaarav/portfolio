@@ -4,26 +4,21 @@ import McMenuScreen from "@/components/mc/McMenuScreen";
 import type { Portfolio } from "@/lib/portfolio";
 import Image from "next/image";
 
-const PACK_VISUALS: Record<string, string> = {
-  Mathematics: "/resource-packs/mathematics.jpg",
-  "Physics & Astrophysics": "/resource-packs/physics.jpg",
-  "Computer Science": "/resource-packs/computer-science.jpg",
-  "Data & Tools": "/resource-packs/data-tools.jpg",
-};
-
 function PackEntry({
   name,
   description,
   icon = "📦",
   image,
+  href,
 }: {
   name: string;
   description: string;
   icon?: string;
   image?: string;
+  href?: string;
 }) {
-  return (
-    <div className="mc-resource-entry">
+  const content = (
+    <>
       <div className="mc-resource-entry__icon">
         {image ? (
           <Image src={image} alt="" fill sizes="64px" />
@@ -35,43 +30,47 @@ function PackEntry({
         <div className="mc-resource-entry__name">{name}</div>
         <div className="mc-resource-entry__desc">{description}</div>
       </div>
-    </div>
+    </>
   );
+  return href ? (
+    <a className="mc-resource-entry" href={href} target="_blank" rel="noopener noreferrer">
+      {content}
+    </a>
+  ) : <div className="mc-resource-entry">{content}</div>;
 }
 
 export default function ResourcePacksScreen({
-  skills,
-  education,
+  resources,
 }: {
-  skills: Portfolio["skills"];
-  education: Portfolio["education"];
+  resources: Portfolio["resources"];
 }) {
+  const kinds = [...new Set(resources.map((resource) => resource.kind))];
   return (
-    <McMenuScreen title="Select Resource Packs" doneHref="/options" wide>
+    <McMenuScreen title="Research Library" doneHref="/options" wide>
       <div className="mc-resource-columns">
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Available Resource Packs</div>
+          <div className="mc-resource-column__title">Shelves</div>
           <div className="mc-resource-column__list">
-            {education.map((edu) => (
+            {kinds.map((kind) => (
               <PackEntry
-                key={edu.school}
-                image="/resource-packs/sjsu.jpg"
-                name={edu.school}
-                description={`${edu.degree} · ${edu.dates}${edu.gpa ? ` · GPA ${edu.gpa}` : ""}`}
+                key={kind}
+                icon="▤"
+                name={kind}
+                description={`${resources.filter((resource) => resource.kind === kind).length} resource(s)`}
               />
             ))}
           </div>
         </div>
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Selected Resource Packs</div>
+          <div className="mc-resource-column__title">Available Downloads & Links</div>
           <div className="mc-resource-column__list">
-            <PackEntry icon="✓" name="Default" description="The default look of Minecraft" />
-            {skills.map((pack) => (
+            {resources.map((resource) => (
               <PackEntry
-                key={pack.category}
-                image={PACK_VISUALS[pack.category]}
-                name={pack.category}
-                description={pack.items.join(", ")}
+                key={resource.id}
+                image={resource.imageUrl}
+                name={resource.title}
+                description={`${resource.kind} · ${resource.description}`}
+                href={resource.url}
               />
             ))}
           </div>

@@ -1,35 +1,42 @@
 "use client";
 
 import McMenuScreen from "@/components/mc/McMenuScreen";
-import McOptionButton from "@/components/mc/McOptionButton";
 import type { Portfolio } from "@/lib/portfolio";
+import { originHref, type MenuOrigin } from "@/lib/menuNavigation";
+import { useMcSound } from "@/hooks/useMcSound";
 
-export default function ContactScreen({ data }: { data: Portfolio }) {
-  const rows: { label: string; href: string; external?: boolean }[] = [
-    { label: `Email: ${data.contact.email}`, href: `mailto:${data.contact.email}`, external: true },
+export default function ContactScreen({ data, origin }: { data: Portfolio; origin: MenuOrigin }) {
+  const { playClick } = useMcSound();
+  const rows: { icon: string; label: string; value: string; href: string }[] = [
+    { icon: "letter", label: "Email", value: data.contact.email, href: `mailto:${data.contact.email}` },
     ...(data.contact.phone
-      ? [{ label: `Phone: ${data.contact.phone}`, href: `tel:${data.contact.phone.replace(/\D/g, "")}`, external: true }]
+      ? [{ icon: "redstone", label: "Phone", value: data.contact.phone, href: `tel:${data.contact.phone.replace(/\D/g, "")}` }]
       : []),
-    { label: "LinkedIn", href: data.contact.linkedin, external: true },
-    { label: "GitHub", href: data.contact.github, external: true },
+    { icon: "map", label: "LinkedIn", value: "ghaiaarav", href: data.contact.linkedin },
+    { icon: "pickaxe", label: "GitHub", value: "ghaiaarav", href: data.contact.github },
     ...(data.contact.calendly
-      ? [{ label: "Book a call", href: data.contact.calendly, external: true }]
+      ? [{ icon: "clock", label: "Book a call", value: "Choose a time", href: data.contact.calendly }]
       : []),
   ];
 
   return (
-    <McMenuScreen title="Controls" doneHref="/options">
-      <div className="mc-menu-grid">
+    <McMenuScreen title="Contact Me!" doneHref={originHref(origin)} wide>
+      <div className="mc-contact-grid">
         {rows.map((row) => (
-          <div key={row.href} className="menu-buttons__row menu-buttons__row--single">
-            <McOptionButton
-              href={row.href}
-              label={row.label}
-              external={row.external}
-              size="full"
-              ellipsis={false}
-            />
-          </div>
+          <a
+            key={row.href}
+            href={row.href}
+            className="mc-contact-card"
+            target={row.href.startsWith("http") ? "_blank" : undefined}
+            rel={row.href.startsWith("http") ? "noopener noreferrer" : undefined}
+            onPointerDown={playClick}
+          >
+            <span className={`mc-contact-card__icon mc-contact-card__icon--${row.icon}`} aria-hidden="true" />
+            <span>
+              <strong>{row.label}</strong>
+              <small>{row.value}</small>
+            </span>
+          </a>
         ))}
       </div>
     </McMenuScreen>
