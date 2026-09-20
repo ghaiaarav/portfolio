@@ -46,16 +46,11 @@ export default function SplashText({ texts, cycleInterval = 10000 }: SplashTextP
   if (texts.length === 0) return null;
 
   const text = texts[index] ?? texts[0];
-  const lengthClass =
-    text.length > 44
-      ? " splash-text--very-long"
-      : text.length > 28
-        ? " splash-text--long"
-        : "";
+  const compact = text.length > 28 ? " splash-text--compact" : "";
 
   return (
     <div
-      className={`splash-text${lengthClass}${fading ? " splash-text--fade" : ""}`}
+      className={`splash-text${compact}${fading ? " splash-text--fade" : ""}`}
       onClick={handleClick}
       role="button"
       tabIndex={0}

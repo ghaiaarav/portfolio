@@ -1,8 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useExternalConfirmOptional } from "@/components/ExternalConfirmProvider";
+import { needsExternalConfirm } from "@/lib/externalLinks";
 import { useMcSound } from "@/hooks/useMcSound";
-import { useState } from "react";
+import { type MouseEvent, useState } from "react";
 
 export default function McOptionButton({
   href,
@@ -22,10 +24,12 @@ export default function McOptionButton({
   className?: string;
 }) {
   const { playClick } = useMcSound();
+  const confirm = useExternalConfirmOptional();
   const [pressed, setPressed] = useState(false);
   const className = `mc-button ${size === "half" ? "mc-button--half" : ""} ${pressed ? "mc-button--pressed" : ""} ${extraClassName}`;
   const displayLabel =
     ellipsis && !label.endsWith("...") ? `${label}...` : label;
+  const confirmHref = Boolean(href && (external || needsExternalConfirm(href)));
 
   const handlers = {
     onPointerDown: () => {
@@ -34,7 +38,14 @@ export default function McOptionButton({
     },
     onPointerUp: () => setPressed(false),
     onPointerLeave: () => setPressed(false),
-    onClick,
+    onClick: (event: MouseEvent<HTMLElement>) => {
+      if (confirmHref && href && confirm) {
+        event.preventDefault();
+        confirm.requestExternal(href);
+        return;
+      }
+      onClick?.();
+    },
   };
 
   if (!href) {
@@ -47,10 +58,10 @@ export default function McOptionButton({
     );
   }
 
-  if (external) {
+  if (confirmHref) {
     return (
       <span className="mc-button-wrap">
-        <a href={href} className={className} target="_blank" rel="noopener noreferrer" {...handlers}>
+        <a href={href} className={className} {...handlers}>
           {displayLabel}
         </a>
       </span>

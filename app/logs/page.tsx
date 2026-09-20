@@ -12,10 +12,18 @@ export default function LogsPage() {
       <div className="mc-log-list">
         {logs.map((log) => (
           <article className="mc-log-entry" key={log.hash}>
-            <span className="mc-log-entry__torch" aria-hidden="true" />
+            <img
+              className={`mc-log-entry__icon mc-log-entry__icon--${log.icon}`}
+              src={`/textures/items/${log.icon}.png`}
+              alt=""
+              width={32}
+              height={32}
+            />
             <div>
-              <strong>{log.message}</strong>
-              <span>{log.date} · {log.hash}</span>
+              <strong>{log.lore}</strong>
+              <span>
+                {log.date} · {log.hash} · {log.message}
+              </span>
             </div>
           </article>
         ))}

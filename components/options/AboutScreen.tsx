@@ -2,10 +2,14 @@
 
 import McMenuScreen from "@/components/mc/McMenuScreen";
 import type { Portfolio } from "@/lib/portfolio";
+import { getFavouriteSong, getRecentMovie } from "@/lib/portfolio";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutScreen({ data }: { data: Portfolio }) {
+  const recentMovie = getRecentMovie();
+  const favouriteSong = getFavouriteSong();
+
   return (
     <McMenuScreen title="About Me" doneHref="/options" wide>
       <div className="mc-list-panel">
@@ -52,6 +56,18 @@ export default function AboutScreen({ data }: { data: Portfolio }) {
                 <span className="news-widget__label">Currently reading: </span>
                 <em>{data.homeWidgets.currentlyReading[0].title}</em> by{" "}
                 {data.homeWidgets.currentlyReading[0].author}
+              </p>
+            )}
+            {recentMovie && (
+              <p className="news-widget__line">
+                <span className="news-widget__label">Recent movie: </span>
+                {recentMovie.title} (d. {recentMovie.director}, {recentMovie.year})
+              </p>
+            )}
+            {favouriteSong && (
+              <p className="news-widget__line">
+                <span className="news-widget__label">Favourite song: </span>
+                <em>{favouriteSong.title}</em> — {favouriteSong.artist}
               </p>
             )}
           </div>

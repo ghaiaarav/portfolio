@@ -1,6 +1,8 @@
 "use client";
 
+import { ConfirmLink } from "@/components/ExternalConfirmProvider";
 import { McTab } from "@/components/McButton";
+import PixelIcon from "@/components/PixelIcon";
 import McMenuScreen from "@/components/mc/McMenuScreen";
 import type { Portfolio } from "@/lib/portfolio";
 import Image from "next/image";
@@ -37,10 +39,17 @@ const MUSIC_VISUALS: Record<string, string> = {
   "Piano performance recordings": "/activities/music/piano.jpg",
 };
 
-function ActivityThumbnail({ src, alt }: { src?: string; alt: string }) {
+const MOVIE_VISUALS: Record<string, string> = {
+  Oppenheimer: "/activities/movies/oppenheimer.png",
+  "The Godfather": "/activities/movies/godfather.png",
+  Seven: "/activities/movies/seven.png",
+  Interstellar: "/activities/movies/interstellar.png",
+};
+
+function ActivityThumbnail({ src, alt, poster }: { src?: string; alt: string; poster?: boolean }) {
   return (
-    <span className="mc-row__thumbnail">
-      {src ? <Image src={src} alt={alt} fill sizes="64px" /> : <span aria-hidden="true">▣</span>}
+    <span className={`mc-row__thumbnail${poster ? " mc-row__thumbnail--poster" : ""}`}>
+      {src ? <Image src={src} alt={alt} fill sizes={poster ? "48px" : "64px"} unoptimized /> : <span aria-hidden="true">▣</span>}
     </span>
   );
 }
@@ -118,7 +127,7 @@ export default function ActivitiesClient({
               />
               <div className="mc-row__main">
                 <div className="mc-row__title">
-                  {book.status === "reading" ? "📖 " : book.status === "finished" ? "✓ " : "📚 "}
+                  <PixelIcon name={book.status === "finished" ? "check" : book.status === "reading" ? "book" : "books"} />
                   {book.title}
                 </div>
                 <div className="mc-row__sub">
@@ -139,7 +148,7 @@ export default function ActivitiesClient({
               />
               <div className="mc-row__main">
                 <div className="mc-row__title">
-                  {m.kind === "performance" ? "🎹 " : "🎵 "}
+                  <PixelIcon name={m.kind === "performance" ? "piano" : "note"} />
                   {m.album}
                 </div>
                 <div className="mc-row__sub">
@@ -148,14 +157,9 @@ export default function ActivitiesClient({
                 </div>
               </div>
               {m.url ? (
-                <a
-                  href={m.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="news-widget__link"
-                >
+                <ConfirmLink href={m.url} className="news-widget__link">
                   YouTube
-                </a>
+                </ConfirmLink>
               ) : m.status === "coming-soon" ? (
                 <span className="mc-row__meta">soon</span>
               ) : null}
@@ -166,14 +170,17 @@ export default function ActivitiesClient({
           activities.movies.map((m) => (
             <div key={m.title} className="mc-row" style={{ cursor: "default" }}>
               <ActivityThumbnail
-                src="/activities/movies/oppenheimer.jpg"
-                alt="J. Robert Oppenheimer"
+                src={MOVIE_VISUALS[m.title]}
+                alt={`${m.title} poster`}
+                poster
               />
               <div className="mc-row__main">
-                <div className="mc-row__title">🎬 {m.title}</div>
+                <div className="mc-row__title">
+                  <PixelIcon name="movie" />
+                  {m.title}
+                </div>
                 <div className="mc-row__sub">
                   d. {m.director}, {m.year}
-                  {m.note && ` — ${m.note}`}
                 </div>
               </div>
             </div>
@@ -191,7 +198,10 @@ export default function ActivitiesClient({
                 alt={t.place}
               />
               <div className="mc-row__main">
-                <div className="mc-row__title">🗺 {t.place}</div>
+                <div className="mc-row__title">
+                  <PixelIcon name="globe" />
+                  {t.place}
+                </div>
                 <div className="mc-row__sub">{t.note}</div>
               </div>
               <div className="mc-row__meta">{t.date}</div>
@@ -249,15 +259,13 @@ export default function ActivitiesClient({
                       )}
                       {quest.links?.map((link) =>
                         link.url.includes("PASTE_") ? null : (
-                          <a
+                          <ConfirmLink
                             key={link.label}
                             href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className="news-widget__link side-quest-row__link"
                           >
                             {link.label} →
-                          </a>
+                          </ConfirmLink>
                         )
                       )}
                     </div>

@@ -1,5 +1,5 @@
 import GlobeButton from "@/components/GlobeButton";
-import HomeSkinViewer from "@/components/HomeSkinViewer";
+import HomeSkinViewerLazy from "@/components/HomeSkinViewerLazy";
 import McButton from "@/components/McButton";
 import SplashText from "@/components/SplashText";
 import TitleLogo from "@/components/TitleLogo";
@@ -12,8 +12,9 @@ export default function MainMenu() {
     <main className="main-menu">
       <div className="menu-column">
         <div className="logo-area">
-          <TitleLogo />
-          <SplashText texts={splashTexts} />
+          <TitleLogo>
+            <SplashText texts={splashTexts} />
+          </TitleLogo>
         </div>
 
         <div className="menu-buttons">
@@ -24,7 +25,7 @@ export default function MainMenu() {
             <GlobeButton href={resume.url} />
             <McButton href="/options" labelDefault="Options..." labelHover="About" size="half" />
             <McButton
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              href="https://??????.com (not a virus!)"
               labelDefault="Surprise Me!"
               labelHover="Click if you dare"
               size="half"
@@ -33,7 +34,7 @@ export default function MainMenu() {
           </div>
         </div>
       </div>
-      <HomeSkinViewer />
+      <HomeSkinViewerLazy />
     </main>
   );
 }

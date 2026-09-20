@@ -1,12 +1,13 @@
+import { ConfirmLink } from "@/components/ExternalConfirmProvider";
 import Link from "next/link";
-import { getPortfolio, getSongOfDay } from "@/lib/portfolio";
+import { getFavouriteSong, getPortfolio, getRecentMovie } from "@/lib/portfolio";
 
 export default function NewsWidgetStrip() {
   const data = getPortfolio();
   const { homeWidgets } = data;
-  const song = getSongOfDay();
+  const favouriteSong = getFavouriteSong();
   const reading = homeWidgets.currentlyReading[0];
-  const movie = homeWidgets.recentMovies[0];
+  const movie = getRecentMovie();
   const music = homeWidgets.musicRecs[0];
 
   return (
@@ -36,16 +37,16 @@ export default function NewsWidgetStrip() {
       {music && (
         <p className="news-widget__line">
           <span className="news-widget__label">Music rec: </span>
-          <a href={music.url} target="_blank" rel="noopener noreferrer" className="news-widget__link">
+          <ConfirmLink href={music.url} className="news-widget__link">
             {music.album}
-          </a>{" "}
+          </ConfirmLink>{" "}
           by {music.artist}
         </p>
       )}
-      {song && (
+      {favouriteSong && (
         <p className="news-widget__line">
-          <span className="news-widget__label">Song of the day: </span>
-          {song.title} — {song.artist}
+          <span className="news-widget__label">Favourite song: </span>
+          <em>{favouriteSong.title}</em> — {favouriteSong.artist}
         </p>
       )}
       <div className="news-widget__see-all">

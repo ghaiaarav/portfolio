@@ -4,54 +4,66 @@
   "version": "Portfolio v1.1",
   "splashTexts": [
     "Also try stochastic processes!",
+    "Also try Wingstop!",
+    "Mostly harmless!",
+    "As seen on TV!",
+    "Should not be viewed while driving.",
+    "90% bug free!",
+    "Ceci n'est pas une title screen!",
+    "Not affiliated with Mojang!",
+    "The cake is a lie!",
+    "/give @aaravghai internship 1",
     "E = mc²!",
     "aaravghai.com!",
-    "Not affiliated with Mojang!",
     "QED!",
     "Integration Bees = Fun!",
+    "Homeomorphic to a 3-sphere!",
     "Proof: Ask a toddler on the street.",
     "Q.E.D.!",
-    "Euclid approved!",
-    "Rubin Observatory fan!",
     "Topology is fun!",
-    "Now with 100% more lemmas!",
-    "Physics Club President!",
-    "Math Club President!",
-    "ICPC ready!",
-    "Faster Whisper!",
-    "Sub 200ms latency!",
-    "NSF funded!",
-    "ACM SIGCSE 2026!",
-    "PERC 2026!",
-    "arXiv uploaded!",
     "What's a homology?",
     "3-manifold enjoyer!",
     "Four Colors Suffice!",
+    "Now with 100% more lemmas!",
+    "LaTeX enthusiast!",
+    "Dynamical systems!",
+    "Math = Physics = Computer Science!",
+    "Euclid approved!",
+    "Rubin Observatory fan!",
+    "Physics Club President!",
+    "Math Club President!",
+    "Sub 200ms latency!",
+    "NSF funded!",
     "Photometric analysis!",
     "Du-du-du-du, Max Verstappen!",
     "5 seconds is a joke! - Alonso",
     "It's Friday then, it's Saturday, Sunday, WHAT?",
     "Must be the water.",
-    "ChromaDB!",
     "GP2 Website! GP2 Website! Argh!",
     "Mwoah. - Kimi Raikkonen!",
+    "Smooth Operatoooor!",
     "Applied Mathematics!",
-    "SJSU Spartan!",
     "GPA 3.9!",
     "Classical pianist!",
     "Liebestraume No. 3!",
-    "Smooth Operatoooor!",
     "Predictive maintenance!",
     "What creating this website taught me about AI B2B SaaS..",
     "Shoutout to SMC!",
     "Shoutout to P&A Club!",
     "Shoutout to Peer Connections!",
+    "Shoutout SciRavens!",
+    "Spartans, what is your profession?!",
+    "SJSU Spartan!",
     "OAuth + PKCE!",
-    "LaTeX enthusiast!",
-    "Dynamical systems!",
-    "Math = Physics = Computer Science!",
+    "NP is not in P!",
+    "Sub 200ms latency!",
+    "ChromaDB!",
     "Click me!",
-    "Try the Konami code!"
+    "Try the Konami code!",
+    "Hi Mom!",
+    "No agents were harmed in the making of this website.",
+    "Legen-wait for it-dary!",
+    "True story!"
   ],
   "homeWidgets": {
     "recentNews": {
@@ -62,8 +74,7 @@
       { "title": "The Psychology of Money", "author": "Morgan Housel" }
     ],
     "recentMovies": [
-      { "title": "Oppenheimer", "director": "Christopher Nolan", "year": 2023 }
-
+      { "title": "Interstellar", "director": "Christopher Nolan", "year": 2014 }
     ],
     "musicRecs": [
       {
@@ -72,9 +83,11 @@
         "url": ""
       }
     ],
-    "songOfDay": [
-      { "date": "2026-09-08", "title": "Ballade No. 1 in G minor", "artist": "Chopin" }
-    ]
+    "favouriteSong": {
+      "title": "Mr. Incorrect",
+      "artist": "Malcolm Todd",
+      "url": ""
+    }
   },
   "activities": {
     "reading": [
@@ -107,8 +120,22 @@
       {
         "title": "Oppenheimer",
         "director": "Christopher Nolan",
-        "year": 2023,
-        "note": "Theory will only get you so far.."
+        "year": 2023
+      },
+      {
+        "title": "The Godfather", 
+        "director": "Francis Ford Coppola", 
+        "year": 1972
+      },
+      {
+        "title": "Seven", 
+        "director": "David Fincher", 
+        "year": 1995
+      },
+      {
+        "title": "Interstellar", 
+        "director": "Christopher Nolan", 
+        "year": 2014
       }
     ],
     "travel": [
@@ -120,7 +147,7 @@
         "id": "hypixel-skyblock",
         "title": "Hypixel SkyBlock",
         "achievement": "Top ~100 networth",
-        "period": "High school",
+        "period": "2019-2022",
         "description": "Reached top ~100 networth on Hypixel SkyBlock through auction house market making; spotting mispriced items, managing inventory and liquidity risk, and running high-volume flips at scale. Thousands of completed auctions and bids are still indexed on SkyCofl.",
         "skills": ["market making", "arbitrage", "pricing", "inventory risk", "execution speed"],
         "links": [
@@ -133,10 +160,10 @@
       {
         "id": "ftc-sciravens",
         "title": "SciRavens; FTC Team #23287",
-        "achievement": "Mentor · competitive seasons",
+        "achievement": "Mentor",
         "period": "2023–present",
-        "description": "Mentor for the SciRavens, a Bay Area FIRST Tech Challenge team. Over the past few seasons they've stacked up strong results; Design Awards, a Winning Alliance captaincy in a tough NorCal qualifier, Innovate and Reach awards, and Inspire Award 2nd at Roseville. I help the team with engineering judgment and strategy.",
-        "skills": ["robotics", "mentorship", "strategy", "engineering design", "STEM outreach"],
+        "description": "Mentor for the SciRavens, a Bay Area FIRST Tech Challenge team. Over the past few seasons we've stacked up strong results, Design, Innovate, Reach and Inspire Awards and being finalists at the Roseville QT. I help the team with engineering judgment and strategy.",
+        "skills": ["CAD", "Engineering design", "Outreach", "Fundraising", "Kanban"],
         "links": [
           { "label": "SciRavens website", "url": "https://www.sciravens.org/" },
           { "label": "FIRST team profile", "url": "https://ftc-events.firstinspires.org/team/23287" }
@@ -151,9 +178,9 @@
     { "category": "Computer Science", "title": "PERC 2026 / arXiv", "year": 2026, "detail": "RIOT classroom observation platform" },
     { "category": "Leadership", "title": "Physics Club President", "year": 2025, "detail": "SJSU" },
     { "category": "Leadership", "title": "Math Club President", "year": 2025, "detail": "SJSU" },
-    { "category": "Leadership", "title": "SciRavens FTC Mentor", "year": 2025, "detail": "Team #23287; Design, Innovate, Reach & Inspire awards" },
+    { "category": "Mentorship", "title": "SciRavens FTC Mentor", "year": 2025, "detail": "Team #23287; Design, Innovate, Reach & Inspire awards" },
     { "category": "Other", "title": "Hypixel SkyBlock Top ~100 Networth", "year": 2022, "detail": "Auction house market maker; full history on SkyCofl" },
-    { "category": "Academic", "title": "Dean's List / 3.9 GPA", "year": 2025, "detail": "B.S. Applied Mathematics, SJSU" }
+    { "category": "Academic", "title": "President's List / 3.9 GPA", "year": 2025, "detail": "B.S. Applied Mathematics, SJSU" }
   ],
   "projects": [
     {
@@ -164,7 +191,7 @@
       "scope": "Production",
       "description": "Self-learning voice assistant with embedding-based routing that reduces unnecessary LLM calls. Achieves sub-200ms latency through ChromaDB top-k retrieval and confidence-threshold fallback to LLM under low similarity.",
       "tags": ["MiniLM", "ChromaDB", "Node.js", "Python", "Faster Whisper", "ElevenLabs"],
-      "imageUrl": "/resource-packs/computer-science.jpg",
+      "imageUrl": "/logos/devpost.png",
       "demoUrl": "https://devpost.com/software/lowla",
       "githubUrl": "https://github.com/ghaiaarav",
       "featured": true
@@ -177,7 +204,7 @@
       "scope": "Research",
       "description": "Production-ready classroom observation platform deployed on Google App Engine. OAuth + PKCE auth, real-time interaction system, timeline visualizations. Paper accepted to PERC 2026 and uploaded to arXiv (NSF-funded).",
       "tags": ["Python", "Flask", "AWS", "Azure", "GCP", "Bootstrap"],
-      "imageUrl": "/resource-packs/physics.jpg",
+      "imageUrl": "/logos/wordpress.png",
       "demoUrl": "https://arxiv.org/abs/2608.13740",
       "githubUrl": "https://github.com/ghaiaarav"
     },
@@ -189,7 +216,7 @@
       "scope": "Semester-long",
       "description": "Full-stack app detecting instability events and estimating lap-time loss from real F1 telemetry. FastAPI/React pipeline with adaptive percentile thresholds, correction-event detection, and interactive Plotly visualizations.",
       "tags": ["FastAPI", "React", "TypeScript", "pandas", "NumPy", "Plotly"],
-      "imageUrl": "/resource-packs/data-tools.jpg",
+      "imageUrl": "/logos/f1.png",
       "demoUrl": "https://github.com/ghaiaarav/F1-Telemetry-Explorer",
       "githubUrl": "https://github.com/ghaiaarav/F1-Telemetry-Explorer"
     }
@@ -203,7 +230,7 @@
       "location": "San Jose, CA",
       "dates": "Jun 2026 - Aug 2026",
       "description": "Translating surface topology theorems into higher-dimensional settings with Dr. Bering. NSF-funded selective research team.",
-      "imageUrl": "/resource-packs/mathematics.jpg",
+      "imageUrl": "/logos/torus.png",
       "media": [
         { "type": "image", "src": "/resource-packs/mathematics.jpg", "title": "SCRUGS Lab placeholder", "blurb": "Higher-dimensional topology with Dr. Bering: curves, genus, and 3-manifolds, waiting for the real lab photos." }
       ],
@@ -222,7 +249,7 @@
       "location": "San Jose, CA",
       "dates": "Aug 2025 - May 2026",
       "description": "Estimating galaxy distances in the Euclid Deep Field North via ML and regression with Dr. Romanowsky.",
-      "imageUrl": "/resource-packs/physics.jpg",
+      "imageUrl": "/logos/solar.png",
       "media": [
         { "type": "image", "src": "/resource-packs/physics.jpg", "title": "Astrophysics research placeholder", "blurb": "Galaxy-distance work from the Euclid Deep Field North. Rubin photometry goes here once the figures are in." }
       ],
@@ -241,7 +268,7 @@
       "location": "Knoxville, TN",
       "dates": "Jun 2025 - Aug 2025",
       "description": "Built predictive maintenance and analytics tooling for a precision metal bellows manufacturer.",
-      "imageUrl": "/resource-packs/data-tools.jpg",
+      "imageUrl": "/logos/mill.png",
       "media": [
         { "type": "image", "src": "/resource-packs/data-tools.jpg", "title": "Engineering internship placeholder", "blurb": "Standard Precision Bellows, Knoxville: predictive maintenance models and the shop floor they watched." }
       ],
@@ -260,7 +287,7 @@
       "location": "San Jose, CA",
       "dates": "Oct 2024 - May 2025",
       "description": "NLP and clustering research on language-related learning patterns with Dr. Tshukudu. NSF-funded.",
-      "imageUrl": "/resource-packs/computer-science.jpg",
+      "imageUrl": "/logos/acm.png",
       "media": [
         { "type": "image", "src": "/resource-packs/computer-science.jpg", "title": "SEP Lab placeholder", "blurb": "NLP clustering and SIGCSE 2026 figures. Swap this still for a lab photo when you have one." }
       ],
@@ -279,19 +306,19 @@
   "skills": [
     {
       "category": "Mathematics",
-      "items": ["Stochastic Processes", "Probability & Statistics", "Dynamical Systems", "Combinatorial Topology", "Graph Theory", "LaTeX"]
+      "items": ["Stochastic Processes", "Probability & Statistics", "Dynamical Systems", "Topology", "Graph Theory"]
     },
     {
-      "category": "Physics & Astrophysics",
-      "items": ["Photometric Analysis", "Galaxy Distance Estimation", "ML for Astrophysics", "Research Methods"]
+      "category": "Physics",
+      "items": ["Classical Mechanics", "Relativity", "Astrophysics", "Scientific Computing"]
     },
     {
       "category": "Computer Science",
-      "items": ["Python", "C++", "Java", "SQL", "R", "Data Structures & Algorithms", "NLP", "FastAPI", "React", "TypeScript"]
+      "items": ["Data Structures", "Operating Systems", "NLP", "Cryptography", "Machine Learning"]
     },
     {
       "category": "Data & Tools",
-      "items": ["scikit-learn", "pandas", "NumPy", "ChromaDB", "Tableau", "Power BI", "Git", "Docker", "AWS", "GCP", "Azure"]
+      "items": ["Python", "ChromaDB", "Cusor", "Git", "Docker", "AWS", "GCP", "Azure", "LaTeX"]
     }
   ],
   "education": [
@@ -345,8 +372,8 @@
   ],
   "about": {
     "oneLiner": "I like solving problems, both psets and otherwise!",
-    "bio": "Hi there; I'm Aarav, a student at SJSU studying applied math. I work on questions bridging math, physics, and computer science.",
-    "status": "Applied Math @ SJSU · Research · Internships",
+    "bio": "Hi there; I'm Aarav, a student at SJSU studying applied math. I work on questions bridging math, physics, and computer science. I also love watching F1, trying new recipes, and playing the piano.",
+    "status": "Applied Math @ SJSU",
     "location": "San Jose, CA",
     "avatarUrl": "/avatar.png",
     "avatarAlt": "notsaywhat Minecraft skin"
@@ -360,18 +387,18 @@
   },
   "statistics": [
     { "label": "GPA", "value": "3.9" },
-    { "label": "Research labs", "value": "4" },
-    { "label": "Papers published/accepted", "value": "3" },
+    { "label": "Graduate courses taken", "value": "2" },
+    { "label": "Papers published", "value": "4" },
     { "label": "Projects shipped", "value": "3" },
-    { "label": "Hours with Cursor (Daily)", "value": "6" },
+    { "label": "Daily hours on Cursor", "value": "6" },
     { "label": "Clubs presided", "value": "2" },
-    { "label": "Zetamac score", "value": "~70" },
-    { "label": "SkyBlock networth rank", "value": "Top ~100" },
-    { "label": "Auctions flipped", "value": "1000s" },
+    { "label": "Zetamac score", "value": "70" },
+    { "label": "SkyBlock networth rank", "value": "96th" },
+    { "label": "Auctions flipped", "value": "55438" },
     { "label": "Problem sets survived", "value": "100+" },
-    { "label": "F1 races watched", "value": "many" },
-    { "label": "Theorems generalized", "value": "1" },
-    { "label": "Machine downtime reduced", "value": "10%" },
+    { "label": "F1 races watched", "value": "83" },
+    { "label": "Theorems extended", "value": "1" },
+    { "label": "CNC downtime reduced", "value": "10%" },
     { "label": "Diet Cokes consumed", "value": "∞" }
   ],
   "resume": {

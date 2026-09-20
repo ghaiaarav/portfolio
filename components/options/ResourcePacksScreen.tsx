@@ -1,78 +1,91 @@
 "use client";
 
 import McMenuScreen from "@/components/mc/McMenuScreen";
-import type { Portfolio } from "@/lib/portfolio";
-import Image from "next/image";
+import { useMcGui } from "@/components/mc/McGuiProvider";
+import { useMcSound } from "@/hooks/useMcSound";
+import { PACKS, type PackInfo } from "@/lib/packs";
+import { useMemo } from "react";
 
-function PackEntry({
-  name,
-  description,
-  icon = "📦",
-  image,
-  href,
-}: {
-  name: string;
-  description: string;
-  icon?: string;
-  image?: string;
-  href?: string;
-}) {
-  const content = (
-    <>
-      <div className="mc-resource-entry__icon">
-        {image ? (
-          <Image src={image} alt="" fill sizes="64px" />
-        ) : (
-          <span aria-hidden="true">{icon}</span>
-        )}
-      </div>
-      <div className="mc-resource-entry__text">
-        <div className="mc-resource-entry__name">{name}</div>
-        <div className="mc-resource-entry__desc">{description}</div>
-      </div>
-    </>
-  );
-  return href ? (
-    <a className="mc-resource-entry" href={href} target="_blank" rel="noopener noreferrer">
-      {content}
-    </a>
-  ) : <div className="mc-resource-entry">{content}</div>;
+function packDisplayName(item: PackInfo): string {
+  return item.id === "vanilla" ? "Default" : item.name;
 }
 
-export default function ResourcePacksScreen({
-  resources,
+function PackEntry({
+  item,
+  direction,
+  disabled,
+  onTransfer,
 }: {
-  resources: Portfolio["resources"];
+  item: PackInfo;
+  direction: "in" | "out";
+  disabled?: boolean;
+  onTransfer: () => void;
 }) {
-  const kinds = [...new Set(resources.map((resource) => resource.kind))];
   return (
-    <McMenuScreen title="Research Library" doneHref="/options" wide>
-      <div className="mc-resource-columns">
+    <div className="mc-resource-entry mc-pack-entry">
+      <div className="mc-resource-entry__icon">
+        <img src={item.icon} alt="" width={58} height={44} />
+        <button
+          type="button"
+          className={`mc-pack-transfer mc-pack-transfer--${direction}`}
+          disabled={disabled}
+          aria-label={direction === "in" ? `Select ${packDisplayName(item)}` : `Remove ${packDisplayName(item)}`}
+          onClick={onTransfer}
+        />
+      </div>
+      <div className="mc-resource-entry__text">
+        <div className="mc-resource-entry__name">{packDisplayName(item)}</div>
+        <div className="mc-resource-entry__desc">{item.description}</div>
+      </div>
+    </div>
+  );
+}
+
+export default function ResourcePacksScreen() {
+  const { pack, applyPack, packLoading } = useMcGui();
+  const { playClick } = useMcSound();
+  const available = useMemo(() => PACKS.filter((item) => item.id !== pack), [pack]);
+  const selectedPack = PACKS.find((item) => item.id === pack) ?? PACKS[0];
+
+  const transferIn = (id: PackInfo["id"]) => {
+    if (packLoading || id === pack) return;
+    playClick();
+    applyPack(id);
+  };
+
+  const transferOut = () => {
+    if (packLoading || pack === "vanilla") return;
+    playClick();
+    applyPack("vanilla");
+  };
+
+  return (
+    <McMenuScreen title="Select Resource Packs" doneHref="/options" wide>
+      <div className="mc-resource-columns mc-resource-columns--packs">
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Shelves</div>
+          <div className="mc-resource-column__title">Available Resource Packs</div>
           <div className="mc-resource-column__list">
-            {kinds.map((kind) => (
+            {available.map((item) => (
               <PackEntry
-                key={kind}
-                icon="▤"
-                name={kind}
-                description={`${resources.filter((resource) => resource.kind === kind).length} resource(s)`}
+                key={item.id}
+                item={item}
+                direction="in"
+                disabled={packLoading}
+                onTransfer={() => transferIn(item.id)}
               />
             ))}
           </div>
         </div>
+
         <div className="mc-resource-column">
-          <div className="mc-resource-column__title">Available Downloads & Links</div>
+          <div className="mc-resource-column__title">Selected Resource Packs</div>
           <div className="mc-resource-column__list">
-            {resources.map((resource) => (
-              <PackEntry
-                key={resource.id}
-                image={resource.imageUrl}
-                name={resource.title}
-                description={`${resource.kind} · ${resource.description}`}
-                href={resource.url}
-              />
-            ))}
+            <PackEntry
+              item={selectedPack}
+              direction="out"
+              disabled={packLoading || selectedPack.id === "vanilla"}
+              onTransfer={transferOut}
+            />
           </div>
         </div>
       </div>

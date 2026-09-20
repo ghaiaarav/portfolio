@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ExternalConfirmProvider from "@/components/ExternalConfirmProvider";
 import McGuiProvider from "@/components/mc/McGuiProvider";
 import PanoramaBackground from "@/components/PanoramaBackground";
 import EasterEggProvider from "@/components/easter-eggs/EasterEggProvider";
@@ -36,15 +37,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${minecraftia.variable} ${minecrafterAlt.variable}`}>
       <body>
         <McGuiProvider>
-          <EasterEggProvider>
-            <SettingsEggWatcher />
-            <PanoramaBackground />
-            <div className="page-content">{children}</div>
-            <footer className="mc-footer">
-              <span>Portfolio v1.1</span>
-              <span>© 2026 Aarav Ghai</span>
-            </footer>
-          </EasterEggProvider>
+          <ExternalConfirmProvider>
+            <EasterEggProvider>
+              <SettingsEggWatcher />
+              <PanoramaBackground />
+              <div className="page-content">{children}</div>
+              <footer className="mc-footer">
+                <span>Portfolio v1.1</span>
+                <span>© 2026 Aarav Ghai</span>
+              </footer>
+            </EasterEggProvider>
+          </ExternalConfirmProvider>
         </McGuiProvider>
       </body>
     </html>
