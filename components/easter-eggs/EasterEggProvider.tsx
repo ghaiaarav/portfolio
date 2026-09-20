@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useMcGui } from "@/components/mc/McGuiProvider";
 import {
   ADVANCEMENTS,
@@ -13,7 +12,7 @@ import {
   type AdvancementFrame,
   type DiscoveryId,
 } from "@/lib/discoveries";
-import { KONAMI_KEYS, KONAMI_SWIPES, nextSequenceIndex, swipeDirection } from "@/lib/konami";
+import { KONAMI_IDLE_MS, KONAMI_KEYS, KONAMI_SWIPES, classifyFlick, isKonamiIgnoredTarget, nextSequenceIndex } from "@/lib/konami";
 import {
   createContext,
   useCallback,
@@ -56,7 +55,6 @@ export function useEasterEggs() {
 
 export default function EasterEggProvider({ children }: { children: ReactNode }) {
   const { showToasts } = useMcGui();
-  const pathname = usePathname();
   const [found, setFound] = useState<DiscoveryId[]>([]);
   const [toast, setToast] = useState<AdvancementToast | null>(null);
 
@@ -117,47 +115,73 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
   }, [discover]);
 
   useEffect(() => {
-    if (pathname !== "/") return;
     let swipePos = 0;
     let tapsLeft = 0;
     let startX = 0;
     let startY = 0;
+    let startScrollY = 0;
+    let startTime = 0;
+    let idleTimer = 0;
+    let ignored = false;
+
+    const clearIdle = () => {
+      if (idleTimer) window.clearTimeout(idleTimer);
+      idleTimer = 0;
+    };
+
+    const bumpIdle = () => {
+      clearIdle();
+      idleTimer = window.setTimeout(() => {
+        swipePos = 0;
+        tapsLeft = 0;
+      }, KONAMI_IDLE_MS);
+    };
 
     const onTouchStart = (event: TouchEvent) => {
       const touch = event.changedTouches[0];
       if (!touch) return;
+      ignored = isKonamiIgnoredTarget(event.target);
       startX = touch.clientX;
       startY = touch.clientY;
+      startScrollY = window.scrollY;
+      startTime = event.timeStamp;
     };
 
     const onTouchEnd = (event: TouchEvent) => {
+      if (ignored) return;
       const touch = event.changedTouches[0];
       if (!touch) return;
-      const dir = swipeDirection(touch.clientX - startX, touch.clientY - startY);
+      const dir = classifyFlick(
+        touch.clientX - startX,
+        touch.clientY - startY,
+        event.timeStamp - startTime,
+        window.scrollY - startScrollY
+      );
       if (!dir) {
         if (swipePos === KONAMI_SWIPES.length && tapsLeft > 0) {
           tapsLeft -= 1;
+          bumpIdle();
           if (tapsLeft === 0) {
             discover("konami");
             swipePos = 0;
+            clearIdle();
           }
-        } else {
-          swipePos = 0;
-          tapsLeft = 0;
         }
         return;
       }
       swipePos = nextSequenceIndex(swipePos, dir, KONAMI_SWIPES);
       tapsLeft = swipePos === KONAMI_SWIPES.length ? 2 : 0;
+      bumpIdle();
     };
 
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
+      clearIdle();
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
     };
-  }, [discover, pathname]);
+  }, [discover]);
 
   const value = useMemo(
     () => ({

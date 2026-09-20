@@ -392,6 +392,16 @@ html[data-theme="dark"] .panorama-wrap {
   width: 100%;
 }
 
+.menu-buttons__row .mc-button-wrap {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+}
+
+.menu-buttons__row .mc-button-wrap .mc-button:not(.mc-button--quarter) {
+  width: 100%;
+}
+
 .menu-buttons__row--split {
   justify-content: flex-start;
   align-items: center;
@@ -612,12 +622,18 @@ html[data-theme="dark"] .panorama-wrap {
 }
 
 .mc-fov-slider__label {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-family: var(--mc-font);
   font-size: 18px;
   color: #fff;
   text-shadow: 2px 2px 0 #3f3f3f;
   pointer-events: none;
   z-index: 1;
+  text-align: center;
 }
 
 .mc-fov-slider__handle {
@@ -2536,20 +2552,30 @@ html[data-reduced-motion="true"] * {
     transform-origin: 0% 100%;
   }
 
+  .menu-column {
+    order: 1;
+  }
+
   .home-player {
-    top: 118px;
-    right: 4px;
-    width: 96px;
+    position: relative;
+    top: auto;
+    right: auto;
+    order: 2;
+    width: 100%;
+    margin-top: 18px;
   }
 
   .home-player__canvas {
-    width: 96px;
-    height: 144px;
+    display: block;
+    width: 160px;
+    height: 240px;
+    margin: 0 auto;
   }
 
   .home-player__fallback {
-    width: 54px;
-    height: 54px;
+    width: 72px;
+    height: 72px;
+    margin: 0 auto;
   }
 
   .menu-column,
@@ -2571,8 +2597,7 @@ html[data-reduced-motion="true"] * {
     font-size: 17px;
   }
 
-  .mc-button,
-  .mc-fov-slider__label {
+  .mc-button {
     min-height: 44px;
     padding-inline: 6px;
     font-size: 13px;
@@ -2585,9 +2610,12 @@ html[data-reduced-motion="true"] * {
     font-size: 12px;
   }
 
-  .mc-fov-slider__track {
-    min-height: 48px;
-    touch-action: none;
+  .mc-fov-slider__label {
+    font-size: 13px;
+  }
+
+  .mc-pack-transfer:not(:disabled) {
+    opacity: 1;
   }
 
   .mc-contact-grid,
@@ -2808,9 +2836,13 @@ html[data-reduced-motion="true"] * {
   padding: 0;
   border: 0;
   opacity: 0;
-  background: rgba(0, 0, 0, 0.38) url("/textures/vanilla/pack-arrow-right.png") center / 28px 28px no-repeat;
+  background: rgba(0, 0, 0, 0.38) url("/textures/vanilla/pack-arrow-left.png") center / 28px 28px no-repeat;
   image-rendering: pixelated;
   cursor: pointer;
+}
+
+.mc-pack-transfer--in {
+  background-image: url("/textures/vanilla/pack-arrow-right.png");
 }
 
 .mc-pack-transfer--out {
@@ -2818,8 +2850,15 @@ html[data-reduced-motion="true"] * {
 }
 
 .mc-pack-entry:hover .mc-pack-transfer:not(:disabled),
-.mc-pack-entry:focus-within .mc-pack-transfer:not(:disabled) {
+.mc-pack-entry:focus-within .mc-pack-transfer:not(:disabled),
+.mc-pack-transfer:active:not(:disabled) {
   opacity: 1;
+}
+
+@media (hover: none) {
+  .mc-pack-transfer:not(:disabled) {
+    opacity: 1;
+  }
 }
 
 .mc-pack-transfer:disabled {

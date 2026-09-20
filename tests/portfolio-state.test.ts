@@ -8,7 +8,7 @@ import {
 import { parseMenuOrigin, originHref } from "../lib/menuNavigation.ts";
 import { createRefreshSchedule } from "../lib/multiplayerRefresh.ts";
 import { needsExternalConfirm } from "../lib/externalLinks.ts";
-import { KONAMI_SWIPES, nextSequenceIndex, swipeDirection } from "../lib/konami.ts";
+import { KONAMI_SWIPES, classifyFlick, isKonamiIgnoredTarget, nextSequenceIndex, swipeDirection } from "../lib/konami.ts";
 import { loreForCommit } from "../lib/logLore.ts";
 import { isPackId, panoramaFolder } from "../lib/packs.ts";
 import {
@@ -89,6 +89,15 @@ test("konami swipe helper reads directions and sequence", () => {
   assert.equal(swipeDirection(2, 2), null);
   assert.equal(nextSequenceIndex(0, "up", KONAMI_SWIPES), 1);
   assert.equal(nextSequenceIndex(1, "left", KONAMI_SWIPES), 0);
+});
+
+test("konami flicks ignore scroll, slow pans, and control targets", () => {
+  assert.equal(classifyFlick(0, -80, 180, 0), "up");
+  assert.equal(classifyFlick(90, 10, 200, 0), "right");
+  assert.equal(classifyFlick(0, -80, 180, 12), null);
+  assert.equal(classifyFlick(0, -80, 900, 0), null);
+  assert.equal(classifyFlick(2, 2, 120, 0), null);
+  assert.equal(isKonamiIgnoredTarget(null), false);
 });
 
 test("external confirm covers http and pdf, not mailto", () => {
