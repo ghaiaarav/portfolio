@@ -268,7 +268,7 @@ function ProjectRow({
       tabIndex={0}
     >
       <div className="mc-select-row__icon mc-select-row__icon--world">
-        <Image src={project.imageUrl} alt="" fill sizes="54px" />
+        <Image src={project.imageUrl} alt="" fill sizes="54px" style={{ objectFit: "contain" }} />
       </div>
       <div className="mc-select-row__main">
         <div className="mc-select-row__title">{displayName}</div>

@@ -3,7 +3,7 @@ import { getPortfolio } from "@/lib/portfolio";
 import { parseMenuOrigin } from "@/lib/menuNavigation";
 import type { Metadata } from "next";
 
-export const metadata: Metadata = { title: "Photos & Videos" };
+export const metadata: Metadata = { title: "Photos" };
 
 export default async function GalleryPage({
   searchParams,

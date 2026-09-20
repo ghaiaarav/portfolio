@@ -4,11 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:fresh": "node scripts/clean-next.mjs && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "test": "node --test --experimental-strip-types tests/*.test.ts",
-    "generate-assets": "node scripts/generate-assets.mjs"
+    "generate-assets": "node scripts/generate-assets.mjs",
+    "generate-packs": "node scripts/generate-packs.mjs",
+    "generate-ui-icons": "node scripts/generate-ui-icons.mjs"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

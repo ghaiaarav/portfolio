@@ -5,10 +5,21 @@ import { useCallback, useEffect, useRef } from "react";
 const POOL_SIZE = 4;
 const MUTE_KEY = "mc-sound-muted";
 const CLICK_SRC = "/sounds/click.ogg";
+const THUNDER_SRC = "/sounds/thunder.wav";
 
 let pool: HTMLAudioElement[] | null = null;
 let poolIndex = 0;
 let unlocked = false;
+let thunder: HTMLAudioElement | null = null;
+
+function getThunder() {
+  if (!thunder) {
+    thunder = new Audio(THUNDER_SRC);
+    thunder.preload = "auto";
+    thunder.volume = 0.7;
+  }
+  return thunder;
+}
 
 function getPool(): HTMLAudioElement[] {
   if (!pool) {
@@ -35,6 +46,7 @@ function playFromPool() {
 export function preloadMcClick() {
   if (typeof window === "undefined") return;
   getPool();
+  getThunder();
 }
 
 export function useMcSound() {
@@ -65,7 +77,16 @@ export function useMcSound() {
     playFromPool();
   }, [unlock]);
 
-  return { playClick, unlock };
+  const playThunder = useCallback(() => {
+    if (typeof window === "undefined") return;
+    if (localStorage.getItem(MUTE_KEY) === "true") return;
+    unlock();
+    const audio = getThunder();
+    audio.currentTime = 0;
+    void audio.play().catch(() => {});
+  }, [unlock]);
+
+  return { playClick, playThunder, unlock };
 }
 
 export function playMcClick() {

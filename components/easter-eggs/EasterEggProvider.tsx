@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useMcGui } from "@/components/mc/McGuiProvider";
 import {
   ADVANCEMENTS,
@@ -12,6 +13,7 @@ import {
   type AdvancementFrame,
   type DiscoveryId,
 } from "@/lib/discoveries";
+import { KONAMI_KEYS, KONAMI_SWIPES, nextSequenceIndex, swipeDirection } from "@/lib/konami";
 import {
   createContext,
   useCallback,
@@ -26,7 +28,6 @@ export { DISCOVERY_IDS };
 export type { DiscoveryId };
 
 const STORAGE_KEY = "mc-discoveries";
-const KONAMI = ["ArrowUp", "ArrowUp", "ArrowDown", "ArrowDown", "ArrowLeft", "ArrowRight", "ArrowLeft", "ArrowRight", "b", "a"];
 
 type AdvancementToast = {
   header: string;
@@ -55,6 +56,7 @@ export function useEasterEggs() {
 
 export default function EasterEggProvider({ children }: { children: ReactNode }) {
   const { showToasts } = useMcGui();
+  const pathname = usePathname();
   const [found, setFound] = useState<DiscoveryId[]>([]);
   const [toast, setToast] = useState<AdvancementToast | null>(null);
 
@@ -85,8 +87,8 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
             : advancement.header,
         name: already ? advancement.name : complete ? CHALLENGE_COMPLETE.name : advancement.name,
         status: already
-          ? `Already found · ${next.length}/${DISCOVERY_IDS.length}`
-          : `${next.length}/${DISCOVERY_IDS.length} discovered · ${remaining} left`,
+          ? `${next.length}/${DISCOVERY_IDS.length}`
+          : `${next.length}/${DISCOVERY_IDS.length}`,
         already,
         link: complete,
       });
@@ -104,8 +106,8 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
     let position = 0;
     const onKeyDown = (event: KeyboardEvent) => {
       const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
-      position = key === KONAMI[position] ? position + 1 : key === KONAMI[0] ? 1 : 0;
-      if (position === KONAMI.length) {
+      position = nextSequenceIndex(position, key, KONAMI_KEYS);
+      if (position === KONAMI_KEYS.length) {
         discover("konami");
         position = 0;
       }
@@ -113,6 +115,49 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [discover]);
+
+  useEffect(() => {
+    if (pathname !== "/") return;
+    let swipePos = 0;
+    let tapsLeft = 0;
+    let startX = 0;
+    let startY = 0;
+
+    const onTouchStart = (event: TouchEvent) => {
+      const touch = event.changedTouches[0];
+      if (!touch) return;
+      startX = touch.clientX;
+      startY = touch.clientY;
+    };
+
+    const onTouchEnd = (event: TouchEvent) => {
+      const touch = event.changedTouches[0];
+      if (!touch) return;
+      const dir = swipeDirection(touch.clientX - startX, touch.clientY - startY);
+      if (!dir) {
+        if (swipePos === KONAMI_SWIPES.length && tapsLeft > 0) {
+          tapsLeft -= 1;
+          if (tapsLeft === 0) {
+            discover("konami");
+            swipePos = 0;
+          }
+        } else {
+          swipePos = 0;
+          tapsLeft = 0;
+        }
+        return;
+      }
+      swipePos = nextSequenceIndex(swipePos, dir, KONAMI_SWIPES);
+      tapsLeft = swipePos === KONAMI_SWIPES.length ? 2 : 0;
+    };
+
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [discover, pathname]);
 
   const value = useMemo(
     () => ({
@@ -128,8 +173,11 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
     <EggContext.Provider value={value}>
       {children}
       {toast && showToasts && (
-        <aside className={`mc-advancement-toast mc-advancement-toast--${toast.frame}${toast.already ? " mc-advancement-toast--already" : ""}`} role="status">
-          <div className="mc-advancement-toast__icon" aria-hidden="true">
+        <aside
+          className={`mc-advancement-toast mc-advancement-toast--${toast.frame}${toast.already ? " mc-advancement-toast--already" : ""}`}
+          role="status"
+        >
+          <div className="mc-advancement-toast__slot" aria-hidden="true">
             <img src={toast.icon} alt="" width={32} height={32} />
           </div>
           <div className="mc-advancement-toast__body">

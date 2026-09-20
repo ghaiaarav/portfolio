@@ -1,5 +1,6 @@
 "use client";
 
+import { isPackId, type PackId } from "@/lib/packs";
 import { usePathname, useRouter } from "next/navigation";
 import {
   createContext,
@@ -13,6 +14,7 @@ import {
 
 const FOV_KEY = "mc-fov";
 const THEME_KEY = "mc-theme";
+const PACK_KEY = "mc-resource-pack";
 const ACCESSIBILITY_KEY = "mc-accessibility";
 const MUTE_KEY = "mc-sound-muted";
 const DEFAULT_FOV = 70;
@@ -48,6 +50,9 @@ type McGuiContextValue = {
   setFov: (value: number) => void;
   darkMode: boolean;
   toggleDarkMode: () => void;
+  pack: PackId;
+  applyPack: (value: PackId) => void;
+  packLoading: boolean;
   guiScale: "small" | "normal" | "large";
   setGuiScale: (value: "small" | "normal" | "large") => void;
   highContrast: boolean;
@@ -80,6 +85,9 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [fov, setFovState] = useState(DEFAULT_FOV);
   const [darkMode, setDarkMode] = useState(false);
+  const [pack, setPack] = useState<PackId>("vanilla");
+  const [packLoading, setPackLoading] = useState(false);
+  const [pendingPack, setPendingPack] = useState<PackId | null>(null);
   const [guiScale, setGuiScale] = useState<"small" | "normal" | "large">("normal");
   const [highContrast, setHighContrast] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
@@ -96,6 +104,13 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       }
     }
     setDarkMode(localStorage.getItem(THEME_KEY) === "dark");
+    const storedPack = localStorage.getItem(PACK_KEY);
+    if (isPackId(storedPack)) {
+      setPack(storedPack);
+      document.documentElement.dataset.pack = storedPack;
+    } else {
+      document.documentElement.dataset.pack = "vanilla";
+    }
     setSoundMutedState(localStorage.getItem(MUTE_KEY) === "true");
     try {
       const accessibility = JSON.parse(localStorage.getItem(ACCESSIBILITY_KEY) ?? "{}");
@@ -121,6 +136,23 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
   }, [darkMode]);
+
+  useEffect(() => {
+    document.documentElement.dataset.pack = pack;
+  }, [pack]);
+
+  useEffect(() => {
+    if (!packLoading || !pendingPack) return;
+    const delay = reducedMotion ? 200 : 1400;
+    const timer = window.setTimeout(() => {
+      setPack(pendingPack);
+      localStorage.setItem(PACK_KEY, pendingPack);
+      document.documentElement.dataset.pack = pendingPack;
+      setPendingPack(null);
+      setPackLoading(false);
+    }, delay);
+    return () => window.clearTimeout(timer);
+  }, [packLoading, pendingPack, reducedMotion]);
 
   useEffect(() => {
     document.documentElement.dataset.guiScale = guiScale;
@@ -162,6 +194,15 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const applyPack = useCallback(
+    (value: PackId) => {
+      if (value === pack || packLoading) return;
+      setPendingPack(value);
+      setPackLoading(true);
+    },
+    [pack, packLoading]
+  );
+
   const setSoundMuted = useCallback((value: boolean) => {
     setSoundMutedState(value);
     localStorage.setItem(MUTE_KEY, String(value));
@@ -192,6 +233,9 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       setFov,
       darkMode,
       toggleDarkMode,
+      pack,
+      applyPack,
+      packLoading,
       guiScale,
       setGuiScale: applyGuiScale,
       highContrast,
@@ -207,10 +251,22 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       stackDepth: stack.length,
     }),
     [
-      fov, setFov, darkMode, toggleDarkMode, guiScale, applyGuiScale, highContrast, reducedMotion,
-      soundMuted, setSoundMuted, showToasts, goBack, parentPath, stack.length,
+      fov, setFov, darkMode, toggleDarkMode, pack, applyPack, packLoading, guiScale, applyGuiScale,
+      highContrast, reducedMotion, soundMuted, setSoundMuted, showToasts, goBack, parentPath, stack.length,
     ]
   );
 
-  return <McGuiContext.Provider value={value}>{children}</McGuiContext.Provider>;
+  return (
+    <McGuiContext.Provider value={value}>
+      {children}
+      {packLoading && (
+        <div className="pack-loading" role="status" aria-live="polite">
+          <p className="pack-loading__label">Loading resource pack</p>
+          <div className="pack-loading__track">
+            <div className={`pack-loading__fill${reducedMotion ? " pack-loading__fill--instant" : ""}`} />
+          </div>
+        </div>
+      )}
+    </McGuiContext.Provider>
+  );
 }

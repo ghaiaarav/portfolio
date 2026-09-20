@@ -7,6 +7,10 @@ import {
 } from "../lib/discoveries.ts";
 import { parseMenuOrigin, originHref } from "../lib/menuNavigation.ts";
 import { createRefreshSchedule } from "../lib/multiplayerRefresh.ts";
+import { needsExternalConfirm } from "../lib/externalLinks.ts";
+import { KONAMI_SWIPES, nextSequenceIndex, swipeDirection } from "../lib/konami.ts";
+import { loreForCommit } from "../lib/logLore.ts";
+import { isPackId, panoramaFolder } from "../lib/packs.ts";
 import {
   hideProject,
   pushUndo,
@@ -63,4 +67,33 @@ test("project undo walks back every hide and rename, not only the last one", () 
   const afterLowla = undoLast(afterRiot.stack, afterRiot.names, afterRiot.hidden);
   assert.deepEqual(afterLowla.hidden, []);
   assert.equal(afterLowla.restoredId, "lowla");
+});
+
+test("resource packs stay allowlisted and pick a night cubemap only for vanilla", () => {
+  assert.equal(isPackId("beach"), true);
+  assert.equal(isPackId("loosh"), false);
+  assert.equal(panoramaFolder("vanilla", true), "panorama-night");
+  assert.equal(panoramaFolder("nether", true), "panorama-nether");
+  assert.equal(panoramaFolder("end", false), "panorama-end");
+});
+
+test("commit lore stays display-only and typed", () => {
+  assert.equal(loreForCommit("Fix type error on Vercel").icon, "torch");
+  assert.equal(loreForCommit("Add authentic Minecraft menu stack").icon, "map");
+  assert.match(loreForCommit("Random tweak").lore, /world ticked forward/i);
+});
+
+test("konami swipe helper reads directions and sequence", () => {
+  assert.equal(swipeDirection(0, -80), "up");
+  assert.equal(swipeDirection(90, 10), "right");
+  assert.equal(swipeDirection(2, 2), null);
+  assert.equal(nextSequenceIndex(0, "up", KONAMI_SWIPES), 1);
+  assert.equal(nextSequenceIndex(1, "left", KONAMI_SWIPES), 0);
+});
+
+test("external confirm covers http and pdf, not mailto", () => {
+  assert.equal(needsExternalConfirm("https://github.com/ghaiaarav"), true);
+  assert.equal(needsExternalConfirm("/resume.pdf"), true);
+  assert.equal(needsExternalConfirm("mailto:aaravghai2@gmail.com"), false);
+  assert.equal(needsExternalConfirm("/options"), false);
 });

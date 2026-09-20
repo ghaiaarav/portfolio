@@ -17,35 +17,45 @@ type Experience = Portfolio["experience"][number];
 
 const GENERAL_MEDIA: GalleryItem[] = [
   {
-    src: "/avatar.png",
-    title: "Portrait",
-    blurb: "notsaywhat, the current main look. Click around the site the same way you'd click around a world.",
+    src: "/gallery/01-parents.jpg",
+    title: "My parents",
+    blurb: "The best company there can be!",
   },
   {
-    src: "/resource-packs/mathematics.jpg",
-    title: "Research",
-    blurb: "Topology, graphs, and the notebooks that turn into papers. NSF-funded work lives here.",
+    src: "/gallery/02-minecraft-homies.jpg",
+    title: "Minecraft with the homies",
+    blurb: "Moments before disaster by phantom.",
   },
   {
-    src: "/resource-packs/computer-science.jpg",
-    title: "Projects",
-    blurb: "LowLa, RIOT, telemetry tools, and the rest of the shipped worlds from Singleplayer.",
+    src: "/gallery/03-redbull-showrun.jpg",
+    title: "@ the SF Red Bull showrun",
+    blurb: "We saw Yuki Tsunoda on fire (literally)!",
   },
   {
-    src: "/activities/music/piano.jpg",
-    title: "Piano",
-    blurb: "Ballade No. 1 is in progress. Liebestraum No. 3 already made it onto the splash texts.",
+    src: "/gallery/04-research-poster.jpg",
+    title: "Dabbling in research",
+    blurb: "Who knew space was kinda big?",
   },
   {
-    src: "/activities/travel/knoxville.jpg",
-    title: "Travel",
-    blurb: "Knoxville, summer 2025: Standard Precision Bellows, predictive maintenance, and Diet Coke.",
+    src: "/gallery/05-meal-prep.jpg",
+    title: "Weekly meal-prep",
+    blurb: "Always iterating!",
   },
   {
-    src: "/activities/sciravens.webp",
-    title: "Side Quests",
-    blurb: "A leftover photograph from a side quest. Some pictures are just pictures. This one isn't.",
+    src: "/gallery/06-oscar.jpg",
+    title: "Oscar the dog",
+    blurb: "Upside-down greetings!",
     egg: true,
+  },
+  {
+    src: "/gallery/07-volunteering.jpg",
+    title: "Volunteering",
+    blurb: "Giving back to the community :)",
+  },
+  {
+    src: "/gallery/08-gym.png",
+    title: "Pumping Iron",
+    blurb: "Highschool gym sessions..",
   },
 ];
 
@@ -83,7 +93,7 @@ export default function GalleryScreen({
 
   return (
     <McMenuScreen
-      title={experience ? `${experience.company} Media` : "Photos & Videos"}
+      title={experience ? `${experience.company} Media` : "Photos"}
       doneHref={originHref(origin)}
       wide
     >
@@ -91,13 +101,13 @@ export default function GalleryScreen({
         <p className="mc-gallery__intro">
           {experience
             ? "Click a still to open it full-screen. Personal photos can replace these placeholders."
-            : "Click a photo to open a larger view and a short caption. One of them is not like the others."}
+            : "Click a photo to open a larger view and a short caption."}
         </p>
         <div className="mc-gallery__grid">
           {media.map((item, index) => (
             <button
               type="button"
-              className="mc-gallery__slot"
+              className={`mc-gallery__slot${item.egg ? " mc-gallery__slot--egg" : ""}`}
               key={`${item.src}-${item.title}`}
               onClick={() => openItem(item)}
             >
@@ -107,14 +117,6 @@ export default function GalleryScreen({
               </span>
             </button>
           ))}
-          {!experience && <div className="mc-gallery__slot mc-gallery__slot--video">
-            <span className="mc-gallery__placeholder" aria-hidden="true">▶</span>
-            <span>Video · Featured</span>
-          </div>}
-          {!experience && <div className="mc-gallery__slot mc-gallery__slot--video">
-            <span className="mc-gallery__placeholder" aria-hidden="true">▶</span>
-            <span>Video · More</span>
-          </div>}
         </div>
       </div>
       {open && (

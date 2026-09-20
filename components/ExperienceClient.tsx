@@ -78,7 +78,11 @@ export default function ExperienceClient({
                 Join Server
               </button>
             </span>
-            <McOptionButton href="/options/contact?origin=experience" label="Direct Connect" ellipsis={false} />
+            <span className="mc-button-wrap">
+              <button type="button" className="mc-button mc-button--half mc-button--disabled" disabled>
+                Direct Connect
+              </button>
+            </span>
             <McOptionButton href="/options?attention=contact&origin=experience" label="Add Server" ellipsis={false} />
           </div>
           <div className="menu-buttons__row menu-buttons__row--quad">
@@ -133,7 +137,7 @@ export default function ExperienceClient({
             tabIndex={0}
           >
             <div className="mc-select-row__icon mc-select-row__icon--server">
-              <Image src={exp.imageUrl} alt="" fill sizes="54px" />
+              <Image src={exp.imageUrl} alt="" fill sizes="54px" style={{ objectFit: "contain" }} />
             </div>
             <div className="mc-select-row__main">
               <div className="mc-select-row__title">{exp.company}</div>
@@ -188,7 +192,16 @@ export default function ExperienceClient({
         </div>
       )}
 
-      <p className="mc-select-scan">{scanStatus}</p>
+      <div className="mc-select-scan-wrap">
+        <p className="mc-select-scan">{scanStatus}</p>
+        {/scanning|pinging/i.test(scanStatus) && (
+          <div className="mc-select-scan__bubbles" aria-hidden="true">
+            <span className="mc-select-scan__bubble mc-select-scan__bubble--0" />
+            <span className="mc-select-scan__bubble mc-select-scan__bubble--1" />
+            <span className="mc-select-scan__bubble mc-select-scan__bubble--2" />
+          </div>
+        )}
+      </div>
     </McSelectScreen>
   );
 }

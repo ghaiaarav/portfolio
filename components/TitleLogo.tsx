@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 const DEPTH_LAYERS = [
   { depth: 18, color: "#111111" },
   { depth: 14, color: "#242323" },
@@ -6,7 +8,7 @@ const DEPTH_LAYERS = [
   { depth: 2, color: "#716c6a" },
 ];
 
-export default function TitleLogo() {
+export default function TitleLogo({ children }: { children?: ReactNode }) {
   return (
     <div className="title-logo-wrap">
       <h1 className="title-logo" aria-label="Aarav Ghai">
@@ -18,12 +20,12 @@ export default function TitleLogo() {
         >
           <defs>
             <linearGradient id="logo-face" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="#f2efed" />
-              <stop offset="43%" stopColor="#d3cecc" />
-              <stop offset="49%" stopColor="#9d9896" />
-              <stop offset="52%" stopColor="#d8d4d2" />
-              <stop offset="75%" stopColor="#aaa5a3" />
-              <stop offset="100%" stopColor="#777270" />
+              <stop offset="0%" stopColor="var(--mc-logo-highlight)" />
+              <stop offset="43%" stopColor="var(--mc-logo-body)" />
+              <stop offset="49%" stopColor="var(--mc-logo-shadow)" />
+              <stop offset="52%" stopColor="var(--mc-logo-highlight)" />
+              <stop offset="75%" stopColor="var(--mc-logo-body)" />
+              <stop offset="100%" stopColor="var(--mc-logo-shadow)" />
             </linearGradient>
           </defs>
 
@@ -60,6 +62,7 @@ export default function TitleLogo() {
           </g>
         </svg>
       </h1>
+      {children}
     </div>
   );
 }

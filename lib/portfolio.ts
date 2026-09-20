@@ -44,9 +44,14 @@ export function getPortfolio(): Portfolio {
   return portfolioData as Portfolio;
 }
 
-export function getSongOfDay() {
-  const today = new Date().toISOString().slice(0, 10);
-  const songs = portfolioData.homeWidgets.songOfDay;
-  const match = songs.find((s) => s.date === today);
-  return match ?? songs[0];
+export function getFavouriteSong() {
+  const song = portfolioData.homeWidgets.favouriteSong;
+  if (!song?.title) return null;
+  return song;
+}
+
+export function getRecentMovie() {
+  const movies = portfolioData.homeWidgets.recentMovies;
+  if (!movies.length) return null;
+  return movies[movies.length - 1];
 }

@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { useExternalConfirmOptional } from "@/components/ExternalConfirmProvider";
+import { needsExternalConfirm } from "@/lib/externalLinks";
 import { useMcSound } from "@/hooks/useMcSound";
 import { type MouseEvent, type ReactNode, useState } from "react";
 
@@ -24,7 +26,9 @@ export default function McButton({
   children,
 }: McButtonProps) {
   const { playClick } = useMcSound();
+  const confirm = useExternalConfirmOptional();
   const [pressed, setPressed] = useState(false);
+  const confirmHref = external || needsExternalConfirm(href);
 
   const handlePointerDown = () => {
     playClick();
@@ -35,8 +39,12 @@ export default function McButton({
   const handlePointerLeave = () => setPressed(false);
 
   const handleClick = (e: MouseEvent) => {
+    if (confirmHref && confirm) {
+      e.preventDefault();
+      confirm.requestExternal(href);
+      return;
+    }
     onClick?.();
-    if (external) return;
   };
 
   const className = `mc-button ${size === "half" ? "mc-button--half" : ""} ${pressed ? "mc-button--pressed" : ""}`;
@@ -45,15 +53,13 @@ export default function McButton({
     <span className="mc-button__label">{labelDefault}</span>
   );
 
-  if (external) {
+  if (confirmHref) {
     return (
       <span className="mc-button-wrap">
         <a
           href={href}
           className={className}
           aria-label={`${labelDefault}: ${labelHover}`}
-          target="_blank"
-          rel="noopener noreferrer"
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerLeave={handlePointerLeave}
@@ -123,17 +129,26 @@ export function McSmallButton({
   onClick?: () => void;
 }) {
   const { playClick } = useMcSound();
+  const confirm = useExternalConfirmOptional();
+  const confirmHref = Boolean(href && (external || needsExternalConfirm(href)));
 
   const props = {
     className: "mc-small-btn",
     onPointerDown: () => playClick(),
-    onClick,
+    onClick: (event: MouseEvent<HTMLElement>) => {
+      if (confirmHref && href && confirm) {
+        event.preventDefault();
+        confirm.requestExternal(href);
+        return;
+      }
+      onClick?.();
+    },
   };
 
   if (href) {
-    if (external) {
+    if (confirmHref) {
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+        <a href={href} {...props}>
           {children}
         </a>
       );
