@@ -5,6 +5,7 @@ import PanoramaBackground from "@/components/PanoramaBackground";
 import EasterEggProvider from "@/components/easter-eggs/EasterEggProvider";
 import SettingsEggWatcher from "@/components/easter-eggs/SettingsEggWatcher";
 import { minecraftia, minecrafterAlt } from "@/lib/fonts";
+import { getPortfolio } from "@/lib/portfolio";
 import "@/styles/minecraft.css";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { version } = getPortfolio();
   return (
     <html lang="en" className={`${minecraftia.variable} ${minecrafterAlt.variable}`}>
       <body>
@@ -43,7 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <PanoramaBackground />
               <div className="page-content">{children}</div>
               <footer className="mc-footer">
-                <span>Portfolio v1.1</span>
+                <span>{version}</span>
                 <span>© 2026 Aarav Ghai</span>
               </footer>
             </EasterEggProvider>
