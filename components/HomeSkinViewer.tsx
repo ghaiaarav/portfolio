@@ -26,8 +26,13 @@ function hasWebGL() {
 
 function viewerSize() {
   if (typeof window === "undefined") return { width: 240, height: 360, mobile: false };
-  const mobile = window.matchMedia("(max-width: 900px)").matches;
-  return mobile ? { width: 128, height: 192, mobile: true } : { width: 240, height: 360, mobile: false };
+  if (window.matchMedia("(max-width: 600px)").matches) {
+    return { width: 160, height: 240, mobile: true };
+  }
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    return { width: 128, height: 192, mobile: true };
+  }
+  return { width: 240, height: 360, mobile: false };
 }
 
 export default function HomeSkinViewer() {

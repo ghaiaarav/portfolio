@@ -53,15 +53,6 @@ export default function ExperienceClient({
     }, schedule.hiddenAt));
   };
 
-  const joinSelected = () => {
-    if (!selected) return;
-    if (selected === "__hidden") {
-      discover("server");
-      return;
-    }
-    router.push(`/options/gallery?experience=${encodeURIComponent(selected)}&origin=experience`);
-  };
-
   return (
     <McSelectScreen
       title="Play Multiplayer"
@@ -69,13 +60,8 @@ export default function ExperienceClient({
         <div className="mc-select-screen__actions">
           <div className="menu-buttons__row">
             <span className="mc-button-wrap">
-              <button
-                type="button"
-                className={`mc-button mc-button--half ${selected ? "" : "mc-button--disabled"}`}
-                disabled={!selected}
-                onClick={joinSelected}
-              >
-                Join Server
+              <button type="button" className="mc-button mc-button--half mc-button--disabled" disabled>
+                Feature TBA
               </button>
             </span>
             <span className="mc-button-wrap">
