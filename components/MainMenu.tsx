@@ -25,7 +25,7 @@ export default function MainMenu() {
             <GlobeButton href={resume.url} />
             <McButton href="/options" labelDefault="Options..." labelHover="About" size="half" />
             <McButton
-              href="https://??????.com (not a virus!)"
+              href="https://www.youtube.com/watch?v=xvFZjo5PgG0"
               labelDefault="Surprise Me!"
               labelHover="Click if you dare"
               size="half"
