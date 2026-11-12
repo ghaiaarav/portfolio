@@ -4,11 +4,12 @@ import { ConfirmLink } from "@/components/ExternalConfirmProvider";
 import { McTab } from "@/components/McButton";
 import PixelIcon from "@/components/PixelIcon";
 import McMenuScreen from "@/components/mc/McMenuScreen";
+import type { ActivityTab } from "@/lib/activityTabs";
 import type { Portfolio } from "@/lib/portfolio";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 
-type Tab = "reading" | "music" | "movies" | "travel" | "sideQuests";
+type Tab = ActivityTab;
 
 const QUEST_VISUALS: Record<string, { src: string; alt: string; contain?: boolean }> = {
   "hypixel-skyblock": {
@@ -27,10 +28,11 @@ const READING_VISUALS: Record<string, string> = {
   "Nonlinear Dynamics and Chaos": "/activities/reading/nonlinear-dynamics.jpg",
   "The Trachtenberg Speed System of Basic Mathematics": "/activities/reading/trachtenberg.jpg",
   "The Republic": "/activities/reading/republic.jpg",
-  "Topology NOW!": "/activities/reading/topological-manifolds.jpg",
-  "Algebraic Topology": "/resource-packs/mathematics.jpg",
+  "Topology NOW!": "/activities/reading/topology-now.jpg",
+  "Algebraic Topology": "/activities/reading/algebraic-topology.jpg",
   Discourses: "/activities/reading/discourses.jpg",
-  "The Art and Craft of Problem Solving": "/activities/reading/trachtenberg.jpg",
+  "The Art and Craft of Problem Solving": "/activities/reading/art-craft-problem-solving.jpg",
+  "A Collection of Dice Problems": "/activities/reading/dice-problems.png",
 };
 
 const MUSIC_VISUALS: Record<string, string> = {
@@ -49,7 +51,7 @@ const MOVIE_VISUALS: Record<string, string> = {
 function ActivityThumbnail({ src, alt, poster }: { src?: string; alt: string; poster?: boolean }) {
   return (
     <span className={`mc-row__thumbnail${poster ? " mc-row__thumbnail--poster" : ""}`}>
-      {src ? <Image src={src} alt={alt} fill sizes={poster ? "48px" : "64px"} unoptimized /> : <span aria-hidden="true">▣</span>}
+      {src ? <Image src={src} alt={alt} fill sizes={poster ? "48px" : "64px"} unoptimized /> : <span aria-hidden="true">?</span>}
     </span>
   );
 }
@@ -70,6 +72,7 @@ const STATUS_LABEL: Record<Portfolio["activities"]["reading"][number]["status"],
 
 const PIECE_STATUS: Record<NonNullable<Portfolio["activities"]["music"][number]["status"]>, string> = {
   learning: "learning",
+  preparing: "performing next semester",
   planned: "up next",
   recorded: "recorded",
   "coming-soon": "videos coming soon",
@@ -89,12 +92,13 @@ export default function ActivitiesClient({
   const [tab, setTab] = useState<Tab>(initialTab);
   const [expandedQuest, setExpandedQuest] = useState<string | null>(null);
 
+  // Side Quests is the default screen, so it comes first.
   const tabs: { id: Tab; label: string }[] = [
+    { id: "sideQuests", label: "Side Quests" },
     { id: "reading", label: "Reading" },
     { id: "music", label: "Music" },
-    { id: "movies", label: "Movies" },
+    { id: "movies", label: "Movies & Shows" },
     { id: "travel", label: "Travel" },
-    { id: "sideQuests", label: "Side Quests" },
   ];
 
   const reading = useMemo(
@@ -180,7 +184,14 @@ export default function ActivitiesClient({
                   {m.title}
                 </div>
                 <div className="mc-row__sub">
-                  d. {m.director}, {m.year}
+                  {/* TODO: add shows (Aarav) */}
+                  {m.kind === "show"
+                    ? m.creator
+                      ? `${m.creator}, ${m.year}`
+                      : `${m.year}`
+                    : m.director
+                      ? `d. ${m.director}, ${m.year}`
+                      : `${m.year}`}
                 </div>
               </div>
             </div>
@@ -240,7 +251,7 @@ export default function ActivitiesClient({
                       <strong>{quest.title}</strong>
                       <span>{quest.achievement}</span>
                       <span className="side-quest-card__prompt">
-                        {expanded ? "Close details" : "Open details"} ▸
+                        {expanded ? "Close details ←" : "Open details →"}
                       </span>
                     </span>
                   </button>

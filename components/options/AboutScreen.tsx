@@ -60,14 +60,22 @@ export default function AboutScreen({ data }: { data: Portfolio }) {
             )}
             {recentMovie && (
               <p className="news-widget__line">
-                <span className="news-widget__label">Recent movie: </span>
-                {recentMovie.title} (d. {recentMovie.director}, {recentMovie.year})
+                <span className="news-widget__label">Recently watched: </span>
+                {recentMovie.title} (
+                {recentMovie.kind === "show"
+                  ? recentMovie.creator
+                    ? `${recentMovie.creator}, ${recentMovie.year}`
+                    : `${recentMovie.year}`
+                  : recentMovie.director
+                    ? `d. ${recentMovie.director}, ${recentMovie.year}`
+                    : `${recentMovie.year}`}
+                )
               </p>
             )}
             {favouriteSong && (
               <p className="news-widget__line">
                 <span className="news-widget__label">Favourite song: </span>
-                <em>{favouriteSong.title}</em> — {favouriteSong.artist}
+                <em>{favouriteSong.title}</em> · {favouriteSong.artist}
               </p>
             )}
           </div>

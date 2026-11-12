@@ -194,12 +194,7 @@ async function copyLogos() {
   await squareLogo(find("bdd26584"), join(iconDir, "linkedin.png"));
   await squareLogo(find("b63b9015"), join(iconDir, "github.png"));
   await squareLogo(find("2cebaecf"), join(iconDir, "phone.png"));
-  await squareLogo(find("6119dbf4"), join(destDir, "devpost.png"));
-  await squareLogo(find("4f4aef24"), join(destDir, "wordpress.png"));
-  await squareLogo(find("cce568ee"), join(destDir, "f1.png"), { bg: { r: 17, g: 18, b: 24, alpha: 255 } });
-  await squareLogo(find("97946857"), join(destDir, "torus.png"), { knockoutWhite: true });
-  await squareLogo(find("216e353e"), join(destDir, "solar.png"));
-  await squareLogo(find("c7904faa"), join(destDir, "acm.png"));
+  // World/Server logos are now drawn by scripts/generate-pixel-art.mjs.
 }
 
 async function fetchBuffer(url) {

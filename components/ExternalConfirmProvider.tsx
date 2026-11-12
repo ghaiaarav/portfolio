@@ -6,6 +6,8 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
+  useRef,
   useState,
   type MouseEvent,
   type ReactNode,
@@ -30,10 +32,29 @@ export function useExternalConfirmOptional() {
 export default function ExternalConfirmProvider({ children }: { children: ReactNode }) {
   const { playClick } = useMcSound();
   const [url, setUrl] = useState<string | null>(null);
+  const cancelRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   const requestExternal = useCallback((next: string) => {
+    returnFocusRef.current = document.activeElement as HTMLElement | null;
     setUrl(next);
   }, []);
+
+  useEffect(() => {
+    if (!url) return;
+    // Move focus into the dialog (the safe choice) and let Escape dismiss it.
+    cancelRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setUrl(null);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      returnFocusRef.current?.focus?.();
+    };
+  }, [url]);
 
   return (
     <ConfirmContext.Provider value={{ requestExternal }}>
@@ -53,17 +74,20 @@ export default function ExternalConfirmProvider({ children }: { children: ReactN
                 <a
                   href={url}
                   className="mc-button mc-button--half"
-                  onPointerDown={() => playClick()}
+                  onClick={() => playClick()}
                 >
                   Proceed
                 </a>
               </span>
               <span className="mc-button-wrap">
                 <button
+                  ref={cancelRef}
                   type="button"
                   className="mc-button mc-button--half"
-                  onPointerDown={() => playClick()}
-                  onClick={() => setUrl(null)}
+                  onClick={() => {
+                    playClick();
+                    setUrl(null);
+                  }}
                 >
                   Don&apos;t
                 </button>

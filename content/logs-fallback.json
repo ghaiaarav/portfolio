@@ -1,5 +1,35 @@
 [
   {
+    "hash": "3aa9c11",
+    "date": "2026-09-27",
+    "message": "Point Surprise Me at a rickroll and bump to v1.41hf."
+  },
+  {
+    "hash": "8469d0e",
+    "date": "2026-09-20",
+    "message": "Fix phone menu layout and Konami swipes, then bump to v1.4hf."
+  },
+  {
+    "hash": "29996d8",
+    "date": "2026-09-20",
+    "message": "Bump the on-screen portfolio version to v1.3."
+  },
+  {
+    "hash": "8c041fc",
+    "date": "2026-09-20",
+    "message": "Ship real panoramas, photos, and pixel logos for the Minecraft portfolio."
+  },
+  {
+    "hash": "a86ee54",
+    "date": "2026-09-17",
+    "message": "Fix HomeSkinViewer name type so production builds succeed."
+  },
+  {
+    "hash": "0b8f288",
+    "date": "2026-09-17",
+    "message": "Make the Minecraft menus fully playable with discoveries, local world actions, and Steve skin variants."
+  },
+  {
     "hash": "f2d522b",
     "date": "2026-09-16",
     "message": "Build Minecraft portfolio interface"
@@ -8,5 +38,10 @@
     "hash": "802f076",
     "date": "2026-09-16",
     "message": "Add authentic Minecraft menu stack"
+  },
+  {
+    "hash": "eb31b3a",
+    "date": "2026-09-09",
+    "message": "Initial Minecraft-themed portfolio with nested menu UI and resume content."
   }
 ]

@@ -2,7 +2,7 @@
 
 A Minecraft-themed personal portfolio.
 
-**Live site:** [aaravghai.com](https://aaravghai.com)
+**Live site:** [aaravghai.com](https://www.aaravghai.com) (canonical URL lives in `lib/site.ts`)
 
 ## Features
 
@@ -23,3 +23,7 @@ A Minecraft-themed personal portfolio.
 | Click sound | Replace `public/sounds/click.ogg` |
 | Blog posts | `content/blog/*.mdx` |
 | Resume PDF | Replace `public/resume.pdf` |
+| Skills screen (skills, coursework, honors, resources) | `content/portfolio.json` → `skills[]`, `education[]`, `honors[]`, `resources[]` |
+| Pixel-art logos, Server stills, pack art, book covers | `node scripts/generate-pixel-art.mjs` (writes into `public/`) |
+| Panorama faces | `public/panorama*/0-5.webp` (keep them around 1024px WebP; they render blurred) |
+| Social preview / favicon | `app/opengraph-image.png`, `app/icon.png`, `app/apple-icon.png` |

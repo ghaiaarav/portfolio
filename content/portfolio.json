@@ -1,8 +1,9 @@
 {
   "name": "Aarav Ghai",
   "tagline": "Math · Physics · Computer Science",
-  "version": "Portfolio v1.41hf",
+  "version": "Portfolio v1.42",
   "splashTexts": [
+    "I use Arch BTW!",
     "Also try stochastic processes!",
     "Also try Wingstop!",
     "Mostly harmless!",
@@ -43,7 +44,7 @@
     "Mwoah. - Kimi Raikkonen!",
     "Smooth Operatoooor!",
     "Applied Mathematics!",
-    "GPA 3.9!",
+    "GPA 3.85!",
     "Classical pianist!",
     "Liebestraume No. 3!",
     "Predictive maintenance!",
@@ -67,19 +68,30 @@
   ],
   "homeWidgets": {
     "recentNews": {
-      "text": "Learning Chopin's Ballade No. 1; performance coming soon",
-      "url": "/activities"
+      "text": "Preparing Liszt's Liebestraum No. 3 for a performance next semester",
+      "url": "/activities?tab=music"
     },
     "currentlyReading": [
-      { "title": "The Psychology of Money", "author": "Morgan Housel" }
+      {
+        "title": "A Collection of Dice Problems",
+        "author": "Matthew M. Conroy"
+      },
+      {
+        "title": "The Psychology of Money",
+        "author": "Morgan Housel"
+      }
     ],
     "recentMovies": [
-      { "title": "Interstellar", "director": "Christopher Nolan", "year": 2014 }
+      {
+        "title": "Interstellar",
+        "director": "Christopher Nolan",
+        "year": 2014
+      }
     ],
     "musicRecs": [
       {
-        "album": "Ballade No. 1 in G minor",
-        "artist": "Chopin; currently learning",
+        "album": "Liebestraum No. 3 in A-flat major",
+        "artist": "Liszt; performing next semester",
         "url": ""
       }
     ],
@@ -91,29 +103,68 @@
   },
   "activities": {
     "reading": [
-      { "title": "The Psychology of Money", "author": "Morgan Housel", "status": "reading", "category": "self-help" },
-      { "title": "Nonlinear Dynamics and Chaos", "author": "Steven Strogatz", "status": "reading", "category": "math" },
-      { "title": "The Trachtenberg Speed System of Basic Mathematics", "author": "Cutler & McShane", "status": "reading", "category": "math" },
-      { "title": "The Republic", "author": "Plato", "status": "reading", "category": "philosophy" },
-      { "title": "Topology NOW!", "author": "Messer & Straffin", "status": "finished", "category": "math" },
-      { "title": "Algebraic Topology", "author": "Allen Hatcher", "status": "finished", "category": "math" },
-      { "title": "Discourses", "author": "Epictetus", "status": "finished", "category": "philosophy" },
-      { "title": "The Art and Craft of Problem Solving", "author": "Paul Zeitz", "status": "finished", "category": "math" }
+      {
+        "title": "A Collection of Dice Problems",
+        "author": "Matthew M. Conroy",
+        "status": "reading",
+        "category": "math"
+      },
+      {
+        "title": "The Psychology of Money",
+        "author": "Morgan Housel",
+        "status": "reading",
+        "category": "self-help"
+      },
+      {
+        "title": "Nonlinear Dynamics and Chaos",
+        "author": "Steven Strogatz",
+        "status": "reading",
+        "category": "math"
+      },
+      {
+        "title": "The Trachtenberg Speed System of Basic Mathematics",
+        "author": "Cutler & McShane",
+        "status": "reading",
+        "category": "math"
+      },
+      {
+        "title": "The Republic",
+        "author": "Plato",
+        "status": "reading",
+        "category": "philosophy"
+      },
+      {
+        "title": "Topology NOW!",
+        "author": "Messer & Straffin",
+        "status": "finished",
+        "category": "math"
+      },
+      {
+        "title": "Algebraic Topology",
+        "author": "Allen Hatcher",
+        "status": "finished",
+        "category": "math"
+      },
+      {
+        "title": "Discourses",
+        "author": "Epictetus",
+        "status": "finished",
+        "category": "philosophy"
+      },
+      {
+        "title": "The Art and Craft of Problem Solving",
+        "author": "Paul Zeitz",
+        "status": "finished",
+        "category": "math"
+      }
     ],
     "music": [
-      {
-        "album": "Ballade No. 1 in G minor, Op. 23",
-        "artist": "Frédéric Chopin",
-        "url": "",
-        "kind": "performance",
-        "status": "learning"
-      },
       {
         "album": "Liebestraum No. 3 in A-flat major",
         "artist": "Franz Liszt",
         "url": "",
         "kind": "performance",
-        "status": "planned"
+        "status": "preparing"
       }
     ],
     "movies": [
@@ -123,24 +174,32 @@
         "year": 2023
       },
       {
-        "title": "The Godfather", 
-        "director": "Francis Ford Coppola", 
+        "title": "The Godfather",
+        "director": "Francis Ford Coppola",
         "year": 1972
       },
       {
-        "title": "Seven", 
-        "director": "David Fincher", 
+        "title": "Seven",
+        "director": "David Fincher",
         "year": 1995
       },
       {
-        "title": "Interstellar", 
-        "director": "Christopher Nolan", 
+        "title": "Interstellar",
+        "director": "Christopher Nolan",
         "year": 2014
       }
     ],
     "travel": [
-      { "place": "Knoxville, TN", "date": "Summer 2025", "note": "SWE internship" },
-      { "place": "San Jose, CA", "date": "2024–2026", "note": "SJSU" }
+      {
+        "place": "Knoxville, TN",
+        "date": "Summer 2025",
+        "note": "SWE internship"
+      },
+      {
+        "place": "San Jose, CA",
+        "date": "2024-present",
+        "note": "SJSU"
+      }
     ],
     "sideQuests": [
       {
@@ -149,7 +208,13 @@
         "achievement": "Top ~100 networth",
         "period": "2019-2022",
         "description": "Reached top ~100 networth on Hypixel SkyBlock through auction house market making; spotting mispriced items, managing inventory and liquidity risk, and running high-volume flips at scale. Thousands of completed auctions and bids are still indexed on SkyCofl.",
-        "skills": ["market making", "arbitrage", "pricing", "inventory risk", "execution speed"],
+        "skills": [
+          "market making",
+          "arbitrage",
+          "pricing",
+          "inventory risk",
+          "execution speed"
+        ],
         "links": [
           {
             "label": "SkyCofl auction history",
@@ -161,28 +226,144 @@
         "id": "ftc-sciravens",
         "title": "SciRavens; FTC Team #23287",
         "achievement": "Mentor",
-        "period": "2023–present",
+        "period": "2023-present",
         "description": "Mentor for the SciRavens, a Bay Area FIRST Tech Challenge team. Over the past few seasons we've stacked up strong results, Design, Innovate, Reach and Inspire Awards and being finalists at the Roseville QT. I help the team with engineering judgment and strategy.",
-        "skills": ["CAD", "Engineering design", "Outreach", "Fundraising", "Kanban"],
+        "skills": [
+          "CAD",
+          "Engineering design",
+          "Outreach",
+          "Fundraising",
+          "Kanban"
+        ],
         "links": [
-          { "label": "SciRavens website", "url": "https://www.sciravens.org/" },
-          { "label": "FIRST team profile", "url": "https://ftc-events.firstinspires.org/team/23287" }
+          {
+            "label": "SciRavens website",
+            "url": "https://www.sciravens.org/"
+          },
+          {
+            "label": "FIRST team profile",
+            "url": "https://ftc-events.firstinspires.org/team/23287"
+          }
+        ]
+      },
+      {
+        "id": "smc",
+        "title": "Spartan Mathematics Club",
+        "achievement": "President",
+        "period": "2025–present",
+        "description": "Run SJSU's math club. Hosted \"Are You Smarter Than a Quarter?\" (AYSTAQ), led by Dr. Edgar Bering: true/false math questions pitted against a coin flip (heads = true), with about 15 attendees. Set up an official Tradermath × Spartan Mathematics Club partnership: co-branded live trading and market-making games, a member discount, and sponsored prizes for club competitions.",
+        "skills": [
+          "Event hosting",
+          "Partnerships",
+          "Leadership"
+        ],
+        "links": [
+          {
+            "label": "Tradermath",
+            "url": "https://www.tradermath.org/"
+          }
+        ]
+      },
+      {
+        "id": "no-limit",
+        "title": "No Limit Pokerbot Tournament (Sequoia)",
+        "achievement": "Competitor",
+        "period": "Nov 2026",
+        "description": "Built a poker bot with Devom Brahmbhatt for Sequoia Capital's first-ever No Limit Pokerbot Tournament, Bay Area Regional, at Sequoia's Menlo Park HQ.",
+        "skills": [
+          "Game theory",
+          "Bot design",
+          "Python"
         ]
       }
     ]
   },
   "honors": [
-    { "category": "Mathematics", "title": "SJSU SCRUGS Lab Research", "year": 2026, "detail": "NSF-funded combinatorial topology" },
-    { "category": "Physics", "title": "Galaxies + Star Clusters Lab", "year": 2025, "detail": "ML astrophysics research with Dr. Romanowsky" },
-    { "category": "Computer Science", "title": "ACM SIGCSE 2026 Publication", "year": 2026, "detail": "SEP Lab NLP research paper" },
-    { "category": "Computer Science", "title": "PERC 2026 / arXiv", "year": 2026, "detail": "RIOT classroom observation platform" },
-    { "category": "Leadership", "title": "Physics Club President", "year": 2025, "detail": "SJSU" },
-    { "category": "Leadership", "title": "Math Club President", "year": 2025, "detail": "SJSU" },
-    { "category": "Mentorship", "title": "SciRavens FTC Mentor", "year": 2025, "detail": "Team #23287; Design, Innovate, Reach & Inspire awards" },
-    { "category": "Other", "title": "Hypixel SkyBlock Top ~100 Networth", "year": 2022, "detail": "Auction house market maker; full history on SkyCofl" },
-    { "category": "Academic", "title": "President's List / 3.9 GPA", "year": 2025, "detail": "B.S. Applied Mathematics, SJSU" }
+    {
+      "category": "Mathematics",
+      "title": "SJSU SCRUGS Lab Research",
+      "year": 2026,
+      "detail": "NSF-funded combinatorial topology"
+    },
+    {
+      "category": "Physics",
+      "title": "Galaxies + Star Clusters Lab",
+      "year": 2025,
+      "detail": "ML astrophysics research with Dr. Romanowsky"
+    },
+    {
+      "category": "Computer Science",
+      "title": "ACM SIGCSE 2026 Publication",
+      "year": 2026,
+      "detail": "SEP Lab NLP research paper"
+    },
+    {
+      "category": "Computer Science",
+      "title": "PERC 2026 / arXiv",
+      "year": 2026,
+      "detail": "RIOT classroom observation platform"
+    },
+    {
+      "category": "Leadership",
+      "title": "Physics Club President",
+      "year": 2025,
+      "detail": "SJSU · 2025-present"
+    },
+    {
+      "category": "Leadership",
+      "title": "Math Club President",
+      "year": 2025,
+      "detail": "SJSU · 2025-present"
+    },
+    {
+      "category": "Mentorship",
+      "title": "SciRavens FTC Mentor",
+      "year": 2025,
+      "detail": "Team #23287; Design, Innovate, Reach & Inspire awards"
+    },
+    {
+      "category": "Other",
+      "title": "Hypixel SkyBlock Top ~100 Networth",
+      "year": 2022,
+      "detail": "Auction house market maker; full history on SkyCofl"
+    },
+    {
+      "category": "Academic",
+      "title": "President's List / 3.85 GPA",
+      "year": 2025,
+      "detail": "B.S. Applied Mathematics, SJSU"
+    },
+    {
+      "category": "Mathematics",
+      "title": "arXiv Preprint: Coloring graphs of homologous spheres",
+      "year": 2026,
+      "detail": "With E. A. Bering IV, S. Ford, M. Lyon, O. Shah"
+    },
+    {
+      "category": "Academic",
+      "title": "SJSU Alumni Association Scholarship",
+      "year": 2026,
+      "detail": "2026–27 award"
+    }
   ],
   "projects": [
+    {
+      "id": "cops-and-robbers",
+      "title": "Cops & Robbers on Graphs",
+      "type": "Solo",
+      "lastUpdated": "2026",
+      "scope": "Paper in progress",
+      "description": "Working on an open problem in pursuit-evasion games: how many cops does it take to guarantee catching a robber on a well-known family of graphs? Pairing hand-written proofs with exhaustive computer search over every game state. Paper in progress, Fall 2026.",
+      "tags": [
+        "Graph Theory",
+        "Game Theory",
+        "Combinatorics",
+        "Python",
+        "LaTeX"
+      ],
+      "imageUrl": "/logos/cops.png",
+      "demoUrl": "#"
+    },
     {
       "id": "lowla",
       "title": "LowLa",
@@ -190,10 +371,16 @@
       "lastUpdated": "2025",
       "scope": "Production",
       "description": "Self-learning voice assistant with embedding-based routing that reduces unnecessary LLM calls. Achieves sub-200ms latency through ChromaDB top-k retrieval and confidence-threshold fallback to LLM under low similarity.",
-      "tags": ["MiniLM", "ChromaDB", "Node.js", "Python", "Faster Whisper", "ElevenLabs"],
-      "imageUrl": "/logos/devpost.png",
+      "tags": [
+        "MiniLM",
+        "ChromaDB",
+        "Node.js",
+        "Python",
+        "Faster Whisper",
+        "ElevenLabs"
+      ],
+      "imageUrl": "/logos/lowla.png",
       "demoUrl": "https://devpost.com/software/lowla",
-      "githubUrl": "https://github.com/ghaiaarav",
       "featured": true
     },
     {
@@ -203,10 +390,16 @@
       "lastUpdated": "2026",
       "scope": "Research",
       "description": "Production-ready classroom observation platform deployed on Google App Engine. OAuth + PKCE auth, real-time interaction system, timeline visualizations. Paper accepted to PERC 2026 and uploaded to arXiv (NSF-funded).",
-      "tags": ["Python", "Flask", "AWS", "Azure", "GCP", "Bootstrap"],
-      "imageUrl": "/logos/wordpress.png",
-      "demoUrl": "https://arxiv.org/abs/2608.13740",
-      "githubUrl": "https://github.com/ghaiaarav"
+      "tags": [
+        "Python",
+        "Flask",
+        "AWS",
+        "Azure",
+        "GCP",
+        "Bootstrap"
+      ],
+      "imageUrl": "/logos/riot.png",
+      "demoUrl": "https://arxiv.org/abs/2608.13740"
     },
     {
       "id": "f1-telemetry",
@@ -215,13 +408,65 @@
       "lastUpdated": "2025",
       "scope": "Semester-long",
       "description": "Full-stack app detecting instability events and estimating lap-time loss from real F1 telemetry. FastAPI/React pipeline with adaptive percentile thresholds, correction-event detection, and interactive Plotly visualizations.",
-      "tags": ["FastAPI", "React", "TypeScript", "pandas", "NumPy", "Plotly"],
+      "tags": [
+        "FastAPI",
+        "React",
+        "TypeScript",
+        "pandas",
+        "NumPy",
+        "Plotly"
+      ],
       "imageUrl": "/logos/f1.png",
       "demoUrl": "https://github.com/ghaiaarav/F1-Telemetry-Explorer",
       "githubUrl": "https://github.com/ghaiaarav/F1-Telemetry-Explorer"
+    },
+    {
+      "id": "foldproof",
+      "title": "FoldProof",
+      "type": "Team",
+      "lastUpdated": "2026",
+      "scope": "Formal Methods",
+      "description": "Design a poker bot's personality, play heads-up Texas Hold'em against it in the browser, then get a chess.com-style review of your calls and folds. The game engine runs in Lean 4, and Lean proofs check the rules, the bot, and the river grade.",
+      "tags": [
+        "Lean 4",
+        "TypeScript",
+        "Node.js",
+        "Formal Verification"
+      ],
+      "imageUrl": "/logos/devpost.png",
+      "demoUrl": "https://github.com/DevomB/FoldProof",
+      "githubUrl": "https://github.com/DevomB/FoldProof"
     }
   ],
   "experience": [
+    {
+      "id": "peer-connections",
+      "company": "SJSU Peer Connections",
+      "role": "Lead Tutor",
+      "team": "Tutoring team",
+      "location": "San Jose, CA",
+      "dates": "Jan 2025 - Present",
+      "description": "Peer tutor since Jan 2025; Lead Tutor since Aug 2025, training and mentoring new tutors and running weekly tutor development workshops.",
+      "imageUrl": "/logos/acm.png",
+      "media": [
+        {
+          "type": "image",
+          "src": "/resource-packs/mathematics.png",
+          "title": "Peer Connections placeholder",
+          "blurb": "Tutoring and tutor training at SJSU Peer Connections."
+        }
+      ],
+      "bullets": [
+        "Tutor since Jan 2025; promoted to Lead Tutor in Aug 2025",
+        "Trained ~20 new tutors",
+        "Run weekly tutor development workshops"
+      ],
+      "tech": [
+        "Teaching",
+        "Mentorship",
+        "Leadership"
+      ]
+    },
     {
       "id": "scrugs",
       "company": "SJSU SCRUGS Lab",
@@ -232,14 +477,24 @@
       "description": "Translating surface topology theorems into higher-dimensional settings with Dr. Bering. NSF-funded selective research team.",
       "imageUrl": "/logos/torus.png",
       "media": [
-        { "type": "image", "src": "/resource-packs/mathematics.jpg", "title": "SCRUGS Lab placeholder", "blurb": "Higher-dimensional topology with Dr. Bering: curves, genus, and 3-manifolds, waiting for the real lab photos." }
+        {
+          "type": "image",
+          "src": "/media/scrugs.png",
+          "title": "SCRUGS Lab",
+          "blurb": "A summer with Dr. Bering in painting form: graphs drawn on surfaces, genus, and what those ideas become one dimension up."
+        }
       ],
       "bullets": [
         "Identified analogues of curves, genus, clique number, and chromatic number in higher dimensions",
         "Built rigorous arguments involving graph coloring, homology, and 3-manifold decompositions",
-        "Collaborated in a 4-person team to develop a generalized theorem framework"
+        "Collaborated in a 4-person team to develop a generalized theorem framework",
+        "Co-authored preprint \"Coloring graphs of homologous spheres\" (Bering, Ford, Ghai, Lyon, Shah), arXiv:2610.12347 [math.GT], Oct 2026"
       ],
-      "tech": ["LaTeX", "Graph Theory", "Topology"]
+      "tech": [
+        "LaTeX",
+        "Graph Theory",
+        "Topology"
+      ]
     },
     {
       "id": "galaxies",
@@ -251,14 +506,23 @@
       "description": "Estimating galaxy distances in the Euclid Deep Field North via ML and regression with Dr. Romanowsky.",
       "imageUrl": "/logos/solar.png",
       "media": [
-        { "type": "image", "src": "/resource-packs/physics.jpg", "title": "Astrophysics research placeholder", "blurb": "Galaxy-distance work from the Euclid Deep Field North. Rubin photometry goes here once the figures are in." }
+        {
+          "type": "image",
+          "src": "/media/galaxies.png",
+          "title": "Galaxies + Star Clusters Lab",
+          "blurb": "Estimating galaxy distances in the Euclid Deep Field North with machine learning, using newly released Rubin Observatory survey data."
+        }
       ],
       "bullets": [
-        "Worked with Vera C. Rubin Observatory photometric dataset for analysis",
+        "Processed newly released, large-scale survey data from the Vera C. Rubin Observatory",
         "Built Python/SQL pipelines for cleaning, modeling, and visualizing large datasets",
         "Culminated in research poster presentation"
       ],
-      "tech": ["Python", "SQL", "Machine Learning"]
+      "tech": [
+        "Python",
+        "SQL",
+        "Machine Learning"
+      ]
     },
     {
       "id": "standard-precision",
@@ -270,14 +534,25 @@
       "description": "Built predictive maintenance and analytics tooling for a precision metal bellows manufacturer.",
       "imageUrl": "/logos/mill.png",
       "media": [
-        { "type": "image", "src": "/resource-packs/data-tools.jpg", "title": "Engineering internship placeholder", "blurb": "Standard Precision Bellows, Knoxville: predictive maintenance models and the shop floor they watched." }
+        {
+          "type": "image",
+          "src": "/media/standard-precision.png",
+          "title": "Standard Precision Bellows",
+          "blurb": "The Knoxville shop floor: metal bellows on the line, and the predictive maintenance models watching for vibration spikes."
+        }
       ],
       "bullets": [
         "Built 2 predictive maintenance models, reducing machine downtime by 10%",
         "Optimized packaging processes (SQL, Excel); reduced defect-related rework",
         "Developed Tableau/Power BI dashboards for throughput and supply chain decisions"
       ],
-      "tech": ["Python", "SQL", "Tableau", "Power BI", "Excel"]
+      "tech": [
+        "Python",
+        "SQL",
+        "Tableau",
+        "Power BI",
+        "Excel"
+      ]
     },
     {
       "id": "sep-lab",
@@ -289,14 +564,24 @@
       "description": "NLP and clustering research on language-related learning patterns with Dr. Tshukudu. NSF-funded.",
       "imageUrl": "/logos/acm.png",
       "media": [
-        { "type": "image", "src": "/resource-packs/computer-science.jpg", "title": "SEP Lab placeholder", "blurb": "NLP clustering and SIGCSE 2026 figures. Swap this still for a lab photo when you have one." }
+        {
+          "type": "image",
+          "src": "/media/sep-lab.png",
+          "title": "SJSU SEP Lab",
+          "blurb": "NLP and k-means clustering on how students learn programming languages: the work behind a SIGCSE 2026 paper."
+        }
       ],
       "bullets": [
         "Applied NLP and k-clustering with sklearn to detect learning patterns",
         "Analyzed Likert data via t-tests (SPSS, Python); paper published to ACM SIGCSE 2026",
         "Implemented auto-scaling config with RESTful API for session recording and data management"
       ],
-      "tech": ["Python", "sklearn", "SPSS", "REST API"]
+      "tech": [
+        "Python",
+        "sklearn",
+        "SPSS",
+        "REST API"
+      ]
     }
   ],
   "openToWork": {
@@ -306,19 +591,50 @@
   "skills": [
     {
       "category": "Mathematics",
-      "items": ["Stochastic Processes", "Probability & Statistics", "Dynamical Systems", "Topology", "Graph Theory"]
+      "items": [
+        "Stochastic Processes",
+        "Probability & Statistics",
+        "Dynamical Systems",
+        "Topology",
+        "Graph Theory",
+        "Game Theory",
+        "Combinatorics"
+      ]
     },
     {
       "category": "Physics",
-      "items": ["Classical Mechanics", "Relativity", "Astrophysics", "Scientific Computing"]
+      "items": [
+        "Classical Mechanics",
+        "Relativity",
+        "Astrophysics",
+        "Scientific Computing"
+      ]
     },
     {
       "category": "Computer Science",
-      "items": ["Data Structures", "Operating Systems", "NLP", "Cryptography", "Machine Learning"]
+      "items": [
+        "Data Structures",
+        "Operating Systems",
+        "NLP",
+        "Cryptography",
+        "Machine Learning"
+      ]
     },
     {
       "category": "Data & Tools",
-      "items": ["Python", "ChromaDB", "Cusor", "Git", "Docker", "AWS", "GCP", "Azure", "LaTeX"]
+      "items": [
+        "Python",
+        "ChromaDB",
+        "Cursor",
+        "Git",
+        "Docker",
+        "AWS",
+        "GCP",
+        "Azure",
+        "LaTeX",
+        "Lean 4",
+        "Terminal / PowerShell agentic coding"
+      ]
     }
   ],
   "education": [
@@ -326,13 +642,18 @@
       "school": "San Jose State University",
       "degree": "B.S. Applied Mathematics",
       "dates": "Expected Spring 2028",
-      "gpa": "3.9",
+      "gpa": "3.85",
       "coursework": [
-        "Stochastic Processes",
-        "Data Structures & Algorithms",
-        "Dynamical Systems",
+        "Adv. Stochastic Processes",
+        "Adv. Dynamical Systems",
+        "Adv. Graph Theory",
+        "Adv. Data Structures & Algorithms",
         "Operating Systems",
-        "Probability & Statistics"
+        "Databases",
+        "Numerical Analysis",
+        "Probability Theory",
+        "Combinatorics",
+        "Linear Algebra"
       ]
     }
   ],
@@ -351,7 +672,7 @@
       "kind": "Paper",
       "description": "Development of the RIOT 2 for LA-supported classrooms",
       "url": "https://arxiv.org/abs/2608.13740",
-      "imageUrl": "/resource-packs/physics.jpg"
+      "imageUrl": "/logos/riot.png"
     },
     {
       "id": "lowla",
@@ -359,7 +680,7 @@
       "kind": "Project",
       "description": "Low-latency intent routing project and demo",
       "url": "https://devpost.com/software/lowla",
-      "imageUrl": "/resource-packs/computer-science.jpg"
+      "imageUrl": "/logos/lowla.png"
     },
     {
       "id": "f1-telemetry",
@@ -367,7 +688,23 @@
       "kind": "Repository",
       "description": "FastF1 telemetry analysis application",
       "url": "https://github.com/ghaiaarav/F1-Telemetry-Explorer",
-      "imageUrl": "/resource-packs/data-tools.jpg"
+      "imageUrl": "/logos/f1.png"
+    },
+    {
+      "id": "foldproof",
+      "title": "FoldProof",
+      "kind": "Repository",
+      "description": "Lean-verified heads-up Hold'em bot review",
+      "url": "https://github.com/DevomB/FoldProof",
+      "imageUrl": "/resource-packs/computer-science.png"
+    },
+    {
+      "id": "topology-paper",
+      "title": "Topology Preprint",
+      "kind": "Paper",
+      "description": "Coloring graphs of homologous spheres (arXiv:2610.12347)",
+      "url": "https://arxiv.org/abs/2610.12347",
+      "imageUrl": "/resource-packs/mathematics.png"
     }
   ],
   "about": {
@@ -383,28 +720,71 @@
     "phone": "(510) 714-7148",
     "linkedin": "https://linkedin.com/in/ghaiaarav",
     "github": "https://github.com/ghaiaarav",
-    "calendly": ""
+    "calendly": "",
+    "scholar": "https://scholar.google.com/citations?user=-fnGGHYAAAAJ"
   },
   "statistics": [
-    { "label": "GPA", "value": "3.9" },
-    { "label": "Graduate courses taken", "value": "2" },
-    { "label": "Papers published", "value": "4" },
-    { "label": "Projects shipped", "value": "3" },
-    { "label": "Daily hours on Cursor", "value": "6" },
-    { "label": "Clubs presided", "value": "2" },
-    { "label": "Zetamac score", "value": "70" },
-    { "label": "SkyBlock networth rank", "value": "96th" },
-    { "label": "Auctions flipped", "value": "55438" },
-    { "label": "Problem sets survived", "value": "100+" },
-    { "label": "F1 races watched", "value": "83" },
-    { "label": "Theorems extended", "value": "1" },
-    { "label": "CNC downtime reduced", "value": "10%" },
-    { "label": "Diet Cokes consumed", "value": "∞" }
+    {
+      "label": "GPA",
+      "value": "3.85"
+    },
+    {
+      "label": "Graduate courses taken",
+      "value": "2"
+    },
+    {
+      "label": "Papers published",
+      "value": "4"
+    },
+    {
+      "label": "Projects shipped",
+      "value": "4"
+    },
+    {
+      "label": "Daily hours in the terminal",
+      "value": "6"
+    },
+    {
+      "label": "Clubs presided",
+      "value": "2"
+    },
+    {
+      "label": "Zetamac score",
+      "value": "70"
+    },
+    {
+      "label": "SkyBlock networth rank",
+      "value": "96th"
+    },
+    {
+      "label": "Auctions flipped",
+      "value": "55438"
+    },
+    {
+      "label": "Problem sets survived",
+      "value": "100+"
+    },
+    {
+      "label": "F1 races watched",
+      "value": "88"
+    },
+    {
+      "label": "Theorems extended",
+      "value": "1"
+    },
+    {
+      "label": "CNC downtime reduced",
+      "value": "10%"
+    },
+    {
+      "label": "Diet Cokes consumed",
+      "value": "∞"
+    }
   ],
   "resume": {
     "url": "/resume.pdf",
-    "updated": "Sep 2025",
-    "preview": "B.S. Applied Mathematics at SJSU - research in astrophysics, topology, and CS; published at SIGCSE & PERC."
+    "updated": "Nov 2026",
+    "preview": "B.S. Applied Mathematics at SJSU - research in astrophysics, topology, and CS; published at SIGCSE & PERC; topology preprint on arXiv."
   },
   "links": []
 }

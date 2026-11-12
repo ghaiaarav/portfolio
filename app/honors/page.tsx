@@ -5,6 +5,6 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Skills" };
 
 export default function HonorsPage() {
-  const { resources } = getPortfolio();
-  return <SkillsScreen resources={resources} />;
+  const { skills, education, honors, resources } = getPortfolio();
+  return <SkillsScreen skills={skills} education={education} honors={honors} resources={resources} />;
 }

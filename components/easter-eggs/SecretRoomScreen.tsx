@@ -29,7 +29,7 @@ const ALBUM = [
 ] as const;
 
 export default function SecretRoomScreen() {
-  const { found, complete } = useEasterEggs();
+  const { found, complete, ready } = useEasterEggs();
   const { playClick } = useMcSound();
   const [open, setOpen] = useState<(typeof ALBUM)[number] | null>(null);
 
@@ -43,9 +43,9 @@ export default function SecretRoomScreen() {
   }, [open]);
 
   return (
-    <McMenuScreen title={complete ? "Secret Room" : "Locked Room"} doneHref="/" wide>
+    <McMenuScreen title={complete || !ready ? "Secret Room" : "Locked Room"} doneHref="/" wide>
       <div className="mc-secret-room">
-        {complete ? (
+        {!ready ? null : complete ? (
           <>
             <div className="mc-secret-credits">
               <h2>The Secret Room</h2>

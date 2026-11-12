@@ -30,15 +30,13 @@ export default function McButton({
   const [pressed, setPressed] = useState(false);
   const confirmHref = external || needsExternalConfirm(href);
 
-  const handlePointerDown = () => {
-    playClick();
-    setPressed(true);
-  };
+  const handlePointerDown = () => setPressed(true);
 
   const handlePointerUp = () => setPressed(false);
   const handlePointerLeave = () => setPressed(false);
 
   const handleClick = (e: MouseEvent) => {
+    playClick();
     if (confirmHref && confirm) {
       e.preventDefault();
       confirm.requestExternal(href);
@@ -104,13 +102,13 @@ export function McActionButton({ onClick, children, className = "" }: McActionBu
       type="button"
       className={`mc-button mc-button--half ${pressed ? "mc-button--pressed" : ""} ${className}`}
       style={{ width: "auto", minWidth: "120px" }}
-      onPointerDown={() => {
-        playClick();
-        setPressed(true);
-      }}
+      onPointerDown={() => setPressed(true)}
       onPointerUp={() => setPressed(false)}
       onPointerLeave={() => setPressed(false)}
-      onClick={onClick}
+      onClick={() => {
+        playClick();
+        onClick();
+      }}
     >
       {children}
     </button>
@@ -134,8 +132,8 @@ export function McSmallButton({
 
   const props = {
     className: "mc-small-btn",
-    onPointerDown: () => playClick(),
     onClick: (event: MouseEvent<HTMLElement>) => {
+      playClick();
       if (confirmHref && href && confirm) {
         event.preventDefault();
         confirm.requestExternal(href);
@@ -182,8 +180,11 @@ export function McTab({
     <button
       type="button"
       className={`mc-tab ${active ? "mc-tab--active" : ""}`}
-      onPointerDown={() => playClick()}
-      onClick={onClick}
+      aria-pressed={active}
+      onClick={() => {
+        playClick();
+        onClick();
+      }}
     >
       {children}
     </button>

@@ -16,6 +16,9 @@ export default function ContactScreen({ data, origin }: { data: Portfolio; origi
       : []),
     { icon: "map", label: "LinkedIn", value: "ghaiaarav", href: data.contact.linkedin },
     { icon: "pickaxe", label: "GitHub", value: "ghaiaarav", href: data.contact.github },
+    ...((data.contact as Record<string, string | undefined>).scholar
+      ? [{ icon: "book", label: "Google Scholar", value: "Aarav Ghai", href: (data.contact as Record<string, string>).scholar }]
+      : []),
     ...(data.contact.calendly
       ? [{ icon: "clock", label: "Book a call", value: "Choose a time", href: data.contact.calendly }]
       : []),
@@ -42,7 +45,7 @@ export default function ContactScreen({ data, origin }: { data: Portfolio; origi
             );
           }
           return (
-            <a key={row.href} href={row.href} className="mc-contact-card" onPointerDown={playClick}>
+            <a key={row.href} href={row.href} className="mc-contact-card" onClick={() => playClick()}>
               {body}
             </a>
           );

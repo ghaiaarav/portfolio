@@ -1,5 +1,6 @@
 "use client";
 
+import { stepsBackTo, trailAfterBack } from "@/lib/menuNavigation";
 import { isPackId, type PackId } from "@/lib/packs";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -8,6 +9,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from "react";
@@ -27,15 +29,6 @@ export function fovLabel(fov: number): string {
   return String(fov);
 }
 
-export function fovToPerspective(fov: number): number {
-  const t = (fov - MIN_FOV) / (MAX_FOV - MIN_FOV);
-  return Math.round(160 - t * 98);
-}
-
-export function fovToZoom(fov: number): number {
-  const t = (fov - MIN_FOV) / (MAX_FOV - MIN_FOV);
-  return Number((1.55 - t * 0.52).toFixed(3));
-}
 
 export function getParentPath(path: string): string {
   const clean = path.split("?")[0].replace(/\/$/, "") || "/";
@@ -64,6 +57,8 @@ type McGuiContextValue = {
   showToasts: boolean;
   setShowToasts: (value: boolean) => void;
   goBack: () => void;
+  /** Leave the current menu for `href`, popping history when `href` is the page we just came from. */
+  navigateBack: (href: string) => void;
   parentPath: string;
   stackDepth: number;
 };
@@ -94,6 +89,50 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
   const [soundMuted, setSoundMutedState] = useState(false);
   const [showToasts, setShowToasts] = useState(true);
   const [stack, setStack] = useState<string[]>(["/"]);
+  // Pathnames of the history entries behind this one (see stepsBackTo).
+  // Reset whenever the browser moves through history on its own, because then
+  // we no longer know which entries sit behind us.
+  const trailRef = useRef<string[]>([]);
+  const currentPathRef = useRef(pathname);
+  const pendingBackStepsRef = useRef(0);
+  const skipNextPathRef = useRef(false);
+
+  useEffect(() => {
+    // Escape acts like the screen's Done/Cancel button, as the Accessibility
+    // screen promises. Open dialogs handle Escape themselves first.
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.repeat || event.defaultPrevented) return;
+      if (document.querySelector('[role="dialog"], [aria-modal="true"]')) return;
+      const target = event.target as HTMLElement | null;
+      if (target?.closest("input, textarea, select, [contenteditable='true']")) return;
+      const doneButtons = document.querySelectorAll<HTMLButtonElement>("button[data-mc-done]:not(:disabled)");
+      doneButtons[doneButtons.length - 1]?.click();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
+    const onPopState = () => {
+      const steps = pendingBackStepsRef.current;
+      pendingBackStepsRef.current = 0;
+      trailRef.current = steps > 0 ? trailAfterBack(trailRef.current, steps) : [];
+      // The pathname effect below must not record this move as a push.
+      skipNextPathRef.current = window.location.pathname !== currentPathRef.current;
+    };
+    window.addEventListener("popstate", onPopState);
+    return () => window.removeEventListener("popstate", onPopState);
+  }, []);
+
+  useEffect(() => {
+    if (pathname === currentPathRef.current) return;
+    if (skipNextPathRef.current) {
+      skipNextPathRef.current = false;
+    } else {
+      trailRef.current = [...trailRef.current, currentPathRef.current];
+    }
+    currentPathRef.current = pathname;
+  }, [pathname]);
 
   useEffect(() => {
     const stored = localStorage.getItem(FOV_KEY);
@@ -124,14 +163,6 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       localStorage.removeItem(ACCESSIBILITY_KEY);
     }
   }, []);
-
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      "--panorama-perspective",
-      `${fovToPerspective(fov)}vmax`
-    );
-    document.documentElement.style.setProperty("--panorama-zoom", String(fovToZoom(fov)));
-  }, [fov]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = darkMode ? "dark" : "light";
@@ -215,17 +246,25 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
     setGuiScale(value);
   }, []);
 
-  const goBack = useCallback(() => {
-    setStack((prev) => {
-      if (prev.length <= 1) {
-        router.push("/");
-        return prev;
+  const navigateBack = useCallback(
+    (href: string) => {
+      // A back navigation is already in flight (double click, held key).
+      if (pendingBackStepsRef.current > 0) return;
+      const steps = stepsBackTo(trailRef.current, href);
+      if (steps) {
+        pendingBackStepsRef.current = steps;
+        if (steps === 1) router.back();
+        else window.history.go(-steps);
+      } else {
+        router.push(href);
       }
-      const next = prev.slice(0, -1);
-      router.push(next[next.length - 1] ?? "/");
-      return next;
-    });
-  }, [router]);
+    },
+    [router]
+  );
+
+  const goBack = useCallback(() => {
+    navigateBack(stack.length > 1 ? stack[stack.length - 2] ?? "/" : "/");
+  }, [navigateBack, stack]);
 
   const value = useMemo(
     () => ({
@@ -247,12 +286,13 @@ export default function McGuiProvider({ children }: { children: ReactNode }) {
       showToasts,
       setShowToasts,
       goBack,
+      navigateBack,
       parentPath,
       stackDepth: stack.length,
     }),
     [
       fov, setFov, darkMode, toggleDarkMode, pack, applyPack, packLoading, guiScale, applyGuiScale,
-      highContrast, reducedMotion, soundMuted, setSoundMuted, showToasts, goBack, parentPath, stack.length,
+      highContrast, reducedMotion, soundMuted, setSoundMuted, showToasts, goBack, navigateBack, parentPath, stack.length,
     ]
   );
 

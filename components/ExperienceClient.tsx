@@ -1,6 +1,7 @@
 "use client";
 
 import McDoneButton from "@/components/mc/McDoneButton";
+import { activateOnKey } from "@/lib/a11y";
 import McOptionButton from "@/components/mc/McOptionButton";
 import McSelectScreen from "@/components/mc/McSelectScreen";
 import { useEasterEggs } from "@/components/easter-eggs/EasterEggProvider";
@@ -92,7 +93,7 @@ export default function ExperienceClient({
           role="button"
           tabIndex={0}
           onClick={() => router.push("/options?attention=contact&origin=experience")}
-          onKeyDown={(event) => event.key === "Enter" && router.push("/options?attention=contact&origin=experience")}
+          onKeyDown={activateOnKey}
         >
           <div className="mc-select-row__icon mc-select-row__icon--add" aria-hidden="true">
             +
@@ -113,17 +114,12 @@ export default function ExperienceClient({
               setSelected(exp.id);
               setExpanded(expanded === exp.id ? null : exp.id);
             }}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                setSelected(exp.id);
-                setExpanded(expanded === exp.id ? null : exp.id);
-              }
-            }}
+            onKeyDown={activateOnKey}
             role="button"
             tabIndex={0}
           >
             <div className="mc-select-row__icon mc-select-row__icon--server">
-              <Image src={exp.imageUrl} alt="" fill sizes="54px" style={{ objectFit: "contain" }} />
+              <Image src={exp.imageUrl} alt="" fill sizes="54px" unoptimized style={{ objectFit: "contain" }} />
             </div>
             <div className="mc-select-row__main">
               <div className="mc-select-row__title">{exp.company}</div>
@@ -162,12 +158,7 @@ export default function ExperienceClient({
             setSelected("__hidden");
             discover("server");
           }}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              setSelected("__hidden");
-              discover("server");
-            }
-          }}
+          onKeyDown={activateOnKey}
         >
           <div className="mc-select-row__icon mc-select-row__icon--mystery" aria-hidden="true">?</div>
           <div className="mc-select-row__main">
