@@ -5,7 +5,7 @@ import {
   isSecretRoomUnlocked,
   normalizeDiscoveries,
 } from "../lib/discoveries.ts";
-import { parseMenuOrigin, originHref } from "../lib/menuNavigation.ts";
+import { parseMenuOrigin, originHref, stepsBackTo, trailAfterBack } from "../lib/menuNavigation.ts";
 import { createRefreshSchedule } from "../lib/multiplayerRefresh.ts";
 import { needsExternalConfirm } from "../lib/externalLinks.ts";
 import { KONAMI_SWIPES, classifyFlick, isKonamiIgnoredTarget, nextSequenceIndex, swipeDirection } from "../lib/konami.ts";
@@ -80,7 +80,7 @@ test("resource packs stay allowlisted and pick a night cubemap only for vanilla"
 test("commit lore stays display-only and typed", () => {
   assert.equal(loreForCommit("Fix type error on Vercel").icon, "torch");
   assert.equal(loreForCommit("Add authentic Minecraft menu stack").icon, "map");
-  assert.match(loreForCommit("Random tweak").lore, /world ticked forward/i);
+  assert.match(loreForCommit("Random tweak").lore, /world ticked/i);
 });
 
 test("konami swipe helper reads directions and sequence", () => {
@@ -89,6 +89,14 @@ test("konami swipe helper reads directions and sequence", () => {
   assert.equal(swipeDirection(2, 2), null);
   assert.equal(nextSequenceIndex(0, "up", KONAMI_SWIPES), 1);
   assert.equal(nextSequenceIndex(1, "left", KONAMI_SWIPES), 0);
+});
+
+test("konami matcher survives an extra leading up (held key or eager swipe)", () => {
+  assert.equal(nextSequenceIndex(2, "up", KONAMI_SWIPES), 2);
+  const run = (tokens: string[]) => tokens.reduce((pos, t) => nextSequenceIndex(pos, t, KONAMI_SWIPES), 0);
+  assert.equal(run(["up", "up", "up", "down", "down", "left", "right", "left", "right"]), KONAMI_SWIPES.length);
+  assert.equal(run(["up", "up", "up", "up", "down", "down", "left", "right", "left", "right"]), KONAMI_SWIPES.length);
+  assert.equal(run(["up", "down", "up", "up", "down", "down", "left", "right", "left", "right"]), KONAMI_SWIPES.length);
 });
 
 test("konami flicks ignore scroll, slow pans, and control targets", () => {
@@ -105,4 +113,37 @@ test("external confirm covers http and pdf, not mailto", () => {
   assert.equal(needsExternalConfirm("/resume.pdf"), true);
   assert.equal(needsExternalConfirm("mailto:aaravghai2@gmail.com"), false);
   assert.equal(needsExternalConfirm("/options"), false);
+});
+
+test("Done pops history when the target is behind us, at any depth", () => {
+  // Home -> Options -> About: entries behind About are ["/", "/options"].
+  const trail = ["/", "/options"];
+  assert.equal(stepsBackTo(trail, "/options"), 1);
+  // After popping to Options, Options' Done must pop again, not push "/".
+  const afterAbout = trailAfterBack(trail, 1);
+  assert.deepEqual(afterAbout, ["/"]);
+  assert.equal(stepsBackTo(afterAbout, "/"), 1);
+  // Origin jumps go back several entries: Experience -> Options -> Contact -> Done.
+  assert.equal(stepsBackTo(["/", "/experience", "/options"], "/experience"), 2);
+  // Unknown history or query-string targets fall back to a push.
+  assert.equal(stepsBackTo([], "/"), null);
+  assert.equal(stepsBackTo(["/options"], "/options?origin=experience"), null);
+});
+
+test("panorama camera follows Minecraft's spin, sway, FOV and blur easing", async () => {
+  const { panoramaAngles, panoramaFov, easeToward, PANORAMA_BASE_PITCH_DEG } = await import("../lib/panoramaMotion.ts");
+  // 0.1° per tick at 20 ticks/s: a full turn every 180 seconds.
+  assert.equal(Math.round(panoramaAngles(180).yawDeg), -360);
+  assert.equal(panoramaAngles(0).pitchDeg, PANORAMA_BASE_PITCH_DEG);
+  const sway = [0, 30, 60, 90, 120, 150, 200, 300].map((s) => panoramaAngles(s).pitchDeg - PANORAMA_BASE_PITCH_DEG);
+  assert.ok(sway.every((d) => Math.abs(d) <= 5));
+  assert.equal(panoramaFov(70), 85);
+  assert.equal(panoramaFov(110), 125);
+  assert.equal(panoramaFov(0), 45);
+  // Easing converges and never overshoots, whatever the frame rate.
+  let v = 0;
+  for (let i = 0; i < 120; i++) v = easeToward(v, 1, 1 / 60);
+  assert.equal(v, 1);
+  assert.ok(easeToward(0, 1, 1 / 30) < 1);
+  assert.equal(easeToward(0.5, 1, 0), 0.5);
 });

@@ -25,7 +25,8 @@ export default function McDoneButton({
     if (disabled) return;
     playClick();
     if (href) {
-      router.push(href);
+      if (gui) gui.navigateBack(href);
+      else router.push(href);
     } else if (gui) {
       gui.goBack();
     } else {
@@ -42,6 +43,7 @@ export default function McDoneButton({
     <span className={`mc-button-wrap ${wrapClass}${disabled ? " mc-button-wrap--disabled" : ""}`}>
       <button
         type="button"
+        data-mc-done=""
         disabled={disabled}
         className={`mc-button ${btnClass} ${pressed ? "mc-button--pressed" : ""} ${disabled ? "mc-button--disabled" : ""}`}
         onPointerDown={() => {

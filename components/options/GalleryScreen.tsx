@@ -100,8 +100,8 @@ export default function GalleryScreen({
       <div className="mc-gallery">
         <p className="mc-gallery__intro">
           {experience
-            ? "Click a still to open it full-screen. Personal photos can replace these placeholders."
-            : "Click a photo to open a larger view and a short caption."}
+            ? "Tap a still to open it full-screen."
+            : "Tap a photo to open a larger view and a short caption."}
         </p>
         <div className="mc-gallery__grid">
           {media.map((item, index) => (

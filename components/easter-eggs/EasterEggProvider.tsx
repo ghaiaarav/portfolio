@@ -38,9 +38,16 @@ type AdvancementToast = {
   link?: boolean;
 };
 
+type DiscoverOptions = {
+  /** Skip the "Already discovered!" toast, for watchers that re-fire on every load. */
+  silentIfFound?: boolean;
+};
+
 type EggContextValue = {
   found: DiscoveryId[];
-  discover: (id: DiscoveryId) => void;
+  /** True once saved Discoveries have been read from localStorage. */
+  ready: boolean;
+  discover: (id: DiscoveryId, options?: DiscoverOptions) => void;
   isFound: (id: DiscoveryId) => boolean;
   complete: boolean;
 };
@@ -57,6 +64,7 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
   const { showToasts } = useMcGui();
   const [found, setFound] = useState<DiscoveryId[]>([]);
   const [toast, setToast] = useState<AdvancementToast | null>(null);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     try {
@@ -64,12 +72,14 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
     } catch {
       localStorage.removeItem(STORAGE_KEY);
     }
+    setReady(true);
   }, []);
 
-  const discover = useCallback((id: DiscoveryId) => {
+  const discover = useCallback((id: DiscoveryId, options?: DiscoverOptions) => {
     setFound((current) => {
       const advancement = ADVANCEMENTS[id];
       const already = current.includes(id);
+      if (already && options?.silentIfFound) return current;
       const next = already ? current : addDiscovery(current, id);
       if (!already) {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
@@ -186,11 +196,12 @@ export default function EasterEggProvider({ children }: { children: ReactNode })
   const value = useMemo(
     () => ({
       found,
+      ready,
       discover,
       isFound: (id: DiscoveryId) => found.includes(id),
       complete: isSecretRoomUnlocked(found),
     }),
-    [discover, found]
+    [discover, found, ready]
   );
 
   return (

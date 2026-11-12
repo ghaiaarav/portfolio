@@ -1,6 +1,13 @@
 import portfolioData from "@/content/portfolio.json";
 
-type Movie = { title: string; director: string; year: number; note?: string };
+type Movie = {
+  title: string;
+  director?: string;
+  creator?: string;
+  year: number;
+  note?: string;
+  kind?: "movie" | "show";
+};
 type Reading = {
   title: string;
   author: string;
@@ -12,7 +19,7 @@ type Music = {
   artist: string;
   url: string;
   kind?: "performance" | "listening";
-  status?: "learning" | "planned" | "recorded" | "coming-soon";
+  status?: "learning" | "preparing" | "planned" | "recorded" | "coming-soon";
 };
 type Travel = { place: string; date: string; note: string };
 type SideQuest = {
@@ -50,8 +57,8 @@ export function getFavouriteSong() {
   return song;
 }
 
-export function getRecentMovie() {
-  const movies = portfolioData.homeWidgets.recentMovies;
+export function getRecentMovie(): Movie | null {
+  const movies = portfolioData.homeWidgets.recentMovies as Movie[];
   if (!movies.length) return null;
   return movies[movies.length - 1];
 }

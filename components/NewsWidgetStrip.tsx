@@ -30,8 +30,16 @@ export default function NewsWidgetStrip() {
       )}
       {movie && (
         <p className="news-widget__line">
-          <span className="news-widget__label">Recent movie: </span>
-          {movie.title} (d. {movie.director}, {movie.year})
+          <span className="news-widget__label">Recently watched: </span>
+          {movie.title} (
+          {movie.kind === "show"
+            ? movie.creator
+              ? `${movie.creator}, ${movie.year}`
+              : `${movie.year}`
+            : movie.director
+              ? `d. ${movie.director}, ${movie.year}`
+              : `${movie.year}`}
+          )
         </p>
       )}
       {music && (
@@ -46,7 +54,7 @@ export default function NewsWidgetStrip() {
       {favouriteSong && (
         <p className="news-widget__line">
           <span className="news-widget__label">Favourite song: </span>
-          <em>{favouriteSong.title}</em> — {favouriteSong.artist}
+          <em>{favouriteSong.title}</em> · {favouriteSong.artist}
         </p>
       )}
       <div className="news-widget__see-all">

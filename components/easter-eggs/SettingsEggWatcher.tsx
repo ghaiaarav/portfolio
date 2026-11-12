@@ -6,11 +6,12 @@ import { useEffect } from "react";
 
 export default function SettingsEggWatcher() {
   const { darkMode, fov } = useMcGui();
-  const { discover } = useEasterEggs();
+  const { discover, ready } = useEasterEggs();
 
   useEffect(() => {
-    if (darkMode && fov >= 110) discover("settings");
-  }, [darkMode, discover, fov]);
+    // Saved settings re-satisfy this on every page load, so only toast the first time.
+    if (ready && darkMode && fov >= 110) discover("settings", { silentIfFound: true });
+  }, [darkMode, discover, fov, ready]);
 
   return null;
 }

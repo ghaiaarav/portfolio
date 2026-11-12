@@ -145,8 +145,8 @@ async function makeFace(pack, biome, index, size = 384) {
   const dir = join(root, "public", `panorama-${pack}`);
   mkdirSync(dir, { recursive: true });
   await sharp(data, { raw: { width: size, height: size, channels: 3 } })
-    .png()
-    .toFile(join(dir, `${index}.png`));
+    .webp({ quality: 82 })
+    .toFile(join(dir, `${index}.webp`));
 }
 
 async function makeButton(pack, biome, hover = false) {

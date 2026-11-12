@@ -57,8 +57,8 @@ async function makePanoramaFace(index, width = 512, height = 512) {
   }
 
   await sharp(data, { raw: { width, height, channels: 3 } })
-    .png()
-    .toFile(join(panoramaDir, `${index}.png`));
+    .webp({ quality: 82 })
+    .toFile(join(panoramaDir, `${index}.webp`));
 }
 
 async function makeButtonTexture(name, baseR, baseG, baseB) {
@@ -135,7 +135,7 @@ async function makeStoneTexture() {
 async function main() {
   for (let i = 0; i < 6; i++) {
     await makePanoramaFace(i);
-    console.log(`panorama/${i}.png`);
+    console.log(`panorama/${i}.webp`);
   }
   await makeButtonTexture("button.png", 124, 124, 124);
   await makeButtonTexture("button-hover.png", 160, 160, 160);

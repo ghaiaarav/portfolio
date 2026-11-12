@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef } from "react";
 const POOL_SIZE = 4;
 const MUTE_KEY = "mc-sound-muted";
 const CLICK_SRC = "/sounds/click.ogg";
-const THUNDER_SRC = "/sounds/thunder.wav";
+const THUNDER_SRC = "/sounds/thunder.ogg";
 
 let pool: HTMLAudioElement[] | null = null;
 let poolIndex = 0;
@@ -16,7 +16,7 @@ function getThunder() {
   if (!thunder) {
     thunder = new Audio(THUNDER_SRC);
     thunder.preload = "auto";
-    thunder.volume = 0.7;
+    thunder.volume = 0.35;
   }
   return thunder;
 }

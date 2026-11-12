@@ -29,7 +29,7 @@ export default function AchievementGrid({ honors }: AchievementGridProps) {
                   </div>
                   <div className="achievement-tile__title">{honor.title}</div>
                   <div className="achievement-tile__detail">
-                    {honor.year} — {honor.detail}
+                    {honor.year} · {honor.detail}
                   </div>
                 </div>
               ))}

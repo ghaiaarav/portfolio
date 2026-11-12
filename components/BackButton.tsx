@@ -17,7 +17,7 @@ export default function BackButton({
       href={href}
       prefetch
       className="back-button"
-      onPointerDown={() => playClick()}
+      onClick={() => playClick()}
     >
       ← {label}
     </Link>

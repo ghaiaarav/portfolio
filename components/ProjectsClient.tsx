@@ -1,6 +1,7 @@
 "use client";
 
 import McDoneButton from "@/components/mc/McDoneButton";
+import { activateOnKey } from "@/lib/a11y";
 import McOptionButton from "@/components/mc/McOptionButton";
 import McSelectScreen from "@/components/mc/McSelectScreen";
 import { McSmallButton } from "@/components/McButton";
@@ -77,7 +78,9 @@ export default function ProjectsClient({ projects }: { projects: Project[] }) {
   const commitRename = () => {
     if (!selected) return;
     const nextNames = renameProject(names, selected.id, draftName);
-    if (nextNames[selected.id] === selectedName) {
+    // Compare effective names: clearing an un-renamed world changes nothing
+    // and shouldn't leave an Undo entry behind.
+    if ((nextNames[selected.id] ?? selected.title) === selectedName) {
       setRenaming(false);
       return;
     }
@@ -263,12 +266,12 @@ function ProjectRow({
     <div
       className={`mc-select-row${isActive ? " mc-select-row--active" : ""}`}
       onClick={() => onSelect(project)}
-      onKeyDown={(e) => e.key === "Enter" && onSelect(project)}
+      onKeyDown={activateOnKey}
       role="button"
       tabIndex={0}
     >
       <div className="mc-select-row__icon mc-select-row__icon--world">
-        <Image src={project.imageUrl} alt="" fill sizes="54px" style={{ objectFit: "contain" }} />
+        <Image src={project.imageUrl} alt="" fill sizes="54px" unoptimized style={{ objectFit: "contain" }} />
       </div>
       <div className="mc-select-row__main">
         <div className="mc-select-row__title">{displayName}</div>

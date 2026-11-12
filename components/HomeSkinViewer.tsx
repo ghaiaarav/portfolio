@@ -18,7 +18,10 @@ const HIDDEN_SKIN = "/skins/hidden.png";
 function hasWebGL() {
   try {
     const canvas = document.createElement("canvas");
-    return Boolean(canvas.getContext("webgl") || canvas.getContext("experimental-webgl"));
+    const gl = (canvas.getContext("webgl") || canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
+    // Release the probe context right away; browsers cap live WebGL contexts.
+    gl?.getExtension("WEBGL_lose_context")?.loseContext();
+    return Boolean(gl);
   } catch {
     return false;
   }
@@ -26,6 +29,10 @@ function hasWebGL() {
 
 function viewerSize() {
   if (typeof window === "undefined") return { width: 240, height: 360, mobile: false };
+  // Keep these breakpoints in sync with the .home-player rules in minecraft.css.
+  if (window.matchMedia("(orientation: landscape) and (max-height: 560px)").matches) {
+    return { width: 120, height: 180, mobile: true };
+  }
   if (window.matchMedia("(max-width: 600px)").matches) {
     return { width: 160, height: 240, mobile: true };
   }
@@ -104,6 +111,7 @@ export default function HomeSkinViewer() {
           window.removeEventListener("resize", onResize);
           viewerRef.current = null;
           viewer.dispose();
+          viewer.renderer.forceContextLoss();
         };
       })
       .catch(() => {
@@ -118,8 +126,12 @@ export default function HomeSkinViewer() {
 
   const cycleSkin = () => {
     if (hidden) {
-      playThunder();
-      discover("skin");
+      // Wrap back around to the real skin instead of thundering forever.
+      playClick();
+      setHidden(false);
+      setSkinIndex(0);
+      setName(SKINS[0].name);
+      void viewerRef.current?.loadSkin(SKINS[0].src, { model: "default" });
       return;
     }
     const nextIndex = skinIndex + 1;
@@ -156,16 +168,23 @@ export default function HomeSkinViewer() {
         className={`home-player__canvas${useFallback ? " home-player__canvas--hidden" : ""}`}
         width={240}
         height={360}
-        aria-label="Interactive 3D model of notsaywhat's Minecraft skin"
+        role="button"
+        tabIndex={useFallback ? -1 : 0}
+        aria-label="Interactive 3D model of notsaywhat's Minecraft skin. Press Enter to change skins."
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            cycleSkin();
+          }
+        }}
       />
       {useFallback && (
         <button
           type="button"
           className="home-player__fallback"
-          onPointerDown={onPointerDown}
-          onPointerUp={onPointerUp}
+          onClick={cycleSkin}
           aria-label="Cycle Minecraft skins"
         >
           <Image

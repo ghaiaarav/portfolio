@@ -1,8 +1,9 @@
 import { MetadataRoute } from "next";
 import { getBlogPosts } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://aaravghai.com";
+  const base = SITE_URL;
   const posts = getBlogPosts();
 
   const routes = [
@@ -17,7 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/options/statistics",
     "/options/resource-packs",
     "/activities",
-    "/blog",
+    ...(posts.length ? ["/blog"] : []),
     "/logs",
     "/honors",
   ];

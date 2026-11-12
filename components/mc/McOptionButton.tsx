@@ -32,13 +32,13 @@ export default function McOptionButton({
   const confirmHref = Boolean(href && (external || needsExternalConfirm(href)));
 
   const handlers = {
-    onPointerDown: () => {
-      playClick();
-      setPressed(true);
-    },
+    onPointerDown: () => setPressed(true),
     onPointerUp: () => setPressed(false),
     onPointerLeave: () => setPressed(false),
     onClick: (event: MouseEvent<HTMLElement>) => {
+      // Sound on click, not pointerdown: a touch pointerdown isn't a user
+      // activation (first tap would be silent) and fires when scrolls start.
+      playClick();
       if (confirmHref && href && confirm) {
         event.preventDefault();
         confirm.requestExternal(href);

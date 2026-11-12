@@ -29,9 +29,19 @@ export const SWIPE_MAX_MS = 500;
 
 export type SwipeDir = (typeof KONAMI_SWIPES)[number];
 
+/**
+ * Advance a sequence matcher. On a mismatch, fall back to the longest prefix of
+ * `sequence` that is still a suffix of what was typed, so "up up up down ..."
+ * keeps its progress instead of restarting at 1.
+ */
 export function nextSequenceIndex(position: number, token: string, sequence: readonly string[]): number {
   if (token === sequence[position]) return position + 1;
-  return token === sequence[0] ? 1 : 0;
+  const typed = [...sequence.slice(0, position), token];
+  for (let length = Math.min(position, sequence.length - 1); length > 0; length -= 1) {
+    const tail = typed.slice(typed.length - length);
+    if (tail.every((t, i) => t === sequence[i])) return length;
+  }
+  return 0;
 }
 
 export function swipeDirection(dx: number, dy: number, minDistance = SWIPE_MIN_DISTANCE): SwipeDir | null {

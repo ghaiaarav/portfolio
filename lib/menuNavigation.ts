@@ -14,3 +14,19 @@ export function originHref(origin: MenuOrigin): string {
   if (origin === "home") return "/";
   return "/options";
 }
+
+/**
+ * The in-app history trail is the list of pathnames for the history entries
+ * behind the current one, oldest first. When a Done target is on the trail,
+ * going back that many steps (instead of pushing) keeps the phone back gesture
+ * from reopening menus the visitor already closed.
+ */
+export function stepsBackTo(trail: readonly string[], href: string): number | null {
+  if (href.includes("?") || href.includes("#")) return null;
+  const index = trail.lastIndexOf(href);
+  return index < 0 ? null : trail.length - index;
+}
+
+export function trailAfterBack(trail: readonly string[], steps: number): string[] {
+  return trail.slice(0, Math.max(0, trail.length - steps));
+}
